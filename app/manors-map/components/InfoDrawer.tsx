@@ -13,7 +13,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Crown, MapPin, List } from "lucide-react";
+import { Crown, MapPin, List, Landmark, Map } from "lucide-react";
 
 interface InfoDrawerProps {
     isOpen: boolean;
@@ -34,23 +34,46 @@ export function InfoDrawer({ isOpen, onClose, data }: InfoDrawerProps) {
                 <DrawerHeader>
                     <DrawerTitle className="text-xl font-bold">{data.name}</DrawerTitle>
                     <DrawerDescription className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-medium">
-                        <Crown size={14} />
+                        <Crown size={14} /> 
                         <span className="capitalize">{data.type === 'royal' ? 'Королівщина' : data.type}</span>
                     </DrawerDescription>
                 </DrawerHeader>
                 <div className="no-scrollbar overflow-y-auto px-4 py-2">
-                    <div className="space-y-6">
-                        {data.center && (
-                            <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
-                                <MapPin size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
-                                <div>
-                                    <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Адміністративний центр</h3>
-                                    <p className="text-sm font-medium">{data.center}</p>
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-1 gap-3">
+                            {data.voivodeship && (
+                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
+                                    <Landmark size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
+                                    <div>
+                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Воєводство</h3>
+                                        <p className="text-sm font-medium">{data.voivodeship}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+
+                            {data.district && (
+                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
+                                    <Map size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
+                                    <div>
+                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Повіт</h3>
+                                        <p className="text-sm font-medium">{data.district}</p>
+                                    </div>
+                                </div>
+                            )}
+
+                            {data.center && (
+                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
+                                    <MapPin size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
+                                    <div>
+                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Адміністративний центр</h3>
+                                        <p className="text-sm font-medium">{data.center}</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
 
                         {data.contents && data.contents.length > 0 ? (
+
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2 px-1">
                                     <List size={16} className="text-zinc-500 dark:text-white/70" />

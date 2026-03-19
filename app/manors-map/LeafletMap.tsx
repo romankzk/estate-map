@@ -51,7 +51,7 @@ export default function LeafletMap({ data, center, zoom }: { data: any[], center
                         <Popup>
                             <h2 className="font-semibold text-base">{marker.name}</h2>
                             <Link className="text-xs" href={"#"}>
-                                Список метричних книг
+                                Переглянути більше
                             </Link>
                         </Popup>
                     </Marker>

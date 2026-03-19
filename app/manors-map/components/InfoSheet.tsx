@@ -15,39 +15,20 @@ import {
 } from "@/components/ui/accordion"
 import { Crown, MapPin, List, Landmark, Map, Church, Castle, House } from "lucide-react";
 import { OwnershipTypes } from "../utils/constants";
+import { TypeLabel } from "./TypeLabel";
+import { cn } from "@/lib/utils";
 
 function renderOwnershipType(type: string) {
-    switch (type) {
-        case "royal":
-            return (
-                <SheetDescription className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-medium">
-                    <Crown size={14} />
-                    <span>{OwnershipTypes.get(type).name}</span>
-                </SheetDescription>
-            );
-        case "private":
-            return (
-                <SheetDescription className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400 font-medium">
-                    <Castle size={14} />
-                    <span>{OwnershipTypes.get(type).name}</span>
-                </SheetDescription>
-            );
-        case "church":
-            return (
-                <SheetDescription className="flex items-center gap-1.5 text-orange-600 dark:text-orange-400 font-medium">
-                    <Church size={14} />
-                    <span>{OwnershipTypes.get(type).name}</span>
-                </SheetDescription>
-            );
-        default:
-            return (
-                <SheetDescription className="flex items-center gap-1.5 text-zinc-600 dark:text-zinc-400 font-medium">
-                    <House size={14} />
-                    <span>{OwnershipTypes.get(type).name}</span>
-                </SheetDescription>
-            );
-    }
-
+    return (
+        <SheetDescription className={cn("flex items-center gap-1.5 font-medium",
+            type == "royal" ? "text-blue-600 dark:text-blue-400" :
+                type == "private" ? "text-rose-600 dark:text-rose-400" :
+                    type == "church" ? "text-orange-600 dark:text-orange-400" :
+                        "text-zinc-600 dark:text-zinc-400"
+        )}>
+            <TypeLabel typeKey={type} iconSize={14} />
+        </SheetDescription>
+    )
 }
 
 
@@ -119,23 +100,23 @@ export function InfoSheet({ isOpen, onClose, data }: InfoSheetProps) {
                                                 <div className="space-y-4">
                                                     <div className="flex flex-col gap-1">
                                                         <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Джерело:</span>
-                                                        {record.sourceSygn && record.sourceLink ? (
+                                                        {record.sourceSignature && record.sourceLink ? (
                                                             <a
                                                                 href={record.sourceLink}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center transition-colors"
                                                             >
-                                                                {record.sourceSygn}
+                                                                {record.sourceSignature}
                                                             </a>
                                                         ) : (
-                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.sourceSygn}</span>
+                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.sourceSignature}</span>
                                                         )}
                                                     </div>
 
                                                     {record.owner && (
                                                         <div className="flex flex-col gap-1">
-                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Староста:</span>
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">{OwnershipTypes.get(data.type).ownerTitle}:</span>
                                                             <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.owner}</span>
                                                         </div>
                                                     )}

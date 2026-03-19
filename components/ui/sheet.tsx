@@ -45,6 +45,7 @@ function SheetOverlay({
   )
 }
 
+
 function SheetContent({
   className,
   children,
@@ -67,6 +68,7 @@ function SheetContent({
         )}
         {...props}
       >
+
         {children}
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>

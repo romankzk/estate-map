@@ -1,9 +1,8 @@
-import { List, Map, Plus } from "lucide-react";
-import { LeafletMapWrapper } from "./LeafletMapWrapper";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Plus } from "lucide-react";
+import { ManorsViewContainer } from "./components/ManorsViewContainer";
 import { Button } from "@/components/ui/button";
 
-export default async function HistoricalMapPage({ searchParams }: { searchParams: Promise<{ lat?: string, lng?: string }> }) {
+export default async function ManorsPage({ searchParams }: { searchParams: Promise<{ lat?: string, lng?: string }> }) {
     const params = await searchParams;
 
     const data = (await import("@/data/markers.json")).default;
@@ -26,28 +25,11 @@ export default async function HistoricalMapPage({ searchParams }: { searchParams
                     </Button>
                 </div>
 
-                <Tabs defaultValue="map">
-                    <div className="mb-6">
-                        <TabsList variant="line">
-                            <TabsTrigger value="map"><Map className="size-4 mr-2" /> Карта</TabsTrigger>
-                            <TabsTrigger value="list"><List className="size-4 mr-2" /> Список</TabsTrigger>
-                        </TabsList>
-                    </div>
-                    
-                    <TabsContent value="map" className="mt-0 outline-none">
-                        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden border dark:border-gray-800">
-                            <div className="overflow-x-auto">
-                                <LeafletMapWrapper data={data} center={initialCenter} zoom={initialZoom} />
-                            </div>
-                        </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="list" className="mt-0 outline-none">
-                       <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-12 text-center text-muted-foreground border dark:border-gray-800 italic">
-                           Список староств буде додано згодом.
-                       </div>
-                    </TabsContent>
-                </Tabs>
+                <ManorsViewContainer 
+                    data={data} 
+                    center={initialCenter} 
+                    zoom={initialZoom} 
+                />
             </div>
         </main>
     );

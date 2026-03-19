@@ -6,6 +6,23 @@ import "leaflet/dist/leaflet.css";
 import L from 'leaflet'
 import { OwnershipTypes } from "./utils/constants";
 import { ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { TypeLabel } from "./components/TypeLabel";
+import { Button } from "@/components/ui/button";
+
+function renderTypeBadge(type: string) {
+    return (
+        <Badge className={cn("inline-flex items-center gap-2",
+            type == "royal" ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300" :
+                type == "private" ? "bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300" :
+                    type == "church" ? "bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300" :
+                        "bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300"
+        )}>
+            <TypeLabel typeKey={type} iconSize={12} />
+        </Badge>
+    )
+}
 
 const icon = L.icon({
     iconUrl: "/map-pin.png",
@@ -61,13 +78,18 @@ export default function LeafletMap({
                         <Marker key={marker.id} position={marker.coords} icon={OwnershipTypes.get(marker.type).icon}>
                             <Popup>
                                 <h2 className="font-semibold text-base">{marker.name}</h2>
-                                <p className="text-xs">{OwnershipTypes.get(marker.type).name}</p>
-                                <button
-                                    className="text-xs text-blue-600 hover:underline cursor-pointer flex items-center gap-1"
+                                <p className="text-xs">
+                                    {renderTypeBadge(marker.type)}
+                                </p>
+                                <Button
+                                    size="xs"
+                                    variant="outline"
+                                    className="cursor-pointer mt-2"
                                     onClick={() => onOpenDrawer(marker)}
                                 >
-                                    Відкрити деталі <ArrowRight size={12}/>
-                                </button>
+                                    Відкрити деталі <ArrowRight size={12} />
+                                </Button>
+
                             </Popup>
                         </Marker>
                     )}

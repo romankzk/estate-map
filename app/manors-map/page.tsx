@@ -16,10 +16,10 @@ export default async function HistoricalMapPage({ searchParams }: { searchParams
     }
 
     return (
-        <main className="min-h-screen bg-zinc-50 dark:bg-black font-sans">
+        <main className="min-h-screen bg-zinc-50 dark:bg-[#111827] font-sans">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold mb-[10px]">Староства та ключі</h1>
-                <Tabs defaultValue="overview">
+                <Tabs defaultValue="map">
                     <TabsList variant="line">
                         <TabsTrigger value="map"><Map /> Карта</TabsTrigger>
                         <TabsTrigger value="list"><List /> Список</TabsTrigger>

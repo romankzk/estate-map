@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet'
-import Link from "next/link";
 
 const icon = L.icon({
     iconUrl: "/map-pin.png",
@@ -24,7 +23,17 @@ const createClusterCustomIcon = (cluster: any) => {
     });
 };
 
-export default function LeafletMap({ data, center, zoom }: { data: any[], center: [number, number], zoom: number }) {
+export default function LeafletMap({ 
+    data, 
+    center, 
+    zoom,
+    onOpenDrawer 
+}: { 
+    data: any[], 
+    center: [number, number], 
+    zoom: number,
+    onOpenDrawer: (marker: any) => void
+}) {
     const position: [number, number] = center;
 
     return (
@@ -50,9 +59,12 @@ export default function LeafletMap({ data, center, zoom }: { data: any[], center
                     <Marker key={marker.id} position={marker.coords} icon={icon}>
                         <Popup>
                             <h2 className="font-semibold text-base">{marker.name}</h2>
-                            <Link className="text-xs" href={"#"}>
+                            <button 
+                                className="text-xs text-blue-600 hover:underline cursor-pointer"
+                                onClick={() => onOpenDrawer(marker)}
+                            >
                                 Переглянути більше
-                            </Link>
+                            </button>
                         </Popup>
                     </Marker>
                 )}

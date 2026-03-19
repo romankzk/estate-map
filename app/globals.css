@@ -50,78 +50,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-#historical-map {
-    height: calc(100vh - 90px);
-}
-
-/* ============================
-   Leaflet control containers
-   ============================ */
-#historical-map .base-control {
-    font-family: 'Inter', sans-serif;
-    @apply bg-white/90 dark:bg-[#111827]/90 rounded-lg shadow-lg;
-}
-
-#historical-map .leaflet-bar {
-    font-family: 'Inter', sans-serif;
-}
-
-#historical-map .leaflet-top.leaflet-right {
-    @apply flex flex-row gap-2 mt-2 mr-2;
-}
-
-#historical-map .leaflet-top.leaflet-right .leaflet-control {
-    margin: 0;
-}
-
-#historical-map .leaflet-top.leaflet-right .search-control {
-    @apply z-10;
-}
-
-/* ============================
-   Mobile layout
-   ============================ */
-@media (max-width: 640px) {
-    #historical-map .leaflet-top.leaflet-left {
-        @apply max-w-[50vw];
-    }
-
-    #historical-map .leaflet-top.leaflet-right {
-        @apply flex-wrap justify-end mt-1.5 mr-1.5 gap-1.5 max-w-[50vw];
-    }
-
-    #historical-map .leaflet-bottom.leaflet-left {
-        @apply left-0 right-0 bottom-0;
-    }
-
-    #historical-map .leaflet-bottom.leaflet-left .leaflet-control {
-        @apply m-0;
-    }
-
-    #historical-map .leaflet-bottom.leaflet-right {
-        @apply bottom-12;
-    }
-}
-
-/* ============================
-   City labels
-   ============================ */
-#historical-map .level1-city-label {
-    @apply font-[Inter] font-bold text-base bg-white/90 dark:bg-slate-900/90 dark:text-slate-100 border-none py-0.5 px-1.5;
-}
-
-#historical-map .level2-city-label {
-    @apply font-[Inter] text-xs bg-white/90 dark:bg-slate-900/90 dark:text-slate-100 border-none py-0.5 px-1.5;
-}
-
-#historical-map .level3-city-label {
-    @apply font-[Inter] text-[10px] bg-white/90 dark:bg-slate-900/90 dark:text-slate-100 border-none py-0.5 px-1.5;
-}
-
-#historical-map .leaflet-tooltip::before {
-    @apply border-none;
-}
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -201,4 +129,12 @@ body {
   html {
     @apply font-sans;
   }
+}
+
+.leaflet-popup-content {
+    font-family: 'Inter', sans-serif;
+}
+
+.leaflet-popup-content p {
+    @apply !text-xs !my-2;
 }

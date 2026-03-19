@@ -4,6 +4,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet'
+import { OwnershipTypes } from "./utils/constants";
+import { ArrowRight } from "lucide-react";
 
 const icon = L.icon({
     iconUrl: "/map-pin.png",
@@ -13,24 +15,24 @@ const icon = L.icon({
 });
 
 const createClusterCustomIcon = (cluster: any) => {
-  return L.divIcon({
-      html: `<div class="bg-blue-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
+    return L.divIcon({
+        html: `<div class="bg-blue-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
                   style="width: 40px; height: 40px;">
                ${cluster.getChildCount()}
              </div>`,
-      className: "custom-marker-cluster",
-      iconSize: L.point(40, 40, true),
+        className: "custom-marker-cluster",
+        iconSize: L.point(40, 40, true),
     });
 };
 
-export default function LeafletMap({ 
-    data, 
-    center, 
+export default function LeafletMap({
+    data,
+    center,
     zoom,
-    onOpenDrawer 
-}: { 
-    data: any[], 
-    center: [number, number], 
+    onOpenDrawer
+}: {
+    data: any[],
+    center: [number, number],
     zoom: number,
     onOpenDrawer: (marker: any) => void
 }) {
@@ -38,10 +40,10 @@ export default function LeafletMap({
 
     return (
         <div className="h-[70vh] w-full">
-            <MapContainer 
-                center={position} 
-                zoom={zoom} 
-                scrollWheelZoom={true} 
+            <MapContainer
+                center={position}
+                zoom={zoom}
+                scrollWheelZoom={true}
                 className="h-full w-full font-sans"
             >
                 <TileLayer
@@ -55,19 +57,20 @@ export default function LeafletMap({
                     iconCreateFunction={createClusterCustomIcon}
                     showCoverageOnHover={false}
                 >
-                {data.map((marker: any) =>
-                    <Marker key={marker.id} position={marker.coords} icon={icon}>
-                        <Popup>
-                            <h2 className="font-semibold text-base">{marker.name}</h2>
-                            <button 
-                                className="text-xs text-blue-600 hover:underline cursor-pointer"
-                                onClick={() => onOpenDrawer(marker)}
-                            >
-                                Переглянути більше
-                            </button>
-                        </Popup>
-                    </Marker>
-                )}
+                    {data.map((marker: any) =>
+                        <Marker key={marker.id} position={marker.coords} icon={OwnershipTypes.get(marker.type).icon}>
+                            <Popup>
+                                <h2 className="font-semibold text-base">{marker.name}</h2>
+                                <p className="text-xs">{OwnershipTypes.get(marker.type).name}</p>
+                                <button
+                                    className="text-xs text-blue-600 hover:underline cursor-pointer flex items-center gap-1"
+                                    onClick={() => onOpenDrawer(marker)}
+                                >
+                                    Відкрити деталі <ArrowRight size={12}/>
+                                </button>
+                            </Popup>
+                        </Marker>
+                    )}
                 </MarkerClusterGroup>
             </MapContainer>
         </div>

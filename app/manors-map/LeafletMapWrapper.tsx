@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { InfoDrawer } from './components/InfoDrawer';
+import { InfoSheet } from './components/InfoSheet';
 
 // Dynamically import the client-side map, disabling SSR
 const LeafletMap = dynamic<{
@@ -49,7 +49,7 @@ export function LeafletMapWrapper({ data, center, zoom }: LeafletMapWrapperProps
                 zoom={zoom} 
                 onOpenDrawer={handleOpenDrawer} 
             />
-            <InfoDrawer 
+            <InfoSheet 
                 isOpen={isDrawerOpen} 
                 onClose={handleCloseDrawer} 
                 data={selectedMarker} 

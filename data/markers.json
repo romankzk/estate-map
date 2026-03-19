@@ -73,5 +73,45 @@
                 ]
             }
         ]
+    },
+    {
+        "id": 2,
+        "type": "private",
+        "name": "Золочівський ключ",
+        "center": "Золочів",
+        "voivodeship": "Руське",
+        "district": "Львівський",
+        "coords": [49.80744, 24.90304],
+        "contents": []
+    },
+    {
+        "id": 3,
+        "type": "church",
+        "name": "Козлівський ключ",
+        "center": "Козлів",
+        "voivodeship": "Руське",
+        "district": "Теребовлянський",
+        "coords": [49.55665, 25.33962],
+        "contents": []
+    },
+    {
+        "id": 4,
+        "type": "private",
+        "name": "Поморянський ключ",
+        "center": "Поморяни",
+        "voivodeship": "Руське",
+        "district": "Львівський",
+        "coords": [49.63351, 24.93523],
+        "contents": []
+    },
+    {
+        "id": 5,
+        "type": "royal",
+        "name": "Глинянське староство",
+        "center": "Глиняни",
+        "voivodeship": "Руське",
+        "district": "Львівський",
+        "coords": [49.82206, 24.51651],
+        "contents": []
     }
 ]

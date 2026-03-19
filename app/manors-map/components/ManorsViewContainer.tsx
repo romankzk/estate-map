@@ -2,11 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import { List, Map, Plus } from "lucide-react";
 import { InfoSheet } from './InfoSheet';
 import { DataTable } from './DataTable';
 import { columns } from './Columns';
+import { AddManorSheet } from './AddManorSheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { List, Map } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Dynamically import the client-side map, disabling SSR
 const LeafletMap = dynamic<{
@@ -32,9 +34,11 @@ interface ManorsViewContainerProps {
     zoom: number;
 }
 
-export function ManorsViewContainer({ data, center, zoom }: ManorsViewContainerProps) {
+export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsViewContainerProps) {
+    const [data, setData] = useState(initialData);
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
 
     const handleOpenSheet = (item: any) => {
         // Handle both Leaflet marker objects and DataTable row objects
@@ -47,9 +51,27 @@ export function ManorsViewContainer({ data, center, zoom }: ManorsViewContainerP
         setIsSheetOpen(false);
     };
 
+    const handleAddManor = (newManor: any) => {
+        setData(prev => [...prev, newManor]);
+        // Here you would typically also make an API call to save to DB/file
+        console.log("New manor added:", newManor);
+    };
+
     return (
         <>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold">Староства та ключі</h1>
+                <Button 
+                    variant="default" 
+                    className="cursor-pointer"
+                    onClick={() => setIsAddSheetOpen(true)}
+                >
+                    <Plus className="size-4 mr-0.5" /> Додати
+                </Button>
+            </div>
+
             <Tabs defaultValue="map">
+
                 <div className="mb-6">
                     <TabsList variant="line">
                         <TabsTrigger value="map"><Map className="size-4 mr-1" /> Карта</TabsTrigger>
@@ -87,6 +109,12 @@ export function ManorsViewContainer({ data, center, zoom }: ManorsViewContainerP
                 isOpen={isSheetOpen} 
                 onClose={handleCloseSheet} 
                 data={selectedItem} 
+            />
+
+            <AddManorSheet 
+                isOpen={isAddSheetOpen} 
+                onClose={() => setIsAddSheetOpen(false)} 
+                onSubmit={handleAddManor} 
             />
         </>
     );

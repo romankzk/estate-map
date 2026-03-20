@@ -59,7 +59,7 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
                     {renderOwnershipType(data.type)}
                 </SheetHeader>
                 <div className="flex-1 overflow-y-auto no-scrollbar">
-                    <div className="p-6 space-y-6">
+                    <div className="px-6 pb-6 space-y-6">
                         <div className="grid grid-cols-1 gap-3">
                             {data.voivodeship && (
                                 <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">

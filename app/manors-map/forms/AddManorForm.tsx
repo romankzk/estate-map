@@ -62,7 +62,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
             className="flex-1 overflow-y-auto no-scrollbar"
         >
             {/* Name field */}
-            <div className="p-6 space-y-6">
+            <div className="px-6 pb-6 space-y-6">
                 <form.Field
                     name="name"
                     children={(field) => {
@@ -77,7 +77,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="Львівське староство"
+                                    placeholder="напр. Львівське староство"
                                 />
                                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
                             </Field>
@@ -135,7 +135,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="Руське"
+                                    placeholder="напр. Руське"
                                 />
                                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
                             </Field>
@@ -157,7 +157,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="Львівський"
+                                    placeholder="напр. Львівський"
                                 />
                                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
                             </Field>
@@ -179,7 +179,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="Львів"
+                                    placeholder="напр. Львів"
                                 />
                                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
                             </Field>
@@ -201,7 +201,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="49.12, 50.11"
+                                    placeholder="напр. 49.12, 50.11"
                                 />
                                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
                             </Field>

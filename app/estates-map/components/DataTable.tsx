@@ -2,7 +2,6 @@
 
 import {
     ColumnDef,
-    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -21,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
+import { EstateTypes, PropertyTypes } from "../utils/enums"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -33,35 +33,76 @@ export function DataTable<TData, TValue>({
     data,
     onOpenDrawer
 }: DataTableProps<TData, TValue>) {
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [globalFilter, setGlobalFilter] = useState('')
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onColumnFiltersChange: setColumnFilters,
+        onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
         state: {
-            columnFilters,
+            globalFilter,
         },
+        globalFilterFn: (row, columnId, filterValue) => {
+            const value = filterValue.toLowerCase()
+            const estate = row.original as any
+
+            // Get labels for keys
+            const propertyTypeLabel = PropertyTypes.get(estate.propertyType)?.label ?? ''
+            const estateTypeLabel = EstateTypes.get(estate.estateType)?.label ?? ''
+
+            // Search in top-level fields and labels
+            const searchableFields = [
+                estate.name,
+                estate.estateType,
+                estateTypeLabel,
+                estate.propertyType,
+                propertyTypeLabel,
+                estate.voivodeship,
+                estate.district,
+                estate.center
+            ]
+
+            if (searchableFields.some(field => field?.toString().toLowerCase().includes(value))) {
+                return true
+            }
+
+            // Search in nested contents
+            if (estate.contents && Array.isArray(estate.contents)) {
+                return estate.contents.some((snapshot: any) => {
+                    const inSnapshot = [
+                        snapshot.date,
+                        snapshot.owner,
+                        snapshot.sourceSignature,
+                        snapshot.notes
+                    ].some(field => field?.toString().toLowerCase().includes(value))
+
+                    if (inSnapshot) return true
+
+                    // Search in items array
+                    if (snapshot.items && Array.isArray(snapshot.items)) {
+                        return snapshot.items.some((item: string) => 
+                            item.toLowerCase().includes(value)
+                        )
+                    }
+
+                    return false
+                })
+            }
+
+            return false
+        }
     })
 
     return (
         <div>
             <div className="flex items-center py-4 gap-2">
                 <Input
-                    placeholder="Шукати за назвою..."
-                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                    placeholder="Шукати по всіх полях..."
+                    value={globalFilter ?? ""}
                     onChange={(event) =>
-                        table.getColumn("name")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-                <Input
-                    placeholder="Шукати за населеними пунктами..."
-                    value={(table.getColumn("contents")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("contents")?.setFilterValue(event.target.value)
+                        setGlobalFilter(event.target.value)
                     }
                     className="max-w-sm"
                 />

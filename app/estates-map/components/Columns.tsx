@@ -3,9 +3,15 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Estate, EstateSnapshot } from "../types"
 import { Badge } from "@/components/ui/badge"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 import { EstateTypes, PropertyTypes } from "../utils/enums"
 import { cn } from "@/lib/utils"
 import { TypeLabel } from "./ui/TypeLabel"
+import { Button } from "@/components/ui/button"
 
 function renderTypeBadges(type: string) {
   return (
@@ -55,13 +61,24 @@ export const columns: ColumnDef<Estate>[] = [
       let contents = row.getValue("contents");
 
       if (Array.isArray(contents) && contents.length > 0) {
-        let dates: any = [];
+        contents.sort((a, b) => a.date.localeCompare(b.date));
 
-        contents.map((snapshot) => {
-          dates.push(snapshot.date);
-        });
-        
-        return dates.sort().join(", ");
+        return (
+          <>
+            {contents.map(snapshot => {
+              return (
+                <HoverCard openDelay={10} closeDelay={100}>
+                  <HoverCardTrigger asChild>
+                    <Button size="xs" variant="link">{snapshot.date}</Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="flex w-64 flex-col gap-0.5 dark:bg-[#111827] text-xs truncate text-wrap">
+                    {snapshot.items.join(', ')}
+                  </HoverCardContent>
+                </HoverCard>
+              )
+            })}
+          </>
+        )
       }
     },
   }

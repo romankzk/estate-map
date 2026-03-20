@@ -138,7 +138,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                                         <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70 mb-2">Населені пункти:</h4>
                                                         <ol className="list-decimal list-inside grid grid-cols-1 gap-1">
                                                             {record.items.map((item: any, i: number) => (
-                                                                <li key={i} className="text-sm text-zinc-700 dark:text-zinc-300">
+                                                                <li key={i} className="text-sm text-zinc-700 dark:text-white/80">
                                                                     {item}
                                                                 </li>
                                                             ))}

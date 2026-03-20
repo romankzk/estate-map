@@ -13,6 +13,7 @@ const formSchema = z.object({
     sourceSignature: z.string().min(2).max(50),
     sourceLink: z.string().optional(),
     owner: z.string().optional(),
+    notes: z.string().optional(),
     items: z.string().min(2),
 });
 
@@ -29,6 +30,7 @@ export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
             sourceSignature: '',
             sourceLink: '',
             owner: '',
+            notes: '',
             items: '',
         },
         onSubmit: async ({ value }) => {
@@ -96,7 +98,7 @@ export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
-                                        placeholder="напр. ЦДІАК 10-1-242"
+                                        placeholder="напр. ЦДІАК 10-1-242 - арк. 35зв"
                                     />
                                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </Field>
@@ -139,6 +141,27 @@ export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
                                         placeholder="напр. Адам Потоцький"
+                                    />
+                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                </Field>
+                            )
+                        }}
+                    />
+                    <form.Field
+                        name="notes"
+                        children={(field) => {
+                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                            return (
+                                <Field data-invalid={isInvalid}>
+                                    <FieldLabel htmlFor="notes-input">Примітки</FieldLabel>
+                                    <Input
+                                        id="notes-input"
+                                        name={field.name}
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        aria-invalid={isInvalid}
+                                        placeholder="напр. Раніше у складі Галицького староства"
                                     />
                                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </Field>

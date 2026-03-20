@@ -4,8 +4,7 @@ export const PropertyTypes = new Map<string, any>([
     ["royal",
         {
             key: "royal",
-            name: "Королівська власність",
-            ownerTitle: "Староста",
+            name: "Королівська",
             icon: L.icon({
                 iconUrl: "/map-pin-royal.png",
                 iconSize: [32, 32],
@@ -17,8 +16,7 @@ export const PropertyTypes = new Map<string, any>([
     ["private", 
         {
             key: "private",
-            name: "Приватна власність",
-            ownerTitle: "Власник",
+            name: "Приватна",
             icon: L.icon({
                 iconUrl: "/map-pin-private.png",
                 iconSize: [32, 32],
@@ -30,8 +28,7 @@ export const PropertyTypes = new Map<string, any>([
     ["church", 
         {
             key: "church",
-            name: "Духовна власність",
-            ownerTitle: "Власник",
+            name: "Духовна",
             icon: L.icon({
                 iconUrl: "/map-pin-church.png",
                 iconSize: [32, 32],
@@ -43,8 +40,7 @@ export const PropertyTypes = new Map<string, any>([
     ["mixed", 
         {
             key: "mixed",
-            name: "Різні типи власності",
-            ownerTitle: "Власник",
+            name: "Змішана",
             icon: L.icon({
                 iconUrl: "/map-pin-mixed.png",
                 iconSize: [32, 32],

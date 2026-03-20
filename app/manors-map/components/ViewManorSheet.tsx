@@ -34,7 +34,7 @@ function renderPropertyType(type: string) {
                     type == "church" ? "text-orange-600 dark:text-orange-400" :
                         "text-zinc-600 dark:text-zinc-400"
         )}>
-            <TypeLabel typeKey={type} iconSize={14} />
+            <TypeLabel typeKey={type} iconSize={14} /> власність
         </SheetDescription>
     )
 };
@@ -100,7 +100,7 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
                                     {data.contents.map((record: any, idx: number) => (
                                         <AccordionItem key={`${record.date}-${idx}`} value={`item-${idx}`} className="border-zinc-200 dark:border-[#374151]">
                                             <AccordionTrigger className="hover:no-underline py-3 px-1 font-medium">
-                                                <span>{record.date} р.</span>
+                                                <span>Станом на {record.date} р.</span>
                                             </AccordionTrigger>
                                             <AccordionContent className="px-1 pb-4">
                                                 <div className="space-y-4">
@@ -122,8 +122,15 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
 
                                                     {record.owner && (
                                                         <div className="flex flex-col gap-1">
-                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">{PropertyTypes.get(data.propertyType).ownerTitle}:</span>
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Власник / староста:</span>
                                                             <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.owner}</span>
+                                                        </div>
+                                                    )}
+
+                                                    {record.notes && (
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Примітки:</span>
+                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.notes}</span>
                                                         </div>
                                                     )}
 

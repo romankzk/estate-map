@@ -4,11 +4,11 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet'
-import { PropertyTypes } from "./utils/constants";
+import { PropertyTypes } from "./utils/enums";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { TypeLabel } from "./components/TypeLabel";
+import { TypeLabel } from "./components/ui/TypeLabel";
 import { Button } from "@/components/ui/button";
 
 function renderTypeBadge(type: string) {
@@ -19,17 +19,19 @@ function renderTypeBadge(type: string) {
                     type == "church" ? "bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300" :
                         "bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300"
         )}>
-            <TypeLabel typeKey={type} iconSize={12} />
+            <TypeLabel typeKey={type} iconSize={12} isShort={false} />
         </Badge>
     )
 }
 
-const icon = L.icon({
-    iconUrl: "/map-pin.png",
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -16]
-});
+function setIcon(path: string) {
+    return L.icon({
+        iconUrl: path,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -16]
+    })
+};
 
 const createClusterCustomIcon = (cluster: any) => {
     return L.divIcon({
@@ -75,7 +77,11 @@ export default function LeafletMap({
                     showCoverageOnHover={false}
                 >
                     {data.map((marker: any) =>
-                        <Marker key={marker.id} position={marker.coords} icon={PropertyTypes.get(marker.propertyType).icon}>
+                        <Marker
+                            key={marker.id}
+                            position={marker.coords}
+                            icon={setIcon(PropertyTypes.get(marker.propertyType).iconUrl)}
+                        >
                             <Popup>
                                 <h2 className="font-semibold text-base">{marker.name}</h2>
                                 <p className="text-xs">

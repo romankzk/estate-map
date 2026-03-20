@@ -1,18 +1,20 @@
-export interface ManorRecord {
+export interface EstateSnapshot {
     date: string,
     sourceSignature: string,
     sourceLink?: string,
     owner?: string,
+    notes?: string,
     items?: string[]
 }
 
-export interface Manor {
+export interface Estate {
     id: number,
-    type: string,
+    estateType: string,
+    propertyType: string,
     name: string,
     center: string,
     voivodeship: string,
     district?: string,
     coords: number[],
-    contents?: ManorRecord[]
+    contents?: EstateSnapshot[]
 }

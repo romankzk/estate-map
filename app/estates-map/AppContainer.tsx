@@ -3,10 +3,10 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { List, Map, Plus } from "lucide-react";
-import { ViewManorSheet } from './ViewManorSheet';
-import { DataTable } from './DataTable';
-import { columns } from './Columns';
-import { AddManorSheet } from './AddManorSheet';
+import { ViewEstateSheet } from './components/ViewEstateSheet';
+import { DataTable } from './components/DataTable';
+import { columns } from './components/Columns';
+import { AddEstateSheet } from './components/AddEstateSheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +17,7 @@ const LeafletMap = dynamic<{
     zoom: number;
     onOpenDrawer: (marker: any) => void;
 }>(
-    () => import('../LeafletMap'),
+    () => import('./LeafletMap'),
     { 
         ssr: false, 
         loading: () => (
@@ -28,13 +28,13 @@ const LeafletMap = dynamic<{
     }
 );
 
-interface ManorsViewContainerProps {
+interface AppContainerProps {
     data: any[];
     center: [number, number];
     zoom: number;
 }
 
-export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsViewContainerProps) {
+export function AppContainer({ data: initialData, center, zoom }: AppContainerProps) {
     const [data, setData] = useState(initialData);
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -108,14 +108,14 @@ export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsV
                 </TabsContent>
             </Tabs>
 
-            <ViewManorSheet 
+            <ViewEstateSheet 
                 isOpen={isSheetOpen} 
                 onClose={handleCloseSheet} 
                 data={selectedItem}
                 onUpdate={handleUpdateManor}
             />
 
-            <AddManorSheet 
+            <AddEstateSheet 
                 isOpen={isAddSheetOpen} 
                 onClose={() => setIsAddSheetOpen(false)} 
                 onSubmit={handleAddManor} 

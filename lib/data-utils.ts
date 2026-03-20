@@ -1,19 +1,19 @@
 'use server';
 
+import { Estate } from '@/app/estates-map/types';
 import fs from 'fs/promises';
 import path from 'path';
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'data.json');
 
-export async function getAllManors() {
+export async function getAllEstates(): Promise<Estate[]> {
     const fileContent = await fs.readFile(DATA_PATH, 'utf-8');
     return JSON.parse(fileContent);
 }
 
-export async function addManor(userData: any) {
-    const data = await getAllManors();
+export async function addEstate(userData: any): Promise<Estate> {
+    const data = await getAllEstates();
     
-    // Parse coordinates robustly
     let coordsArray = [49.8397, 24.0297]; // Default to Lviv if parsing fails
     if (userData.coords && typeof userData.coords === 'string') {
         const parts = userData.coords.split(',').map((p: any) => parseFloat(p.trim()));
@@ -24,10 +24,10 @@ export async function addManor(userData: any) {
         coordsArray = userData.coords;
     }
 
-    const newManorData = {
+    const newEstateData = {
         id: data.length > 0 ? Math.max(...data.map((m: any) => m.id)) + 1 : 1,
         propertyType: userData.propertyType,
-        manorType: userData.manorType,
+        estateType: userData.estateType,
         name: userData.name,
         center: userData.center,
         voivodeship: userData.voivodeship,
@@ -36,36 +36,36 @@ export async function addManor(userData: any) {
         contents: []
     };
     
-    data.push(newManorData);
+    data.push(newEstateData);
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
     
-    return newManorData;
+    return newEstateData;
 }
 
-export async function addManorRecord(id: number, recordData: any) {
-    const data = await getAllManors();
-    const targetManor = data.find((manor: any) => manor.id === id);
+export async function addEstateSnapshot(id: number, snapshotData: any): Promise<Estate> {
+    const data = await getAllEstates();
+    const targetEstate = data.find((estate: any) => estate.id === id);
 
-    if (!targetManor) {
-        throw new Error(`Manor with id ${id} not found`);
+    if (!targetEstate) {
+        throw new Error(`Estate with id ${id} not found`);
     }
 
-    let items = recordData.items;
+    let items = snapshotData.items;
     const delimitersRegex = /[,;|\n\r]+/;
 
     if (typeof items === 'string') {
         items = items.split(delimitersRegex).map(i => i.trim()).filter(i => i !== '');
     }
 
-    targetManor.contents.push({
-        ...recordData,
+    targetEstate.contents?.push({
+        ...snapshotData,
         items
     });
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
     
-    return targetManor;
+    return targetEstate;
 }

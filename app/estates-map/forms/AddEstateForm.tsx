@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { addManor } from "@/lib/data-utils";
+import { addEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 import { toast } from "sonner";
@@ -26,12 +26,12 @@ const formSchema = z.object({
     coords: z.string().min(2).max(50)
 })
 
-interface AddManorFormProps {
+interface AddEstateFormProps {
     onSheetClose: () => void;
     onSubmit: (data: any) => void;
 }
 
-export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
+export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
     const form = useForm({
         defaultValues: {
             name: '',
@@ -49,7 +49,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                 return;
             }
 
-            const newManor = await addManor(value);
+            const newManor = await addEstate(value);
             toast.success(`${value.name} успішно додано!`, { position: "bottom-center"});
             onSubmit(newManor);
             form.reset();

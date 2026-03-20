@@ -2,7 +2,7 @@
   {
     "id": 1,
     "propertyType": "royal",
-    "manorType": "starostwo",
+    "estateType": "starostwo",
     "name": "Львівське староство",
     "center": "Львів",
     "voivodeship": "Руське",
@@ -80,7 +80,7 @@
   {
     "id": 2,
     "propertyType": "private",
-    "manorType": "klucz",
+    "estateType": "klucz",
     "name": "Золочівський ключ",
     "center": "Золочів",
     "voivodeship": "Руське",
@@ -94,7 +94,7 @@
   {
     "id": 3,
     "propertyType": "church",
-    "manorType": "klucz",
+    "estateType": "klucz",
     "name": "Козлівський ключ",
     "center": "Козлів",
     "voivodeship": "Руське",
@@ -108,7 +108,7 @@
   {
     "id": 4,
     "propertyType": "private",
-    "manorType": "klucz",
+    "estateType": "klucz",
     "name": "Поморянський ключ",
     "center": "Поморяни",
     "voivodeship": "Руське",
@@ -155,7 +155,7 @@
   {
     "id": 5,
     "propertyType": "royal",
-    "manorType": "starostwo",
+    "estateType": "starostwo",
     "name": "Глинянське староство",
     "center": "Глиняни",
     "voivodeship": "Руське",
@@ -201,7 +201,7 @@
   {
     "id": 6,
     "propertyType": "royal",
-    "manorType": "starostwo",
+    "estateType": "starostwo",
     "name": "Щирецьке староство",
     "center": "Львів",
     "voivodeship": "Руське",
@@ -216,6 +216,7 @@
         "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 119",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Пелагія з Потоцьких Потоцька, каштелянова львівська",
+        "notes": "",
         "items": [
           "Щирець",
           "Воля Седерицька",

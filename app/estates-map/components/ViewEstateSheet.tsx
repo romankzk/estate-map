@@ -19,12 +19,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { MapPin, List, Landmark, Map, Plus } from "lucide-react";
-import { ManorTypes, PropertyTypes } from "../utils/constants";
-import { TypeLabel } from "./TypeLabel";
+import { EstateTypes, PropertyTypes } from "../utils/enums";
+import { TypeLabel } from "./ui/TypeLabel";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { AddRecordForm } from "../forms/AddRecordForm";
-import { InfoItem } from "./InfoItem";
+import { AddSnapshotForm } from "../forms/AddSnapshotForm";
+import { InfoItem } from "./ui/InfoItem";
 
 function renderPropertyType(type: string) {
     return (
@@ -34,19 +34,19 @@ function renderPropertyType(type: string) {
                     type == "church" ? "text-orange-600 dark:text-orange-400" :
                         "text-zinc-600 dark:text-zinc-400"
         )}>
-            <TypeLabel typeKey={type} iconSize={14} /> власність
+            <TypeLabel typeKey={type} iconSize={14} isShort={false} />
         </SheetDescription>
     )
 };
 
-interface ViewManorSheetProps {
+interface ViewEstateSheetProps {
     isOpen: boolean;
     onClose: () => void;
     data: any;
     onUpdate?: (updatedManor: any) => void;
 }
 
-export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorSheetProps) {
+export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateSheetProps) {
     if (!data) return null;
 
     return (
@@ -63,7 +63,7 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
                     <div className="px-6 pb-6 space-y-6">
                         <div className="grid grid-cols-1 gap-3">
                             {data.manorType && (
-                                <InfoItem iconName="ChessRook" label="Тип маєтку" value={ManorTypes.get(data.manorType).name}/>
+                                <InfoItem iconName="ChessRook" label="Тип маєтку" value={EstateTypes.get(data.estateType).label}/>
                             )}
 
                             {data.voivodeship && (
@@ -85,7 +85,7 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent>
-                                    <AddRecordForm onClose={onClose} data={data} onUpdate={onUpdate}/>
+                                    <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate}/>
                                 </DialogContent>
                             </Dialog>
                         </div>

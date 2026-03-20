@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod"
-import { addManorRecord } from "@/lib/data-utils";
+import { addEstateSnapshot } from "@/lib/data-utils";
 import { DialogClose, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -17,13 +17,13 @@ const formSchema = z.object({
     items: z.string().min(2),
 });
 
-interface AddRecordFormProps {
+interface AddSnapshotFormProps {
     onClose: () => void;
     data: any;
     onUpdate?: (updatedManor: any) => void;
 }
 
-export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
+export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProps) {
     const form = useForm({
         defaultValues: {
             date: '',
@@ -41,7 +41,7 @@ export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
             }
 
             try {
-                const updatedManor = await addManorRecord(data.id, value);
+                const updatedManor = await addEstateSnapshot(data.id, value);
                 if (onUpdate) onUpdate(updatedManor);
                 toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано!`, { position: "bottom-center"});
                 onClose();

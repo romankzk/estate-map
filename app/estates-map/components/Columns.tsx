@@ -1,12 +1,11 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Manor } from "../types"
+import { Estate } from "../types"
 import { Badge } from "@/components/ui/badge"
-import { ManorTypes, PropertyTypes } from "../utils/constants"
-import { Crown } from "lucide-react"
+import { EstateTypes, PropertyTypes } from "../utils/enums"
 import { cn } from "@/lib/utils"
-import { TypeLabel } from "./TypeLabel"
+import { TypeLabel } from "./ui/TypeLabel"
 
 function renderTypeBadges(type: string) {
   return (
@@ -21,7 +20,7 @@ function renderTypeBadges(type: string) {
   )
 }
 
-export const columns: ColumnDef<Manor>[] = [
+export const columns: ColumnDef<Estate>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -31,9 +30,9 @@ export const columns: ColumnDef<Manor>[] = [
     header: "Назва",
   },
   {
-    accessorKey: "manorType",
+    accessorKey: "estateType",
     header: "Тип",
-    cell: ({ row }) => ManorTypes.get(row.getValue("manorType")).name.toLowerCase()
+    cell: ({ row }) => EstateTypes.get(row.getValue("estateType")).label.toLowerCase()
   },
   {
     accessorKey: "propertyType",

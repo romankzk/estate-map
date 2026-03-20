@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { List, Map, Plus } from "lucide-react";
-import { InfoSheet } from './InfoSheet';
+import { ViewManorSheet } from './ViewManorSheet';
 import { DataTable } from './DataTable';
 import { columns } from './Columns';
 import { AddManorSheet } from './AddManorSheet';
@@ -108,7 +108,7 @@ export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsV
                 </TabsContent>
             </Tabs>
 
-            <InfoSheet 
+            <ViewManorSheet 
                 isOpen={isSheetOpen} 
                 onClose={handleCloseSheet} 
                 data={selectedItem}

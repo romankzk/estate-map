@@ -27,9 +27,18 @@ export const PropertyTypes = new Map<string, any>([
 
 export const EstateTypes = new Map<string, any>([
     ["starostwo", {
-        label: "Староство"
+        label: "Староство",
+        labelGenitive: "Староства",
+        owner: "Староста"
+    }],
+    ["dzierzawa", {
+        label: "Держава",
+        labelGenitive: "Держави",
+        owner: "Державець"
     }],
     ["klucz", {
-        label: "Ключ"
+        label: "Ключ",
+        labelGenitive: "Ключа",
+        owner: "Власник"
     }],
 ])

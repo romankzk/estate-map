@@ -48,12 +48,20 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 gap-2">
                 <Input
-                    placeholder="Шукати..."
+                    placeholder="Шукати за назвою..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
+                    }
+                    className="max-w-sm"
+                />
+                <Input
+                    placeholder="Шукати за населеними пунктами..."
+                    value={(table.getColumn("contents")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("contents")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />

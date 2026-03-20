@@ -15,7 +15,7 @@ const LeafletMap = dynamic<{
     data: any[];
     center: [number, number];
     zoom: number;
-    onOpenDrawer: (marker: any) => void;
+    onOpenSheet: (marker: any) => void;
 }>(
     () => import('./LeafletMap'),
     { 
@@ -89,7 +89,7 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                                 data={data} 
                                 center={center} 
                                 zoom={zoom} 
-                                onOpenDrawer={handleOpenSheet} 
+                                onOpenSheet={handleOpenSheet} 
                             />
                         </div>
                     </div>

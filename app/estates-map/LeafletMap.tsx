@@ -35,7 +35,7 @@ function setIcon(path: string) {
 
 const createClusterCustomIcon = (cluster: any) => {
     return L.divIcon({
-        html: `<div class="bg-blue-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
+        html: `<div class="bg-emerald-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
                   style="width: 40px; height: 40px;">
                ${cluster.getChildCount()}
              </div>`,
@@ -48,12 +48,12 @@ export default function LeafletMap({
     data,
     center,
     zoom,
-    onOpenDrawer
+    onOpenSheet
 }: {
     data: any[],
     center: [number, number],
     zoom: number,
-    onOpenDrawer: (marker: any) => void
+    onOpenSheet: (marker: any) => void
 }) {
     const position: [number, number] = center;
 
@@ -91,7 +91,7 @@ export default function LeafletMap({
                                     size="xs"
                                     variant="outline"
                                     className="cursor-pointer mt-2"
-                                    onClick={() => onOpenDrawer(marker)}
+                                    onClick={() => onOpenSheet(marker)}
                                 >
                                     Відкрити деталі <ArrowRight size={12} />
                                 </Button>

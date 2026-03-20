@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Estate } from "../types"
+import { Estate, EstateSnapshot } from "../types"
 import { Badge } from "@/components/ui/badge"
 import { EstateTypes, PropertyTypes } from "../utils/enums"
 import { cn } from "@/lib/utils"
@@ -48,4 +48,21 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "district",
     header: "Повіт",
   },
+  {
+    accessorKey: "contents",
+    header: "Склад",
+    cell: ({ row }) => {
+      let contents = row.getValue("contents");
+
+      if (Array.isArray(contents) && contents.length > 0) {
+        let dates: any = [];
+
+        contents.map((snapshot) => {
+          dates.push(snapshot.date);
+        });
+        
+        return dates.sort().join(", ");
+      }
+    },
+  }
 ]

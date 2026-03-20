@@ -19,12 +19,16 @@ import { toast } from "sonner";
 const formSchema = z.object({
     name: z.string().min(2).max(50),
     propertyType: z.string(),
-    manorType: z.string(),
+    estateType: z.string(),
     voivodeship: z.string().min(2).max(50),
     district: z.string().optional(),
     center: z.string().optional(),
     coords: z.string().min(2).max(50)
 })
+
+const voivodeshipsList = [
+    "Підляське", "Руське", "Белзьке", "Волинське", "Подільське", "Київське", "Брацлавське", "Чернігівське", "Берестейське"
+]
 
 interface AddEstateFormProps {
     onSheetClose: () => void;
@@ -36,7 +40,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
         defaultValues: {
             name: '',
             propertyType: 'royal',
-            manorType: 'starostwo',
+            estateType: 'starostwo',
             voivodeship: '',
             district: '',
             center: '',
@@ -50,7 +54,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
             }
 
             const newManor = await addEstate(value);
-            toast.success(`${value.name} успішно додано!`, { position: "bottom-center"});
+            toast.success(`${value.name} успішно додано!`, { position: "bottom-center" });
             onSubmit(newManor);
             form.reset();
             onSheetClose();
@@ -124,16 +128,16 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         )
                     }}
                 />
-                {/* Property Type field */}
+                {/* Estate Type field */}
                 <form.Field
-                    name="manorType"
+                    name="estateType"
                     children={(field) => {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
-                                    <FieldLabel htmlFor="manor-type-select">
-                                        Тип маєтку
+                                    <FieldLabel htmlFor="estate-type-select">
+                                        Тип маєтності
                                     </FieldLabel>
                                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
@@ -143,7 +147,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     onValueChange={field.handleChange}
                                 >
                                     <SelectTrigger
-                                        id="manor-type-select"
+                                        id="estate-type-select"
                                         aria-invalid={isInvalid}
                                         className="min-w-[120px]"
                                     >
@@ -166,18 +170,31 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                     children={(field) => {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
-                            <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="voivodeship-input">Воєводство</FieldLabel>
-                                <Input
-                                    id="voivodeship-input"
+                            <Field orientation="responsive" data-invalid={isInvalid}>
+                                <FieldContent>
+                                    <FieldLabel htmlFor="voivodeship-select">
+                                        Воєводство
+                                    </FieldLabel>
+                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                </FieldContent>
+                                <Select
                                     name={field.name}
                                     value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                    aria-invalid={isInvalid}
-                                    placeholder="напр. Руське"
-                                />
-                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    onValueChange={field.handleChange}
+                                >
+                                    <SelectTrigger
+                                        id="voivodeship-type-select"
+                                        aria-invalid={isInvalid}
+                                        className="min-w-[120px]"
+                                    >
+                                        <SelectValue placeholder="Виберіть зі списку" />
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        {voivodeshipsList.map(voivodeship => (
+                                            <SelectItem value={voivodeship}>{voivodeship}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                             </Field>
                         )
                     }}

@@ -63,44 +63,44 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                     <div className="px-6 pb-6 space-y-6">
                         <div className="grid grid-cols-1 gap-3">
                             {data.manorType && (
-                                <InfoItem iconName="ChessRook" label="Тип маєтку" value={EstateTypes.get(data.estateType).label}/>
+                                <InfoItem iconName="ChessRook" label="Тип маєтку" value={EstateTypes.get(data.estateType).label} />
                             )}
 
                             {data.voivodeship && (
-                                <InfoItem iconName="Landmark" label="Воєводство" value={data.voivodeship}/>
+                                <InfoItem iconName="Landmark" label="Воєводство" value={data.voivodeship} />
                             )}
 
                             {data.district && (
-                                <InfoItem iconName="Map" label="Повіт" value={data.district}/>
+                                <InfoItem iconName="Map" label="Повіт" value={data.district} />
                             )}
 
                             {data.center && (
-                                <InfoItem iconName="MapPin" label="Адміністративний центр" value={data.center}/>
+                                <InfoItem iconName="MapPin" label="Адміністративний центр" value={data.center} />
                             )}
 
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Button variant="outline" size="sm">
-                                        <Plus size={12} /> Додати склад
+                                        <Plus size={12} /> Додати склад {EstateTypes.get(data.estateType).labelGenitive.toLowerCase()}
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent>
-                                    <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate}/>
+                                    <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate} />
                                 </DialogContent>
                             </Dialog>
                         </div>
 
-                        {data.contents && data.contents.length > 0 ? (
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2 px-1">
-                                    <List size={16} className="text-zinc-500 dark:text-white/70" />
-                                    <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад</h3>
-                                </div>
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-2 px-1">
+                                <List size={16} className="text-zinc-500 dark:text-white/70" />
+                                <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад {EstateTypes.get(data.estateType).labelGenitive.toLowerCase()}</h3>
+                            </div>
+                            {data.contents && data.contents.length > 0 ? (
                                 <Accordion type="single" collapsible className="w-full">
                                     {data.contents.map((record: any, idx: number) => (
                                         <AccordionItem key={`${record.date}-${idx}`} value={`item-${idx}`} className="border-zinc-200 dark:border-[#374151]">
                                             <AccordionTrigger className="hover:no-underline py-3 px-1 font-medium">
-                                                <span>Станом на {record.date} р.</span>
+                                                <span>{record.date} р.</span>
                                             </AccordionTrigger>
                                             <AccordionContent className="px-1 pb-4">
                                                 <div className="space-y-4">
@@ -122,7 +122,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
 
                                                     {record.owner && (
                                                         <div className="flex flex-col gap-1">
-                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Власник / староста:</span>
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">{EstateTypes.get(data.estateType).owner}:</span>
                                                             <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.owner}</span>
                                                         </div>
                                                     )}
@@ -149,16 +149,10 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                         </AccordionItem>
                                     ))}
                                 </Accordion>
-                            </div>
-                        ) : (
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2 px-1">
-                                    <List size={16} className="text-zinc-500 dark:text-white/70" />
-                                    <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад</h3>
-                                </div>
+                            ) : (
                                 <p className="text-sm text-zinc-500 px-1">Дані про склад наразі відсутні.</p>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             </SheetContent>

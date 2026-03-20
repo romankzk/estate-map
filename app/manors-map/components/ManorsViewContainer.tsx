@@ -51,10 +51,13 @@ export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsV
         setIsSheetOpen(false);
     };
 
+    const handleUpdateManor = (updatedManor: any) => {
+        setData(prev => prev.map(m => m.id === updatedManor.id ? updatedManor : m));
+        setSelectedItem(updatedManor);
+    };
+
     const handleAddManor = (newManor: any) => {
         setData(prev => [...prev, newManor]);
-        // Here you would typically also make an API call to save to DB/file
-        console.log("New manor added:", newManor);
     };
 
     return (
@@ -108,7 +111,8 @@ export function ManorsViewContainer({ data: initialData, center, zoom }: ManorsV
             <InfoSheet 
                 isOpen={isSheetOpen} 
                 onClose={handleCloseSheet} 
-                data={selectedItem} 
+                data={selectedItem}
+                onUpdate={handleUpdateManor}
             />
 
             <AddManorSheet 

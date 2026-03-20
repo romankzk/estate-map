@@ -13,10 +13,28 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Crown, MapPin, List, Landmark, Map, Church, Castle, House } from "lucide-react";
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Crown, MapPin, List, Landmark, Map, Church, Castle, House, Plus } from "lucide-react";
 import { OwnershipTypes } from "../utils/constants";
 import { TypeLabel } from "./TypeLabel";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "@tanstack/react-form";
+import * as z from "zod"
+import { addManorRecord } from "@/lib/data-utils";
 
 function renderOwnershipType(type: string) {
     return (
@@ -31,15 +49,50 @@ function renderOwnershipType(type: string) {
     )
 }
 
+const formSchema = z.object({
+    date: z.string(),
+    sourceSignature: z.string(),
+    sourceLink: z.string(),
+    owner: z.string(),
+    items: z.string(),
+})
 
 interface InfoSheetProps {
     isOpen: boolean;
     onClose: () => void;
     data: any;
+    onUpdate?: (updatedManor: any) => void;
 }
 
-export function InfoSheet({ isOpen, onClose, data }: InfoSheetProps) {
+export function InfoSheet({ isOpen, onClose, data, onUpdate }: InfoSheetProps) {
+    const form = useForm({
+        defaultValues: {
+            date: '',
+            sourceSignature: '',
+            sourceLink: '',
+            owner: '',
+            items: '',
+        },
+        onSubmit: async ({ value }) => {
+            const result = formSchema.safeParse(value);
+            if (!result.success) {
+                console.error("Validation failed", result.error);
+                return;
+            }
+
+            try {
+                const updatedManor = await addManorRecord(data.id, value);
+                if (onUpdate) onUpdate(updatedManor);
+                onClose();
+                form.reset();
+            } catch (error) {
+                console.error("Failed to add record", error);
+            }
+        },
+    })
+
     if (!data) return null;
+
     return (
         <Sheet
             open={isOpen}
@@ -82,6 +135,138 @@ export function InfoSheet({ isOpen, onClose, data }: InfoSheetProps) {
                                     </div>
                                 </div>
                             )}
+
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm">
+                                        <Plus size={12} /> Додати склад
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <form onSubmit={(e) => {
+                                        e.preventDefault()
+                                        form.handleSubmit()
+                                    }}>
+                                        <DialogHeader>
+                                            <DialogTitle>Додати склад - {data.name}</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="py-4">
+                                            <FieldGroup>
+                                                <form.Field
+                                                    name="date"
+                                                    children={(field) => {
+                                                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                                        return (
+                                                            <Field data-invalid={isInvalid}>
+                                                                <FieldLabel htmlFor="date-input">Рік</FieldLabel>
+                                                                <Input
+                                                                    id="date-input"
+                                                                    name={field.name}
+                                                                    value={field.state.value}
+                                                                    onBlur={field.handleBlur}
+                                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                                    aria-invalid={isInvalid}
+                                                                    placeholder=""
+                                                                />
+                                                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                                            </Field>
+                                                        )
+                                                    }}
+                                                />
+                                                <form.Field
+                                                    name="sourceSignature"
+                                                    children={(field) => {
+                                                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                                        return (
+                                                            <Field data-invalid={isInvalid}>
+                                                                <FieldLabel htmlFor="signature-input">Джерело: сигнатура</FieldLabel>
+                                                                <Input
+                                                                    id="signature-input"
+                                                                    name={field.name}
+                                                                    value={field.state.value}
+                                                                    onBlur={field.handleBlur}
+                                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                                    aria-invalid={isInvalid}
+                                                                    placeholder=""
+                                                                />
+                                                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                                            </Field>
+                                                        )
+                                                    }}
+                                                />
+                                                <form.Field
+                                                    name="sourceLink"
+                                                    children={(field) => {
+                                                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                                        return (
+                                                            <Field data-invalid={isInvalid}>
+                                                                <FieldLabel htmlFor="link-input">Джерело: посилання</FieldLabel>
+                                                                <Input
+                                                                    id="link-input"
+                                                                    name={field.name}
+                                                                    value={field.state.value}
+                                                                    onBlur={field.handleBlur}
+                                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                                    aria-invalid={isInvalid}
+                                                                    placeholder=""
+                                                                />
+                                                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                                            </Field>
+                                                        )
+                                                    }}
+                                                />
+                                                <form.Field
+                                                    name="owner"
+                                                    children={(field) => {
+                                                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                                        return (
+                                                            <Field data-invalid={isInvalid}>
+                                                                <FieldLabel htmlFor="owner-input">Власник / староста</FieldLabel>
+                                                                <Input
+                                                                    id="owner-input"
+                                                                    name={field.name}
+                                                                    value={field.state.value}
+                                                                    onBlur={field.handleBlur}
+                                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                                    aria-invalid={isInvalid}
+                                                                    placeholder=""
+                                                                />
+                                                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                                            </Field>
+                                                        )
+                                                    }}
+                                                />
+                                                <form.Field
+                                                    name="items"
+                                                    children={(field) => {
+                                                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                                        return (
+                                                            <Field data-invalid={isInvalid}>
+                                                                <FieldLabel htmlFor="items-input">Населені пункти</FieldLabel>
+                                                                <Textarea 
+                                                                    id="items-input"
+                                                                    name={field.name}
+                                                                    value={field.state.value}
+                                                                    onBlur={field.handleBlur}
+                                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                                    aria-invalid={isInvalid}
+                                                                    placeholder="" />
+                                                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                                            </Field>
+                                                        )
+                                                    }}
+                                                />
+                                            </FieldGroup>
+                                        </div>
+                                        <DialogFooter>
+                                            <DialogClose asChild>
+                                                <Button type="button" variant="outline">Скасувати</Button>
+                                            </DialogClose>
+                                            <Button type="submit">Зберегти</Button>
+                                        </DialogFooter>
+                                    </form>
+                                </DialogContent>
+                            </Dialog>
                         </div>
 
                         {data.contents && data.contents.length > 0 ? (
@@ -138,7 +323,13 @@ export function InfoSheet({ isOpen, onClose, data }: InfoSheetProps) {
                                 </Accordion>
                             </div>
                         ) : (
-                            <p className="text-sm text-zinc-500 px-1">Дані про склад відсутні.</p>
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2 px-1">
+                                    <List size={16} className="text-zinc-500 dark:text-white/70" />
+                                    <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад</h3>
+                                </div>
+                                <p className="text-sm text-zinc-500 px-1">Дані про склад наразі відсутні.</p>
+                            </div>
                         )}
                     </div>
                 </div>

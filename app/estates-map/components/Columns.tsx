@@ -65,9 +65,9 @@ export const columns: ColumnDef<Estate>[] = [
 
         return (
           <>
-            {contents.map(snapshot => {
+            {contents.map((snapshot, idx) => {
               return (
-                <HoverCard openDelay={10} closeDelay={100}>
+                <HoverCard openDelay={10} closeDelay={100} key={idx}>
                   <HoverCardTrigger asChild>
                     <Button size="xs" variant="link">{snapshot.date}</Button>
                   </HoverCardTrigger>

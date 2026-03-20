@@ -11,10 +11,12 @@ import { toast } from "sonner";
 const formSchema = z.object({
     date: z.string().min(4).max(30),
     sourceSignature: z.string().min(2).max(50),
-    sourceLink: z.string().optional(),
-    owner: z.string().optional(),
+    sourceLink: z.httpUrl({
+        message: "Введіть URL-адресу у форматі http:// або https://"
+    }).optional(),
+    owner: z.string().max(250).optional(),
     notes: z.string().optional(),
-    items: z.string().min(2),
+    items: z.string().min(2)
 });
 
 interface AddSnapshotFormProps {

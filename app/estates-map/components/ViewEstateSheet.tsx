@@ -62,7 +62,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                 <div className="flex-1 overflow-y-auto no-scrollbar">
                     <div className="px-6 pb-6 space-y-6">
                         <div className="grid grid-cols-1 gap-3">
-                            {data.manorType && (
+                            {data.estateType && (
                                 <InfoItem iconName="ChessRook" label="Тип маєтку" value={EstateTypes.get(data.estateType).label} />
                             )}
 

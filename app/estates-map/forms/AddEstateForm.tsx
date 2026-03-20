@@ -15,6 +15,7 @@ import { addEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 import { toast } from "sonner";
+import { EstateTypes, PropertyTypes } from "../utils/enums";
 
 const formSchema = z.object({
     name: z.string().min(2).max(50),
@@ -118,10 +119,9 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         <SelectValue placeholder="Тип" />
                                     </SelectTrigger>
                                     <SelectContent position="item-aligned">
-                                        <SelectItem value="royal">Королівська</SelectItem>
-                                        <SelectItem value="private">Приватна</SelectItem>
-                                        <SelectItem value="church">Духовна</SelectItem>
-                                        <SelectItem value="mixed">Різна</SelectItem>
+                                        {Array.from(PropertyTypes.entries()).map(([key, value]) => (
+                                            <SelectItem key={key} value={key}>{value.label}</SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </Field>
@@ -154,10 +154,9 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         <SelectValue placeholder="Тип" />
                                     </SelectTrigger>
                                     <SelectContent position="item-aligned">
-                                        <SelectItem value="starostwo">Староство</SelectItem>
-                                        <SelectItem value="klucz">Ключ</SelectItem>
-                                        <SelectItem value="dzierzawa">Держава</SelectItem>
-                                        <SelectItem value="other">Інше</SelectItem>
+                                        {Array.from(EstateTypes.entries()).map(([key, value]) => (
+                                            <SelectItem key={key} value={key}>{value.label}</SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </Field>
@@ -190,8 +189,8 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         <SelectValue placeholder="Виберіть зі списку" />
                                     </SelectTrigger>
                                     <SelectContent position="item-aligned">
-                                        {voivodeshipsList.map(voivodeship => (
-                                            <SelectItem value={voivodeship}>{voivodeship}</SelectItem>
+                                        {voivodeshipsList.map((voivodeship, idx) => (
+                                            <SelectItem key={idx} value={voivodeship}>{voivodeship}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>

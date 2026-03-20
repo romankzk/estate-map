@@ -51,19 +51,19 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
         setIsSheetOpen(false);
     };
 
-    const handleUpdateManor = (updatedManor: any) => {
-        setData(prev => prev.map(m => m.id === updatedManor.id ? updatedManor : m));
-        setSelectedItem(updatedManor);
+    const handleUpdateEstate = (updatedEstate: any) => {
+        setData(prev => prev.map(m => m.id === updatedEstate.id ? updatedEstate : m));
+        setSelectedItem(updatedEstate);
     };
 
-    const handleAddManor = (newManor: any) => {
-        setData(prev => [...prev, newManor]);
+    const handleAddEstate = (newEstate: any) => {
+        setData(prev => [...prev, newEstate]);
     };
 
     return (
         <>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold">Староства та ключі</h1>
+                <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold">Реєстр маєтностей</h1>
                 <Button 
                     variant="default" 
                     className="cursor-pointer"
@@ -112,13 +112,13 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                 isOpen={isSheetOpen} 
                 onClose={handleCloseSheet} 
                 data={selectedItem}
-                onUpdate={handleUpdateManor}
+                onUpdate={handleUpdateEstate}
             />
 
             <AddEstateSheet 
                 isOpen={isAddSheetOpen} 
                 onClose={() => setIsAddSheetOpen(false)} 
-                onSubmit={handleAddManor} 
+                onSubmit={handleAddEstate} 
             />
         </>
     );

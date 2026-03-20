@@ -36,9 +36,39 @@ export const EstateTypes = new Map<string, any>([
         labelGenitive: "Держави",
         owner: "Державець"
     }],
+    ["ekonomia", {
+        label: "Економія",
+        labelGenitive: "Економії",
+        owner: "Староста"
+    }],
     ["klucz", {
         label: "Ключ",
         labelGenitive: "Ключа",
+        owner: "Власник"
+    }],
+    ["ordynacja", {
+        label: "Ординація",
+        labelGenitive: "Ординації",
+        owner: "Власник"
+    }],
+    ["ksiestwo", {
+        label: "Князівство",
+        labelGenitive: "Князівства",
+        owner: "Князь"
+    }],
+    ["hrabstwo", {
+        label: "Графство",
+        labelGenitive: "Графства",
+        owner: "Власник"
+    }],
+    ["kraina", {
+        label: "Країна",
+        labelGenitive: "Країни",
+        owner: "Крайник"
+    }],
+    ["wlosc", {
+        label: "Волость",
+        labelGenitive: "Волості",
         owner: "Власник"
     }],
 ])

@@ -14,10 +14,12 @@ import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLab
 import { addManor } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
+import { toast } from "sonner";
 
 const formSchema = z.object({
     name: z.string().min(2).max(50),
-    type: z.string(),
+    propertyType: z.string(),
+    manorType: z.string(),
     voivodeship: z.string().min(2).max(50),
     district: z.string().optional(),
     center: z.string().optional(),
@@ -33,7 +35,8 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
     const form = useForm({
         defaultValues: {
             name: '',
-            type: 'royal',
+            propertyType: 'royal',
+            manorType: 'starostwo',
             voivodeship: '',
             district: '',
             center: '',
@@ -47,6 +50,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
             }
 
             const newManor = await addManor(value);
+            toast.success(`${value.name} успішно додано!`, { position: "bottom-center"});
             onSubmit(newManor);
             form.reset();
             onSheetClose();
@@ -84,16 +88,16 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                         )
                     }}
                 />
-                {/* Type field */}
+                {/* Property Type field */}
                 <form.Field
-                    name="type"
+                    name="propertyType"
                     children={(field) => {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
-                                    <FieldLabel htmlFor="type-select">
-                                        Тип власності
+                                    <FieldLabel htmlFor="property-type-select">
+                                        Форма власності
                                     </FieldLabel>
                                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
@@ -103,7 +107,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                     onValueChange={field.handleChange}
                                 >
                                     <SelectTrigger
-                                        id="type-select"
+                                        id="property-type-select"
                                         aria-invalid={isInvalid}
                                         className="min-w-[120px]"
                                     >
@@ -114,6 +118,42 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                                         <SelectItem value="private">Приватна</SelectItem>
                                         <SelectItem value="church">Духовна</SelectItem>
                                         <SelectItem value="mixed">Різна</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </Field>
+                        )
+                    }}
+                />
+                {/* Property Type field */}
+                <form.Field
+                    name="manorType"
+                    children={(field) => {
+                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                        return (
+                            <Field orientation="responsive" data-invalid={isInvalid}>
+                                <FieldContent>
+                                    <FieldLabel htmlFor="manor-type-select">
+                                        Тип маєтку
+                                    </FieldLabel>
+                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                </FieldContent>
+                                <Select
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onValueChange={field.handleChange}
+                                >
+                                    <SelectTrigger
+                                        id="manor-type-select"
+                                        aria-invalid={isInvalid}
+                                        className="min-w-[120px]"
+                                    >
+                                        <SelectValue placeholder="Тип" />
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        <SelectItem value="starostwo">Староство</SelectItem>
+                                        <SelectItem value="klucz">Ключ</SelectItem>
+                                        <SelectItem value="dzierzawa">Держава</SelectItem>
+                                        <SelectItem value="other">Інше</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </Field>
@@ -208,7 +248,7 @@ export function AddManorForm({ onSheetClose, onSubmit }: AddManorFormProps) {
                         )
                     }}
                 />
-                <p className="text-muted-foreground">Склад маєтностей можна буде додати після створення</p>
+                <p className="text-muted-foreground">Населені пункти маєтку можна буде додати після створення</p>
             </div>
             {/* Submit/Cancel buttons section */}
             <SheetFooter className="p-6 border-t dark:border-[#374151] flex flex-row gap-3 sm:justify-end">

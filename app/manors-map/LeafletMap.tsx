@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet'
-import { OwnershipTypes } from "./utils/constants";
+import { PropertyTypes } from "./utils/constants";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -75,11 +75,11 @@ export default function LeafletMap({
                     showCoverageOnHover={false}
                 >
                     {data.map((marker: any) =>
-                        <Marker key={marker.id} position={marker.coords} icon={OwnershipTypes.get(marker.type).icon}>
+                        <Marker key={marker.id} position={marker.coords} icon={PropertyTypes.get(marker.propertyType).icon}>
                             <Popup>
                                 <h2 className="font-semibold text-base">{marker.name}</h2>
                                 <p className="text-xs">
-                                    {renderTypeBadge(marker.type)}
+                                    {renderTypeBadge(marker.propertyType)}
                                 </p>
                                 <Button
                                     size="xs"

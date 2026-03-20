@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "type": "royal",
+    "propertyType": "royal",
+    "manorType": "starostwo",
     "name": "Львівське староство",
     "center": "Львів",
     "voivodeship": "Руське",
@@ -16,6 +17,7 @@
         "sourceSignature": "AGAD MK 1/4/0/8/48 - f. 1v",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
+        "notes": "",
         "items": [
           "Львів",
           "Миклашів",
@@ -44,6 +46,7 @@
         "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 6",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Євстахій Потоцький, генерал артилерії, староста львівський, ужендовський, тлумацький",
+        "notes": "",
         "items": [
           "Львів, місто",
           "Солонка Велика і Мала",
@@ -76,7 +79,8 @@
   },
   {
     "id": 2,
-    "type": "private",
+    "propertyType": "private",
+    "manorType": "klucz",
     "name": "Золочівський ключ",
     "center": "Золочів",
     "voivodeship": "Руське",
@@ -89,7 +93,8 @@
   },
   {
     "id": 3,
-    "type": "church",
+    "propertyType": "church",
+    "manorType": "klucz",
     "name": "Козлівський ключ",
     "center": "Козлів",
     "voivodeship": "Руське",
@@ -102,7 +107,8 @@
   },
   {
     "id": 4,
-    "type": "private",
+    "propertyType": "private",
+    "manorType": "klucz",
     "name": "Поморянський ключ",
     "center": "Поморяни",
     "voivodeship": "Руське",
@@ -117,6 +123,7 @@
         "sourceSignature": "BNW - Rps 5479 IV",
         "sourceLink": "https://polona.pl/item-view/629265fc-8c72-4273-81be-d594e10cc795?page=0",
         "owner": "",
+        "notes": "",
         "items": [
           "Поморяни",
           "Розгадів",
@@ -147,7 +154,8 @@
   },
   {
     "id": 5,
-    "type": "royal",
+    "propertyType": "royal",
+    "manorType": "starostwo",
     "name": "Глинянське староство",
     "center": "Глиняни",
     "voivodeship": "Руське",
@@ -162,6 +170,7 @@
         "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 29",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Урсула з Дідушицьких, за 1-м чол. Блендовська, за 2-м чол. Потоцька, чашникова коронна",
+        "notes": "",
         "items": [
           "Глиняни",
           "Замістя",
@@ -175,6 +184,7 @@
         "sourceSignature": "AGAD MK 1/4/0/8/48 - f. 227",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
+        "notes": "як держава, раніше у складі Львівського староства",
         "items": [
           "Глиняни",
           "Полтва",
@@ -184,6 +194,42 @@
           "Білка Королівська",
           "Кривичі",
           "Перегноїв"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "propertyType": "royal",
+    "manorType": "starostwo",
+    "name": "Щирецьке староство",
+    "center": "Львів",
+    "voivodeship": "Руське",
+    "district": "Львівський",
+    "coords": [
+      49.64646,
+      23.85711
+    ],
+    "contents": [
+      {
+        "date": "1765",
+        "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 119",
+        "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
+        "owner": "Пелагія з Потоцьких Потоцька, каштелянова львівська",
+        "items": [
+          "Щирець",
+          "Воля Седерицька",
+          "Гуменець",
+          "Попеляни",
+          "Дмитре",
+          "Добряни",
+          "Бродки",
+          "Красів",
+          "Поляна",
+          "Нове Гутисько",
+          "Луб'яна",
+          "Нагоряни",
+          "Поршна"
         ]
       }
     ]

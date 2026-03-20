@@ -19,13 +19,14 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { MapPin, List, Landmark, Map, Plus } from "lucide-react";
-import { OwnershipTypes } from "../utils/constants";
+import { ManorTypes, PropertyTypes } from "../utils/constants";
 import { TypeLabel } from "./TypeLabel";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AddRecordForm } from "../forms/AddRecordForm";
+import { InfoItem } from "./InfoItem";
 
-function renderOwnershipType(type: string) {
+function renderPropertyType(type: string) {
     return (
         <SheetDescription className={cn("flex items-center gap-1.5 font-medium",
             type == "royal" ? "text-blue-600 dark:text-blue-400" :
@@ -56,39 +57,25 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
             <SheetContent side="right" className="sm:max-w-md w-full p-0 flex flex-col h-full border-l dark:border-[#374151] dark:bg-[#111827]">
                 <SheetHeader className="p-6 border-b dark:border-[#374151]">
                     <SheetTitle className="text-xl font-bold">{data.name}</SheetTitle>
-                    {renderOwnershipType(data.type)}
+                    {renderPropertyType(data.propertyType)}
                 </SheetHeader>
                 <div className="flex-1 overflow-y-auto no-scrollbar">
                     <div className="px-6 pb-6 space-y-6">
                         <div className="grid grid-cols-1 gap-3">
+                            {data.manorType && (
+                                <InfoItem iconName="ChessRook" label="Тип маєтку" value={ManorTypes.get(data.manorType).name}/>
+                            )}
+
                             {data.voivodeship && (
-                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
-                                    <Landmark size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
-                                    <div>
-                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Воєводство</h3>
-                                        <p className="text-sm font-medium">{data.voivodeship}</p>
-                                    </div>
-                                </div>
+                                <InfoItem iconName="Landmark" label="Воєводство" value={data.voivodeship}/>
                             )}
 
                             {data.district && (
-                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
-                                    <Map size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
-                                    <div>
-                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Повіт</h3>
-                                        <p className="text-sm font-medium">{data.district}</p>
-                                    </div>
-                                </div>
+                                <InfoItem iconName="Map" label="Повіт" value={data.district}/>
                             )}
 
                             {data.center && (
-                                <div className="flex items-start gap-3 p-3 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
-                                    <MapPin size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
-                                    <div>
-                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Адміністративний центр</h3>
-                                        <p className="text-sm font-medium">{data.center}</p>
-                                    </div>
-                                </div>
+                                <InfoItem iconName="MapPin" label="Адміністративний центр" value={data.center}/>
                             )}
 
                             <Dialog>
@@ -135,7 +122,7 @@ export function ViewManorSheet({ isOpen, onClose, data, onUpdate }: ViewManorShe
 
                                                     {record.owner && (
                                                         <div className="flex flex-col gap-1">
-                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">{OwnershipTypes.get(data.type).ownerTitle}:</span>
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">{PropertyTypes.get(data.propertyType).ownerTitle}:</span>
                                                             <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.owner}</span>
                                                         </div>
                                                     )}

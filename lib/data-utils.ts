@@ -26,7 +26,8 @@ export async function addManor(userData: any) {
 
     const newManorData = {
         id: data.length > 0 ? Math.max(...data.map((m: any) => m.id)) + 1 : 1,
-        type: userData.type,
+        propertyType: userData.propertyType,
+        manorType: userData.manorType,
         name: userData.name,
         center: userData.center,
         voivodeship: userData.voivodeship,

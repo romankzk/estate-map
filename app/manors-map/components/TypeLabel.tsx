@@ -1,7 +1,7 @@
 "use client"
 
 import { Castle, Church, Crown, House } from "lucide-react";
-import { OwnershipTypes } from "../utils/constants";
+import { PropertyTypes} from "../utils/constants";
 
 interface TypeLabelProps {
     typeKey: string, 
@@ -14,28 +14,28 @@ export function TypeLabel({typeKey, iconSize}: TypeLabelProps) {
             return (
                 <>
                     <Crown size={iconSize} />
-                    <span>{OwnershipTypes.get(typeKey).name}</span>
+                    <span>{PropertyTypes.get(typeKey).name}</span>
                 </>
             );
         case "private":
             return (
                 <>
                     <Castle size={iconSize} />
-                    <span>{OwnershipTypes.get(typeKey).name}</span>
+                    <span>{PropertyTypes.get(typeKey).name}</span>
                 </>
             );
         case "church":
             return (
                 <>
                     <Church size={iconSize} />
-                    <span>{OwnershipTypes.get(typeKey).name}</span>
+                    <span>{PropertyTypes.get(typeKey).name}</span>
                 </>
             );
         default:
             return (
                 <>
                     <House size={iconSize} />
-                    <span>{OwnershipTypes.get(typeKey).name}</span>
+                    <span>{PropertyTypes.get(typeKey).name}</span>
                 </>
             );
     }

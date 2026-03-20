@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Manor } from "../types"
 import { Badge } from "@/components/ui/badge"
-import { OwnershipTypes } from "../utils/constants"
+import { ManorTypes, PropertyTypes } from "../utils/constants"
 import { Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { TypeLabel } from "./TypeLabel"
@@ -31,10 +31,16 @@ export const columns: ColumnDef<Manor>[] = [
     header: "Назва",
   },
   {
-    accessorKey: "type",
+    accessorKey: "manorType",
     header: "Тип",
-    cell: ({ row }) => renderTypeBadges(row.getValue("type"))
+    cell: ({ row }) => ManorTypes.get(row.getValue("manorType")).name.toLowerCase()
   },
+  {
+    accessorKey: "propertyType",
+    header: "Форма власності",
+    cell: ({ row }) => renderTypeBadges(row.getValue("propertyType"))
+  },
+
   {
     accessorKey: "voivodeship",
     header: "Воєводство",

@@ -1,6 +1,6 @@
 import L from 'leaflet'
 
-export const OwnershipTypes = new Map<string, any>([
+export const PropertyTypes = new Map<string, any>([
     ["royal",
         {
             key: "royal",
@@ -54,3 +54,12 @@ export const OwnershipTypes = new Map<string, any>([
         }
     ],
 ]);
+
+export const ManorTypes = new Map<string, any>([
+    ["starostwo", {
+        name: "Староство"
+    }],
+    ["klucz", {
+        name: "Ключ"
+    }],
+])

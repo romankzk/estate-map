@@ -6,6 +6,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/c
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     date: z.string().min(4).max(30),
@@ -40,10 +41,12 @@ export function AddRecordForm({ onClose, data, onUpdate }: AddRecordFormProps) {
             try {
                 const updatedManor = await addManorRecord(data.id, value);
                 if (onUpdate) onUpdate(updatedManor);
+                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано!`, { position: "bottom-center"});
                 onClose();
                 form.reset();
             } catch (error) {
                 console.error("Failed to add record", error);
+                toast.error(`Сталася помилка: ${error}`, { position: "bottom-center"});
             }
         },
     });

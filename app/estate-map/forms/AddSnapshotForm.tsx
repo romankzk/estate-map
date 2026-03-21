@@ -11,9 +11,9 @@ import { toast } from "sonner";
 const formSchema = z.object({
     date: z.string().min(4).max(30),
     sourceSignature: z.string().min(2).max(50),
-    sourceLink: z.httpUrl({
+    sourceLink: z.url({
         message: "Введіть URL-адресу у форматі http:// або https://"
-    }).optional(),
+    }).or(z.literal("")),
     owner: z.string().max(250).optional(),
     notes: z.string().optional(),
     items: z.string().min(2)
@@ -60,10 +60,10 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             e.preventDefault()
             form.handleSubmit()
         }}>
-            <DialogHeader>
+            <DialogHeader className="pb-4">
                 <DialogTitle>Додати склад - {data.name}</DialogTitle>
             </DialogHeader>
-            <div className="py-4">
+            <div className="py-6 px-1 no-scrollbar max-h-[80vh] overflow-y-auto">
                 <FieldGroup>
                     <form.Field
                         name="date"
@@ -193,7 +193,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                     />
                 </FieldGroup>
             </div>
-            <DialogFooter>
+            <DialogFooter className="pt-4">
                 <DialogClose asChild>
                     <Button type="button" variant="outline">Скасувати</Button>
                 </DialogClose>

@@ -49,6 +49,8 @@ interface ViewEstateSheetProps {
 export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateSheetProps) {
     if (!data) return null;
 
+    data.contents.sort((a: any, b: any) => a.date.localeCompare(b.date));
+
     return (
         <Sheet
             open={isOpen}

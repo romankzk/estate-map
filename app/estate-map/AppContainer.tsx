@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { List, Map, Plus } from "lucide-react";
 import { ViewEstateSheet } from './components/ViewEstateSheet';
-import { DataTable } from './components/DataTable';
+import { EstatesDataTable } from './components/EstatesDataTable';
 import { columns } from './components/Columns';
 import { AddEstateSheet } from './components/AddEstateSheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -97,7 +97,7 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
 
                 <TabsContent value="list" className="mt-0 outline-none">
                     <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151] overflow-x-auto">
-                        <DataTable
+                        <EstatesDataTable
                             columns={columns}
                             data={data}
                             onOpenDrawer={handleOpenSheet}

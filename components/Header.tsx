@@ -1,11 +1,15 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon, Shield, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
 
 export default function Header() {
     const { theme, setTheme } = useTheme();
+    
+    const searchParams = useSearchParams();
+    const isAdmin = searchParams.get('isAdmin') || false;
 
     return (
         <header className="bg-white dark:bg-[#111827] border-b border-gray-300 dark:border-[#374151]">
@@ -23,12 +27,14 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-center gap-[10px] md:gap-[12px] lg:gap-[15px]">
-                    <Link 
-                        href="/admin" 
-                        className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#F3F4F6] transition-colors"
-                    >
-                        Адмін
-                    </Link>
+                    {isAdmin ? (
+                        <Link
+                            href="/admin"
+                            className="flex text-sm font-medium text-gray-900 dark:text-[#F3F4F6] hover:text-gray-700 dark:hover:text-[#F3F4F6] transition-colors"
+                        >
+                            <Shield className="w-5 h-5 mr-2" /> Панель адміністратора
+                        </Link>
+                    ) : ''}
                     {/* Theme Toggle */}
                     {theme === 'light' ?
                         <button

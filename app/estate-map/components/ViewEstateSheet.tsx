@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AddSnapshotForm } from "../forms/AddSnapshotForm";
 import { InfoItem } from "./ui/InfoItem";
+import { EstateSnapshot } from "../types";
 
 function renderPropertyType(type: string) {
     return (
@@ -49,7 +50,9 @@ interface ViewEstateSheetProps {
 export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateSheetProps) {
     if (!data) return null;
 
-    data.contents.sort((a: any, b: any) => a.date.localeCompare(b.date));
+    const approvedContents = [...(data.contents || [])]
+        .filter((s: EstateSnapshot) => s.status === 'approved')
+        .sort((a: any, b: any) => a.date.localeCompare(b.date));
 
     return (
         <Sheet
@@ -97,9 +100,9 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                 <List size={16} className="text-zinc-500 dark:text-white/70" />
                                 <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад {EstateTypes.get(data.estateType).labelGenitive.toLowerCase()}</h3>
                             </div>
-                            {data.contents && data.contents.length > 0 ? (
+                            {approvedContents.length > 0 ? (
                                 <Accordion type="single" collapsible className="w-full">
-                                    {data.contents.map((record: any, idx: number) => (
+                                    {approvedContents.map((record: any, idx: number) => (
                                         <AccordionItem key={`${record.date}-${idx}`} value={`item-${idx}`} className="border-zinc-200 dark:border-[#374151]">
                                             <AccordionTrigger className="hover:no-underline py-3 px-1 font-medium">
                                                 <span>{record.date} р.</span>

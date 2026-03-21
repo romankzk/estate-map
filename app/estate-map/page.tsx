@@ -1,10 +1,10 @@
 import { AppContainer } from "./AppContainer";
-import { getAllEstates } from "@/lib/data-utils";
+import { getApprovedEstates } from "@/lib/data-utils";
 
 export default async function EstatePage({ searchParams }: { searchParams: Promise<{ lat?: string, lng?: string }> }) {
     const params = await searchParams;
 
-    const data = await getAllEstates();
+    const data = await getApprovedEstates();
 
     let initialCenter: [number, number] = [49.55, 25.59];
     let initialZoom = 8;

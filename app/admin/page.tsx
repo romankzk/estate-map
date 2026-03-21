@@ -20,8 +20,8 @@ export default async function AdminPage() {
 
                 <div className="mb-6">
                     <TabsList variant="line">
-                        <TabsTrigger value="list"><List className="size-4 mr-1" /> Список</TabsTrigger>
-                        <TabsTrigger value="pending"><Clock className="size-4 mr-1" /> Запити на додавання</TabsTrigger>
+                        <TabsTrigger value="list"><List className="size-4 mr-1" /> Всі дані</TabsTrigger>
+                        <TabsTrigger value="pending"><Clock className="size-4 mr-1" /> Очікують схвалення</TabsTrigger>
                     </TabsList>
                 </div>
 
@@ -33,7 +33,11 @@ export default async function AdminPage() {
                 </div>
                 </TabsContent>
                 <TabsContent value="pending" className="mt-0 outline-none">
-                    Запити на додавання
+                <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151]">
+                    <div className="overflow-x-auto">
+                        <AdminEstateTable estates={estates} onlyPending={true} />
+                    </div>
+                </div>
                 </TabsContent>
                 </Tabs>
             </main>

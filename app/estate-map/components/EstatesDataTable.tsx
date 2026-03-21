@@ -22,17 +22,17 @@ import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { EstateTypes, PropertyTypes } from "../utils/enums"
 
-interface DataTableProps<TData, TValue> {
+interface EstatesDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
     onOpenDrawer: (item: any) => void
 }
 
-export function DataTable<TData, TValue>({
+export function EstatesDataTable<TData, TValue>({
     columns,
     data,
     onOpenDrawer
-}: DataTableProps<TData, TValue>) {
+}: EstatesDataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('')
     const table = useReactTable({
         data,

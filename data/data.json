@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "status": "approved",
     "propertyType": "royal",
     "estateType": "starostwo",
     "name": "Львівське староство",
@@ -18,6 +19,7 @@
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
         "notes": "",
+        "status": "approved",
         "items": [
           "Львів",
           "Миклашів",
@@ -47,6 +49,7 @@
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Євстахій Потоцький, генерал артилерії, староста львівський, ужендовський, тлумацький",
         "notes": "",
+        "status": "approved",
         "items": [
           "Львів",
           "Солонка Велика і Мала",
@@ -81,6 +84,7 @@
         "sourceLink": "",
         "owner": "",
         "notes": "",
+        "status": "approved",
         "items": [
           "Львів",
           "Підзамче",
@@ -116,12 +120,19 @@
           "Борщовичі",
           "Навоз",
           "Білка Королівська"
-        ]
+        ],
+        "id": "1-snap-2",
+        "estateId": 1,
+        "snapshotIndex": 2,
+        "type": "snapshot",
+        "displayName": "Львівське староство (1564-1565)",
+        "displayType": "Склад маєтності"
       }
     ]
   },
   {
     "id": 2,
+    "status": "approved",
     "propertyType": "private",
     "estateType": "klucz",
     "name": "Золочівський ключ",
@@ -136,6 +147,7 @@
   },
   {
     "id": 3,
+    "status": "approved",
     "propertyType": "church",
     "estateType": "klucz",
     "name": "Козлівський ключ",
@@ -146,10 +158,14 @@
       49.55665,
       25.33962
     ],
-    "contents": []
+    "contents": [],
+    "type": "estate",
+    "displayName": "Козлівський ключ",
+    "displayType": "Маєтність"
   },
   {
     "id": 4,
+    "status": "approved",
     "propertyType": "private",
     "estateType": "klucz",
     "name": "Поморянський ключ",
@@ -167,6 +183,7 @@
         "sourceLink": "https://polona.pl/item-view/629265fc-8c72-4273-81be-d594e10cc795?page=0",
         "owner": "",
         "notes": "",
+        "status": "approved",
         "items": [
           "Поморяни",
           "Розгадів",
@@ -197,6 +214,7 @@
   },
   {
     "id": 5,
+    "status": "approved",
     "propertyType": "royal",
     "estateType": "starostwo",
     "name": "Глинянське староство",
@@ -214,6 +232,7 @@
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Урсула з Дідушицьких, за 1-м чол. Блендовська, за 2-м чол. Потоцька, чашникова коронна",
         "notes": "",
+        "status": "approved",
         "items": [
           "Глиняни",
           "Замістя",
@@ -227,7 +246,8 @@
         "sourceSignature": "AGAD MK 1/4/0/8/48 - f. 227",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
-        "notes": "як держава, раніше у складі Львівського староства",
+        "notes": "Держава, раніше у складі Львівського староства",
+        "status": "approved",
         "items": [
           "Глиняни",
           "Полтва",
@@ -243,6 +263,7 @@
   },
   {
     "id": 6,
+    "status": "approved",
     "propertyType": "royal",
     "estateType": "starostwo",
     "name": "Щирецьке староство",
@@ -260,6 +281,7 @@
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Пелагія з Потоцьких Потоцька, каштелянова львівська",
         "notes": "",
+        "status": "approved",
         "items": [
           "Щирець",
           "Воля Седерицька",

@@ -58,9 +58,11 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "contents",
     header: "Склад",
     cell: ({ row }) => {
-      let contents = row.getValue("contents");
+      let contents = row.getValue("contents") as EstateSnapshot[];
 
-      if (Array.isArray(contents) && contents.length > 0) {
+      contents = contents.filter((s) => s.status == 'approved');
+
+      if (contents.length > 0) {
         contents.sort((a, b) => a.date.localeCompare(b.date));
 
         return (
@@ -72,7 +74,7 @@ export const columns: ColumnDef<Estate>[] = [
                     <Button size="xs" variant="link">{snapshot.date}</Button>
                   </HoverCardTrigger>
                   <HoverCardContent className="flex w-64 flex-col gap-0.5 dark:bg-[#111827] text-xs truncate text-wrap">
-                    {snapshot.items.join(', ')}
+                    {snapshot.items?.join(', ')}
                   </HoverCardContent>
                 </HoverCard>
               )

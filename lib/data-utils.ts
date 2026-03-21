@@ -16,6 +16,16 @@ export async function getAllEstates(): Promise<Estate[]> {
 }
 
 /**
+ * Get the list of approved estates
+ * @returns 
+ */
+export async function getApprovedEstates(): Promise<Estate[]> {
+    const fileContent = await fs.readFile(DATA_PATH, 'utf-8');
+    let estates = JSON.parse(fileContent);
+    return estates.filter((e: Estate) => e.status === 'approved');
+} 
+
+/**
  * Create new estate
  * @param userData Data for the new entity to create
  * @returns Created entity
@@ -42,6 +52,7 @@ export async function createEstate(userData: any): Promise<Estate> {
         voivodeship: userData.voivodeship,
         district: userData.district,
         coords: coordsArray,
+        status: 'pending',
         contents: []
     };
     
@@ -135,6 +146,7 @@ export async function createEstateSnapshot(estateId: number, snapshotData: any):
 
     const newSnapshot = {
         ...snapshotData,
+        status: 'pending',
         items
     };
 

@@ -4,7 +4,8 @@ export interface EstateSnapshot {
     sourceLink?: string,
     owner?: string,
     notes?: string,
-    items?: string[]
+    items?: string[],
+    status?: string
 }
 
 export interface Estate {
@@ -16,5 +17,6 @@ export interface Estate {
     voivodeship: string,
     district?: string,
     coords: number[],
-    contents?: EstateSnapshot[]
+    contents?: EstateSnapshot[],
+    status?: string
 }

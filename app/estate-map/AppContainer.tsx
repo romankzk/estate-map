@@ -18,8 +18,8 @@ const LeafletMap = dynamic<{
     onOpenSheet: (marker: any) => void;
 }>(
     () => import('./LeafletMap'),
-    { 
-        ssr: false, 
+    {
+        ssr: false,
         loading: () => (
             <div className="w-full h-[70vh] flex items-center justify-center bg-white dark:bg-slate-900 text-slate-400">
                 Завантаження карти...
@@ -64,8 +64,8 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
         <>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold">Реєстр маєтностей</h1>
-                <Button 
-                    variant="default" 
+                <Button
+                    variant="default"
                     className="cursor-pointer p-3 bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
                     onClick={() => setIsAddSheetOpen(true)}
                 >
@@ -81,44 +81,42 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                         <TabsTrigger value="list"><List className="size-4 mr-1" /> Список</TabsTrigger>
                     </TabsList>
                 </div>
-                
+
                 <TabsContent value="map" className="mt-0 outline-none">
                     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden border dark:border-gray-800">
                         <div className="overflow-x-auto">
-                            <LeafletMap 
-                                data={data} 
-                                center={center} 
-                                zoom={zoom} 
-                                onOpenSheet={handleOpenSheet} 
+                            <LeafletMap
+                                data={data}
+                                center={center}
+                                zoom={zoom}
+                                onOpenSheet={handleOpenSheet}
                             />
                         </div>
                     </div>
                 </TabsContent>
-                
+
                 <TabsContent value="list" className="mt-0 outline-none">
-                   <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6 border dark:border-gray-800">
-                       <div className="overflow-x-auto">
-                            <DataTable 
-                                columns={columns} 
-                                data={data} 
-                                onOpenDrawer={handleOpenSheet} 
-                            />
-                        </div>
-                   </div>
+                    <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151] overflow-x-auto">
+                        <DataTable
+                            columns={columns}
+                            data={data}
+                            onOpenDrawer={handleOpenSheet}
+                        />
+                    </div>
                 </TabsContent>
             </Tabs>
 
-            <ViewEstateSheet 
-                isOpen={isSheetOpen} 
-                onClose={handleCloseSheet} 
+            <ViewEstateSheet
+                isOpen={isSheetOpen}
+                onClose={handleCloseSheet}
                 data={selectedItem}
                 onUpdate={handleUpdateEstate}
             />
 
-            <AddEstateSheet 
-                isOpen={isAddSheetOpen} 
-                onClose={() => setIsAddSheetOpen(false)} 
-                onSubmit={handleAddEstate} 
+            <AddEstateSheet
+                isOpen={isAddSheetOpen}
+                onClose={() => setIsAddSheetOpen(false)}
+                onSubmit={handleAddEstate}
             />
         </>
     );

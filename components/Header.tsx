@@ -23,6 +23,12 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-center gap-[10px] md:gap-[12px] lg:gap-[15px]">
+                    <Link 
+                        href="/admin" 
+                        className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-[#F3F4F6] transition-colors"
+                    >
+                        Адмін
+                    </Link>
                     {/* Theme Toggle */}
                     {theme === 'light' ?
                         <button

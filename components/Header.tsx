@@ -14,7 +14,7 @@ export default function Header() {
                 <Link className="flex items-center gap-[12px] md:gap-[15px] lg:gap-[20px] flex-shrink-0" href="/">
                     <div className="hidden sm:block">
                         <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[18px] md:text-[20px] lg:text-[24px] font-bold leading-tight">
-                            Карта маєтностей
+                            Реєстр маєтностей
                         </h1>
                         <p className="text-gray-700 dark:text-white text-[11px] md:text-[12px] lg:text-[13px] opacity-80 leading-tight mt-[2px]">
                             від творців Інвентаріуму

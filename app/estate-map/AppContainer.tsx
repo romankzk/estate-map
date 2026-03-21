@@ -66,7 +66,7 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                 <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[24px] md:text-[28px] lg:text-[32px] font-bold">Реєстр маєтностей</h1>
                 <Button 
                     variant="default" 
-                    className="cursor-pointer"
+                    className="cursor-pointer p-3 bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
                     onClick={() => setIsAddSheetOpen(true)}
                 >
                     <Plus className="size-4 mr-0.5" /> Додати

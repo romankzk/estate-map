@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod"
-import { addEstateSnapshot } from "@/lib/data-utils";
+import { createEstateSnapshot } from "@/lib/data-utils";
 import { DialogClose, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -43,14 +43,14 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             }
 
             try {
-                const updatedManor = await addEstateSnapshot(data.id, value);
-                if (onUpdate) onUpdate(updatedManor);
-                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано!`, { position: "bottom-center"});
+                const updatedEstate = await createEstateSnapshot(data.id, value);
+                if (onUpdate) onUpdate(updatedEstate);
+                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано!`, { position: "bottom-center" });
                 onClose();
                 form.reset();
             } catch (error) {
-                console.error("Failed to add record", error);
-                toast.error(`Сталася помилка: ${error}`, { position: "bottom-center"});
+                console.error("Failed to add snapshot", error);
+                toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });
             }
         },
     });
@@ -197,7 +197,12 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                 <DialogClose asChild>
                     <Button type="button" variant="outline">Скасувати</Button>
                 </DialogClose>
-                <Button type="submit">Зберегти</Button>
+                <Button
+                    type="submit"
+                    className="cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors"
+                >
+                    Зберегти
+                </Button>
             </DialogFooter>
         </form>
     )

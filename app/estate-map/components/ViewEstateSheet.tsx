@@ -84,7 +84,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                         <Plus size={12} /> Додати склад {EstateTypes.get(data.estateType).labelGenitive.toLowerCase()}
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent>
+                                <DialogContent className="dark:bg-[#111827] border-b border-gray-300 dark:border-[#374151]">
                                     <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate} />
                                 </DialogContent>
                             </Dialog>

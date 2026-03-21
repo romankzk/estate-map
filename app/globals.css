@@ -131,6 +131,10 @@ body {
   }
 }
 
+.leaflet-popup {
+  
+}
+
 .leaflet-popup-content {
     font-family: 'Inter', sans-serif;
 }

@@ -1,17 +1,26 @@
 'use server';
 
-import { Estate } from '@/app/estates-map/types';
+import { Estate } from '@/app/estate-map/types';
 import fs from 'fs/promises';
 import path from 'path';
 
 const DATA_PATH = path.join(process.cwd(), 'data', 'data.json');
 
+/**
+ * Get the list of all estates
+ * @returns 
+ */
 export async function getAllEstates(): Promise<Estate[]> {
     const fileContent = await fs.readFile(DATA_PATH, 'utf-8');
     return JSON.parse(fileContent);
 }
 
-export async function addEstate(userData: any): Promise<Estate> {
+/**
+ * Create new estate
+ * @param userData Data for the new entity to create
+ * @returns Created entity
+ */
+export async function createEstate(userData: any): Promise<Estate> {
     const data = await getAllEstates();
     
     let coordsArray = [49.8397, 24.0297]; // Default to Lviv if parsing fails
@@ -44,7 +53,13 @@ export async function addEstate(userData: any): Promise<Estate> {
     return newEstateData;
 }
 
-export async function addEstateSnapshot(id: number, snapshotData: any): Promise<Estate> {
+/**
+ * Create new estate snapshot
+ * @param id Estated ID
+ * @param snapshotData New snapshot data
+ * @returns Estate with the snapshot added
+ */
+export async function createEstateSnapshot(id: number, snapshotData: any): Promise<Estate> {
     const data = await getAllEstates();
     const targetEstate = data.find((estate: any) => estate.id === id);
 

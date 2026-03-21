@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { addEstate } from "@/lib/data-utils";
+import { createEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 import { toast } from "sonner";
@@ -54,9 +54,9 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                 return;
             }
 
-            const newManor = await addEstate(value);
+            const createdEstate = await createEstate(value);
             toast.success(`${value.name} успішно додано!`, { position: "bottom-center" });
-            onSubmit(newManor);
+            onSubmit(createdEstate);
             form.reset();
             onSheetClose();
         },

@@ -39,7 +39,7 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto dark:border-[#374151] dark:bg-[#111827]">
                 <DialogHeader>
                     <DialogTitle>Склад маєтку: {estate.name}</DialogTitle>
                 </DialogHeader>

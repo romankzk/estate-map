@@ -72,7 +72,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                             )}
 
                             {data.voivodeship && (
-                                <InfoItem iconName="Landmark" label="Воєводство" value={data.voivodeship} />
+                                <InfoItem iconName="Landmark" label="Воєводство / комітат" value={data.voivodeship} />
                             )}
 
                             {data.district && (

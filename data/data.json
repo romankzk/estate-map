@@ -304,28 +304,810 @@
     "id": 7,
     "propertyType": "royal",
     "estateType": "starostwo",
-    "name": "Test",
-    "center": "",
+    "name": "Галицьке староство",
+    "center": "Галич",
     "voivodeship": "Руське",
+    "district": "Галицький",
+    "coords": [
+      49.12329,
+      24.72997
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Галицьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 8,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Городоцьке староство",
+    "center": "Городок",
+    "voivodeship": "Руське",
+    "district": "Львівський",
+    "coords": [
+      49.78442,
+      23.64653
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Городоцьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 9,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Дрогобицьке староство",
+    "center": "Дрогобич",
+    "voivodeship": "Руське",
+    "district": "Дрогобицький",
+    "coords": [
+      49.35118,
+      23.50559
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Дрогобицьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 10,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Жидачівське староство",
+    "center": "Жидачів",
+    "voivodeship": "Руське",
+    "district": "Жидачівський",
+    "coords": [
+      49.38813,
+      24.13507
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Жидачівське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 11,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Кам'янське староство",
+    "center": "Кам'янка-Струмилова",
+    "voivodeship": "Руське",
+    "district": "Львівський",
+    "coords": [
+      50.10467,
+      24.34433
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Кам'янське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 12,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Красноставське староство",
+    "center": "Красностав",
+    "voivodeship": "Руське",
+    "district": "Красноставський",
+    "coords": [
+      50.98286,
+      23.17034
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Красноставське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 13,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Перемишльське староство",
+    "center": "Перемишль",
+    "voivodeship": "Руське",
+    "district": "Перемишльський",
+    "coords": [
+      49.78442,
+      22.76985
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Перемишльське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 14,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Сяноцьке староство",
+    "center": "Сянок",
+    "voivodeship": "Руське",
+    "district": "Сяноцький",
+    "coords": [
+      49.56085,
+      22.20715
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Сяноцьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 15,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Холмське староство",
+    "center": "Холм",
+    "voivodeship": "Руське",
+    "district": "Холмський",
+    "coords": [
+      51.13391,
+      23.47092
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Холмське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 16,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Ратненське староство",
+    "center": "Ратне",
+    "voivodeship": "Руське",
+    "district": "Ратненський",
+    "coords": [
+      51.6715,
+      24.5249
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Ратненське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 17,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Стрийське староство",
+    "center": "Стрий",
+    "voivodeship": "Руське",
+    "district": "Стрийський",
+    "coords": [
+      49.25582,
+      23.85252
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Стрийське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 18,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Рогатинське староство",
+    "center": "Рогатин",
+    "voivodeship": "Руське",
+    "district": "Галицький",
+    "coords": [
+      49.4093,
+      24.61006
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Рогатинське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 19,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Теребовлянське староство",
+    "center": "Теребовля",
+    "voivodeship": "Руське",
+    "district": "Теребовлянський",
+    "coords": [
+      49.29602,
+      25.69187
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Теребовлянське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 20,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Белзьке староство",
+    "center": "Белз",
+    "voivodeship": "Белзьке",
+    "district": "Белзький",
+    "coords": [
+      50.38231,
+      24.01277
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Белзьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 21,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Любачівське староство",
+    "center": "Любачів",
+    "voivodeship": "Белзьке",
+    "district": "Любачівський",
+    "coords": [
+      50.15738,
+      23.12227
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Любачівське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 22,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Тишовецьке староство",
+    "center": "Тишівці",
+    "voivodeship": "Белзьке",
+    "district": "Белзький",
+    "coords": [
+      50.61718,
+      23.69807
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Тишовецьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 23,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Грабовецьке староство",
+    "center": "Грабовець",
+    "voivodeship": "Белзьке",
+    "district": "Грабовецький",
+    "coords": [
+      50.82177,
+      23.54937
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Грабовецьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 24,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Сокальське староство",
+    "center": "Сокаль",
+    "voivodeship": "Белзьке",
+    "district": "Белзький",
+    "coords": [
+      50.47908,
+      24.27695
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Сокальське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 25,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Кам'янецьке староство",
+    "center": "Кам'янець",
+    "voivodeship": "Подільське",
+    "district": "Кам'янецький",
+    "coords": [
+      48.67781,
+      26.58468
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Кам'янецьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 26,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Барське староство",
+    "center": "Бар",
+    "voivodeship": "Подільське",
+    "district": "Летичівський",
+    "coords": [
+      49.07752,
+      27.68143
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Барське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 27,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Хмільницьке староство",
+    "center": "Хмільник",
+    "voivodeship": "Подільське",
+    "district": "Летичівський",
+    "coords": [
+      49.55618,
+      27.94888
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Хмільницьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 28,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Кременецьке староство",
+    "center": "Кременець",
+    "voivodeship": "Волинське",
+    "district": "Кременецький",
+    "coords": [
+      50.09625,
+      25.72603
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Кременецьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 29,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Луцьке староство",
+    "center": "Луцьк",
+    "voivodeship": "Волинське",
+    "district": "Луцький",
+    "coords": [
+      50.74471,
+      25.31937
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Луцьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 30,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Володимирське староство",
+    "center": "Володимир",
+    "voivodeship": "Волинське",
+    "district": "Володимирський",
+    "coords": [
+      50.84725,
+      24.31789
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Володимирське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 31,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Ковельське староство",
+    "center": "Ковель",
+    "voivodeship": "Волинське",
+    "district": "Володимирський",
+    "coords": [
+      51.21215,
+      24.70834
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Ковельське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 32,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Вінницьке староство",
+    "center": "Вінниця",
+    "voivodeship": "Брацлавське",
+    "district": "Вінницький",
+    "coords": [
+      49.2319,
+      28.4676
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Вінницьке староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 33,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Брацлавське староство",
+    "center": "Брацлав",
+    "voivodeship": "Брацлавське",
+    "district": "Брацлавський",
+    "coords": [
+      48.827,
+      28.9366
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Брацлавське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 34,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Гайсинське староство",
+    "center": "Гайсин",
+    "voivodeship": "Брацлавське",
     "district": "",
     "coords": [
-      49.40952,
-      24.61015
+      48.81195,
+      29.38963
     ],
-    "status": "pending",
-    "contents": [
-      {
-        "date": "1650",
-        "sourceSignature": "Test",
-        "sourceLink": "",
-        "owner": "",
-        "notes": "",
-        "items": [
-          "Test",
-          "Test2"
-        ],
-        "status": "pending"
-      }
-    ]
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Гайсинське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 35,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Літинське староство",
+    "center": "Літин",
+    "voivodeship": "Брацлавське",
+    "district": "",
+    "coords": [
+      49.32904,
+      28.07384
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Літинське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 36,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Білоцерківське староство",
+    "center": "Біла Церква",
+    "voivodeship": "Київське",
+    "district": "Київський",
+    "coords": [
+      49.79689,
+      30.11507
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Білоцерківське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 37,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Житомирське староство",
+    "center": "Житомир",
+    "voivodeship": "Київське",
+    "district": "Житомирський",
+    "coords": [
+      50.2599,
+      28.6674
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Житомирське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 38,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Київське староство",
+    "center": "Київ",
+    "voivodeship": "Київське",
+    "district": "Київський",
+    "coords": [
+      50.4503,
+      30.5241
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Київське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 39,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Черкаське староство",
+    "center": "Черкаси",
+    "voivodeship": "Київське",
+    "district": "",
+    "coords": [
+      49.4449,
+      32.0567
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Черкаське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 40,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Переяславське староство",
+    "center": "Переяслав",
+    "voivodeship": "Київське",
+    "district": "",
+    "coords": [
+      50.06419,
+      31.4451
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Переяславське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 41,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Богуславське староство",
+    "center": "Богуслав",
+    "voivodeship": "Київське",
+    "district": "Київський",
+    "coords": [
+      49.5476,
+      30.87296
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Богуславське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 42,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Канівське староство",
+    "center": "Канів",
+    "voivodeship": "Київське",
+    "district": "Київський",
+    "coords": [
+      49.75499,
+      31.46107
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Канівське староство",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 43,
+    "propertyType": "private",
+    "estateType": "klucz",
+    "name": "Вишневецький ключ",
+    "center": "Вишнівець",
+    "voivodeship": "Волинське",
+    "district": "Кременецький",
+    "coords": [
+      49.90193,
+      25.75084
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Вишневецький ключ",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 44,
+    "propertyType": "private",
+    "estateType": "klucz",
+    "name": "Скалатський ключ",
+    "center": "Скалат",
+    "voivodeship": "Руське",
+    "district": "Теребовлянський",
+    "coords": [
+      49.42488,
+      25.97743
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Скалатський ключ",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 45,
+    "propertyType": "private",
+    "estateType": "klucz",
+    "name": "Махнівський ключ",
+    "center": "Махнівка",
+    "voivodeship": "Київське",
+    "district": "Житомирський",
+    "coords": [
+      49.72054,
+      28.6714
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Махнівський ключ",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 46,
+    "propertyType": "private",
+    "estateType": "klucz",
+    "name": "Звягельський ключ",
+    "center": "Звягель",
+    "voivodeship": "Волинське",
+    "district": "",
+    "coords": [
+      50.59168,
+      27.60641
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Звягельський ключ",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 47,
+    "propertyType": "private",
+    "estateType": "klucz",
+    "name": "Чуднівський ключ",
+    "center": "Чуднів",
+    "voivodeship": "Київське",
+    "district": "",
+    "coords": [
+      50.05229,
+      28.11539
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Чуднівський ключ",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 48,
+    "propertyType": "royal",
+    "estateType": "dominia",
+    "name": "Великобичківська домінія",
+    "center": "Великий Бичків",
+    "voivodeship": "Мармарош",
+    "district": "",
+    "coords": [
+      47.97349,
+      24.01302
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Великобичківська домінія",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 49,
+    "propertyType": "private",
+    "estateType": "dominia",
+    "name": "Сентміклошська (Чинадіївська) домінія",
+    "center": "Сент-Міклош (Чинадійово)",
+    "voivodeship": "Берег",
+    "district": "",
+    "coords": [
+      48.50051,
+      22.84418
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Сентміклошська (Чинадіївська) домінія",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 50,
+    "propertyType": "private",
+    "estateType": "dominia",
+    "name": "Ужгородська домінія",
+    "center": "Ужгород",
+    "voivodeship": "Унг",
+    "district": "",
+    "coords": [
+      48.62236,
+      22.30216
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Ужгородська домінія",
+    "displayType": "Маєтність"
+  },
+  {
+    "id": 51,
+    "propertyType": "private",
+    "estateType": "ksiestwo",
+    "name": "Збаразьке князівство",
+    "center": "Збараж",
+    "voivodeship": "Волинське",
+    "district": "Кременецький",
+    "coords": [
+      49.66085,
+      25.77633
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Збаразьке князівство",
+    "displayType": "Маєтність"
   }
 ]

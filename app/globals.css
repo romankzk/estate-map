@@ -131,8 +131,12 @@ body {
   }
 }
 
-.leaflet-popup {
-  
+html.dark .leaflet-popup-content-wrapper {
+  @apply bg-[#111827] text-white;
+}
+
+html.dark .leaflet-popup-tip {
+  @apply bg-[#111827];
 }
 
 .leaflet-popup-content {

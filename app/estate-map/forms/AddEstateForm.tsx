@@ -59,11 +59,15 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
             onSubmit: formSchema
         },
         onSubmit: async ({ value }) => {
-            const createdEstate = await createEstate(value);
-            toast.success(`${value.name} успішно додано!`, { position: "bottom-center" });
-            onSubmit(createdEstate);
-            form.reset();
-            onSheetClose();
+            try {
+                await createEstate(value);
+                toast.success(`${value.name} додано, очікує перевірки адміністратором`, { position: "bottom-center" });
+                form.reset();
+                onSheetClose();
+            } catch (error) {
+                console.error("Failed to add estate", error);
+                toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });
+            }
         },
     });
 
@@ -98,76 +102,78 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         )
                     }}
                 />
-                {/* Property Type field */}
-                <form.Field
-                    name="propertyType"
-                    children={(field) => {
-                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                        return (
-                            <Field orientation="responsive" data-invalid={isInvalid}>
-                                <FieldContent>
-                                    <FieldLabel htmlFor="property-type-select">
-                                        Форма власності *
-                                    </FieldLabel>
-                                </FieldContent>
-                                <Select
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onValueChange={field.handleChange}
-                                >
-                                    <SelectTrigger
-                                        id="property-type-select"
-                                        aria-invalid={isInvalid}
-                                        className="min-w-[120px]"
+                <div className="grid grid-cols-2 gap-4">
+                    {/* Property Type field */}
+                    <form.Field
+                        name="propertyType"
+                        children={(field) => {
+                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                            return (
+                                <Field orientation="responsive" data-invalid={isInvalid}>
+                                    <FieldContent>
+                                        <FieldLabel htmlFor="property-type-select">
+                                            Форма власності *
+                                        </FieldLabel>
+                                    </FieldContent>
+                                    <Select
+                                        name={field.name}
+                                        value={field.state.value}
+                                        onValueChange={field.handleChange}
                                     >
-                                        <SelectValue placeholder="Тип" />
-                                    </SelectTrigger>
-                                    <SelectContent position="item-aligned">
-                                        {Array.from(PropertyTypes.entries()).map(([key, value]) => (
-                                            <SelectItem key={key} value={key}>{value.label}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                            </Field>
-                        )
-                    }}
-                />
-                {/* Estate Type field */}
-                <form.Field
-                    name="estateType"
-                    children={(field) => {
-                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                        return (
-                            <Field orientation="responsive" data-invalid={isInvalid}>
-                                <FieldContent>
-                                    <FieldLabel htmlFor="estate-type-select">
-                                        Тип маєтності *
-                                    </FieldLabel>
-                                </FieldContent>
-                                <Select
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onValueChange={field.handleChange}
-                                >
-                                    <SelectTrigger
-                                        id="estate-type-select"
-                                        aria-invalid={isInvalid}
-                                        className="min-w-[120px]"
+                                        <SelectTrigger
+                                            id="property-type-select"
+                                            aria-invalid={isInvalid}
+                                            className="min-w-[120px]"
+                                        >
+                                            <SelectValue placeholder="Тип" />
+                                        </SelectTrigger>
+                                        <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
+                                            {Array.from(PropertyTypes.entries()).map(([key, value]) => (
+                                                <SelectItem key={key} value={key}>{value.label}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
+                                </Field>
+                            )
+                        }}
+                    />
+                    {/* Estate Type field */}
+                    <form.Field
+                        name="estateType"
+                        children={(field) => {
+                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                            return (
+                                <Field orientation="responsive" data-invalid={isInvalid}>
+                                    <FieldContent>
+                                        <FieldLabel htmlFor="estate-type-select">
+                                            Тип маєтності *
+                                        </FieldLabel>
+                                    </FieldContent>
+                                    <Select
+                                        name={field.name}
+                                        value={field.state.value}
+                                        onValueChange={field.handleChange}
                                     >
-                                        <SelectValue placeholder="Тип" />
-                                    </SelectTrigger>
-                                    <SelectContent position="item-aligned">
-                                        {Array.from(EstateTypes.entries()).map(([key, value]) => (
-                                            <SelectItem key={key} value={key}>{value.label}</SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                            </Field>
-                        )
-                    }}
-                />
+                                        <SelectTrigger
+                                            id="estate-type-select"
+                                            aria-invalid={isInvalid}
+                                            className="min-w-[120px]"
+                                        >
+                                            <SelectValue placeholder="Тип" />
+                                        </SelectTrigger>
+                                        <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
+                                            {Array.from(EstateTypes.entries()).map(([key, value]) => (
+                                                <SelectItem key={key} value={key}>{value.label}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
+                                </Field>
+                            )
+                        }}
+                    />
+                </div>
                 {/* Voivodeship field */}
                 <form.Field
                     name="voivodeship"
@@ -192,12 +198,12 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     >
                                         <SelectValue placeholder="Виберіть зі списку" />
                                     </SelectTrigger>
-                                    <SelectContent position="item-aligned">
-                                        {ProvincesList.map(state => (
-                                            <SelectGroup>
+                                    <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
+                                        {ProvincesList.map((state, sIdx) => (
+                                            <SelectGroup key={sIdx}>
                                                 <SelectLabel>{state.stateLabel}</SelectLabel>
-                                                {state.provinces.map((province, idx) => (
-                                                    <SelectItem key={idx} value={province}>{province} {state.prefix}</SelectItem>
+                                                {state.provinces.map((province, pIdx) => (
+                                                    <SelectItem key={pIdx} value={province}>{province} {state.prefix}</SelectItem>
                                                 ))}
                                             </SelectGroup>
                                         ))}
@@ -282,7 +288,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                 <Button type="button" variant="outline" onClick={onSheetClose} className="flex-1 sm:flex-none">
                     Скасувати
                 </Button>
-                <Button type="submit" variant="default" className="cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors">
+                <Button type="submit" variant="default" className="flex-1 sm:flex-none cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors">
                     Зберегти
                 </Button>
             </SheetFooter>

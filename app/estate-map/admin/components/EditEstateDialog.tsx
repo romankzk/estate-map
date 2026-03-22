@@ -13,7 +13,9 @@ import { Input } from "@/components/ui/input";
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
+    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -22,7 +24,7 @@ import { updateEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";
-import { EstateTypes, PropertyTypes } from "@/app/estate-map/utils/enums";
+import { EstateTypes, PropertyTypes, ProvincesList } from "@/app/estate-map/utils/enums";
 
 const formSchema = z.object({
     name: z.string().min(2).max(50),
@@ -70,7 +72,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto dark:border-[#374151] dark:bg-[#111827]">
                 <DialogHeader>
                     <DialogTitle>Редагувати маєток</DialogTitle>
                 </DialogHeader>
@@ -112,7 +114,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                         <SelectTrigger id="edit-property-type">
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(PropertyTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -133,7 +135,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                         <SelectTrigger id="edit-estate-type">
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(EstateTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -156,9 +158,14 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                     <SelectTrigger id="edit-voivodeship">
                                         <SelectValue placeholder="Виберіть зі списку" />
                                     </SelectTrigger>
-                                    <SelectContent>
-                                        {voivodeshipsList.map((voivodeship, idx) => (
-                                            <SelectItem key={idx} value={voivodeship}>{voivodeship}</SelectItem>
+                                    <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
+                                        {ProvincesList.map((state, sIdx) => (
+                                            <SelectGroup key={sIdx}>
+                                                <SelectLabel>{state.stateLabel}</SelectLabel>
+                                                {state.provinces.map((province, pIdx) => (
+                                                    <SelectItem key={pIdx} value={province}>{province} {state.prefix}</SelectItem>
+                                                ))}
+                                            </SelectGroup>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -219,7 +226,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                         <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                             Скасувати
                         </Button>
-                        <Button type="submit">Зберегти зміни</Button>
+                        <Button type="submit" className="cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors">Зберегти зміни</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

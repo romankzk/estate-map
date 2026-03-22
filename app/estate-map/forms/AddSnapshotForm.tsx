@@ -49,7 +49,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             try {
                 const updatedEstate = await createEstateSnapshot(data.id, value);
                 if (onUpdate) onUpdate(updatedEstate);
-                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано!`, { position: "bottom-center" });
+                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано`, { position: "bottom-center" });
                 onClose();
                 form.reset();
             } catch (error) {

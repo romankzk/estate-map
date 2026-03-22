@@ -71,6 +71,11 @@ export const EstateTypes = new Map<string, any>([
         labelGenitive: "Волості",
         owner: "Власник"
     }],
+    ["dominia", {
+        label: "Домінія",
+        labelGenitive: "Домінії",
+        owner: "Власник"
+    }],
 ]);
 
 export const ProvincesList = [

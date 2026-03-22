@@ -61,7 +61,7 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto dark:border-[#374151] dark:bg-[#111827]">
                 <DialogHeader>
                     <DialogTitle>Редагувати запис складу</DialogTitle>
                 </DialogHeader>
@@ -174,7 +174,7 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                         <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                             Скасувати
                         </Button>
-                        <Button type="submit">Зберегти зміни</Button>
+                        <Button type="submit" className="cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors">Зберегти зміни</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

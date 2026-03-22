@@ -29,13 +29,15 @@ import { ManageSnapshotsDialog } from "./ManageSnapshotsDialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { EditSnapshotDialog } from "./EditSnapshotDialog";
+import { cn } from "@/lib/utils";
 
 interface AdminEstateTableProps {
     estates: Estate[];
-    onlyPending?: boolean;
+    pendingItems?: any[];
+    pendingFilter?: boolean;
 }
 
-export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTableProps) {
+export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = false }: AdminEstateTableProps) {
     const router = useRouter();
     const [editingEstate, setEditingEstate] = useState<Estate | null>(null);
     const [managingSnapshotsEstate, setManagingSnapshotsEstate] = useState<Estate | null>(null);
@@ -61,7 +63,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                 toast.success(`Склад відхилено та видалено`, { position: "bottom-center" });
                 router.refresh();
             } catch (error) {
-                toast.error(`Помилка: ${error}`, { position: "bottom-center" });
+                toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });
             }
         }
     };
@@ -72,7 +74,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
             toast.success(`"${estate.name}" схвалено`, { position: "bottom-center" });
             router.refresh();
         } catch (error) {
-            toast.error(`Помилка: ${error}`, { position: "bottom-center" });
+            toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });
         }
     };
 
@@ -82,42 +84,18 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
             toast.success(`Склад маєтності схвалено`, { position: "bottom-center" });
             router.refresh();
         } catch (error) {
-            toast.error(`Помилка: ${error}`, { position: "bottom-center" });
+            toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });
         }
     };
 
     const displayData = useMemo(() => {
-        if (!onlyPending) return estates;
-
-        const pendingItems: any[] = [];
-
-        estates.forEach(estate => {
-            if (estate.status === Statuses.Pending) {
-                pendingItems.push({
-                    ...estate,
-                    type: 'estate',
-                    displayName: estate.name,
-                    displayType: 'Маєтність'
-                });
-            }
-
-            estate.contents?.forEach((snapshot, index) => {
-                if (snapshot.status === Statuses.Pending) {
-                    pendingItems.push({
-                        ...snapshot,
-                        id: `${estate.id}-snap-${index}`,
-                        estateId: estate.id,
-                        snapshotIndex: index,
-                        type: 'snapshot',
-                        displayName: `${estate.name} (${snapshot.date})`,
-                        displayType: 'Склад маєтності'
-                    });
-                }
-            });
-        });
-
-        return pendingItems;
-    }, [estates, onlyPending]);
+        if (!pendingFilter) {
+            return estates;
+        }
+        else {
+            return pendingItems;
+        }
+    }, [estates, pendingItems]);
 
     const columns = useMemo<ColumnDef<any>[]>(() => {
         const baseColumns: ColumnDef<any>[] = [
@@ -131,7 +109,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                 cell: ({ row }) => (
                     <div className="flex flex-col">
                         <span className="font-medium">{row.original.displayName || row.original.name}</span>
-                        {onlyPending && (
+                        {pendingFilter && (
                             <span className="text-xs text-muted-foreground">{row.original.displayType}</span>
                         )}
                     </div>
@@ -162,7 +140,11 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                 id: "status",
                 header: "Статус",
                 cell: ({ row }) => (
-                    <Badge variant={row.original.status === Statuses.Approved ? 'default' : 'secondary'}>
+                    <Badge
+                        className={cn(row.original.status === Statuses.Approved ?
+                            "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300" :
+                            "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300")}
+                    >
                         {row.original.status === Statuses.Approved ? 'Схвалено' : 'Очікує'}
                     </Badge>
                 )
@@ -182,7 +164,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                        onClick={() => isSnapshot 
+                                        onClick={() => isSnapshot
                                             ? handleApproveSnapshot(item.estateId, item.snapshotIndex, item)
                                             : handleApproveEstate(item)
                                         }
@@ -254,7 +236,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
         ];
 
         return baseColumns;
-    }, [onlyPending]);
+    }, [pendingItems]);
 
     const table = useReactTable({
         data: displayData,

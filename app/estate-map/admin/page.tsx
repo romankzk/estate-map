@@ -26,7 +26,7 @@ export default async function AdminPage() {
                                 Всі дані <Badge variant="outline">{estates.length}</Badge>
                             </TabsTrigger>
                             <TabsTrigger value="pending">
-                                Очікують <Badge variant="outline">0</Badge>
+                                Очікують <Badge variant="outline">{pendingItems.length}</Badge>
                             </TabsTrigger>
                         </TabsList>
                     </div>
@@ -41,7 +41,7 @@ export default async function AdminPage() {
                     <TabsContent value="pending" className="mt-0 outline-none">
                         <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151]">
                             <div className="overflow-x-auto">
-                                <AdminEstateTable estates={estates} onlyPending={true} />
+                                <AdminEstateTable estates={estates} pendingItems={pendingItems} pendingFilter={true}/>
                             </div>
                         </div>
                     </TabsContent>

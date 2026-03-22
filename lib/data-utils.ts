@@ -45,7 +45,7 @@ export async function getPendingItems() {
             if (snapshot.status === Statuses.Pending) {
                 pendingItems.push({
                     ...snapshot,
-                    id: `${estate.id}-snap-${index}`,
+                    id: `${estate.id}-${index}`,
                     estateId: estate.id,
                     snapshotIndex: index,
                     type: 'snapshot',

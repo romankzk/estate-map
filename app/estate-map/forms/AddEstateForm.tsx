@@ -5,6 +5,8 @@ import {
     Select,
     SelectContent,
     SelectGroup,
+    SelectLabel,
+    SelectSeparator,
     SelectItem,
     SelectTrigger,
     SelectValue,
@@ -15,7 +17,7 @@ import { createEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 import { toast } from "sonner";
-import { EstateTypes, PropertyTypes } from "../utils/enums";
+import { EstateTypes, PropertyTypes, ProvincesList } from "../utils/enums";
 
 const formSchema = z.object({
     name: z.string().min(2).max(50),
@@ -26,10 +28,6 @@ const formSchema = z.object({
     center: z.string().optional(),
     coords: z.string().min(2).max(50)
 })
-
-const voivodeshipsList = [
-    "Підляське", "Руське", "Белзьке", "Волинське", "Подільське", "Київське", "Брацлавське", "Чернігівське", "Берестейське"
-]
 
 interface AddEstateFormProps {
     onSheetClose: () => void;
@@ -172,7 +170,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
                                     <FieldLabel htmlFor="voivodeship-select">
-                                        Воєводство
+                                        Воєводство (комітат, цинут)
                                     </FieldLabel>
                                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
@@ -189,9 +187,15 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         <SelectValue placeholder="Виберіть зі списку" />
                                     </SelectTrigger>
                                     <SelectContent position="item-aligned">
-                                        {voivodeshipsList.map((voivodeship, idx) => (
-                                            <SelectItem key={idx} value={voivodeship}>{voivodeship}</SelectItem>
+                                        {ProvincesList.map(state => (
+                                            <SelectGroup>
+                                                <SelectLabel>{state.stateLabel}</SelectLabel>
+                                                {state.provinces.map((province, idx) => (
+                                                    <SelectItem key={idx} value={province}>{province} {state.prefix}</SelectItem>
+                                                ))}
+                                            </SelectGroup>  
                                         ))}
+                                        <SelectSeparator />
                                     </SelectContent>
                                 </Select>
                             </Field>

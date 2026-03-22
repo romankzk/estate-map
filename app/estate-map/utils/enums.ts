@@ -73,6 +73,24 @@ export const EstateTypes = new Map<string, any>([
     }],
 ]);
 
+export const ProvincesList = [
+    {
+        stateLabel: "Річ Посполита (воєводства)",
+        prefix: "воєводство",
+        provinces: ["Руське", "Белзьке", "Київське", "Волинське", "Подільське", "Брацлавське", "Чернігівське", "Берестейське", "Підляське"]
+    },
+    {
+        stateLabel: "Угорське королівство (комітати)",
+        prefix: "(комітат)",
+        provinces: ["Мармарош", "Унг", "Берег", "Угоча", "Земплін", "Шариш", "Спиш"]
+    },
+    {
+        stateLabel: "Молдавське князівство (цинути)",
+        prefix: "цинут",
+        provinces: ["Чернівецький", "Хотинський", "Сучавський"]
+    },
+]
+
 export const Statuses = {
     Pending: "pending",
     Approved: "approved"

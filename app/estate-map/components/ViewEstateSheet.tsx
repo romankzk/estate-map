@@ -80,7 +80,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                             )}
 
                             {data.center && (
-                                <InfoItem iconName="MapPin" label="Адміністративний центр" value={data.center} />
+                                <InfoItem iconName="MapPin" label="Центр" value={data.center} />
                             )}
 
                             <Dialog>

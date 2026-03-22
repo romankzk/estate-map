@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { EstateTypes, PropertyTypes } from "../utils/enums"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface EstatesDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -82,7 +83,7 @@ export function EstatesDataTable<TData, TValue>({
 
                     // Search in items array
                     if (snapshot.items && Array.isArray(snapshot.items)) {
-                        return snapshot.items.some((item: string) => 
+                        return snapshot.items.some((item: string) =>
                             item.toLowerCase().includes(value)
                         )
                     }
@@ -96,8 +97,9 @@ export function EstatesDataTable<TData, TValue>({
     })
 
     return (
-        <div>
-            <div className="flex items-center py-4 gap-2">
+        <div className="space-y-4">
+            {/* Table search input */}
+            <div className="flex items-center gap-2">
                 <Input
                     placeholder="Шукати по всіх полях..."
                     value={globalFilter ?? ""}
@@ -153,23 +155,50 @@ export function EstatesDataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    Попередня
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    Наступна
-                </Button>
+            {/* Pagination controls */}
+            <div className="flex items-center justify-between space-x-6 lg:space-x-8">
+                <div className="flex items-center space-x-2">
+                    <p className="text-sm font-medium">Записів на сторінці</p>
+                    <Select
+                        value={`${table.getState().pagination.pageSize}`}
+                        onValueChange={(value) => {
+                            table.setPageSize(Number(value))
+                        }}
+                    >
+                        <SelectTrigger className="h-8 w-[70px]">
+                            <SelectValue placeholder={table.getState().pagination.pageSize} />
+                        </SelectTrigger>
+                        <SelectContent side="top" className="dark:bg-[#1F2937]">
+                            {[10, 20, 50, 100].map((pageSize) => (
+                                <SelectItem key={pageSize} value={`${pageSize}`}>
+                                    {pageSize}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+                    Сторінка {table.getState().pagination.pageIndex + 1} з{" "}
+                    {table.getPageCount()}
+                </div>
+                <div className="flex items-center justify-end space-x-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        Попередня
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        Наступна
+                    </Button>
+                </div>
             </div>
         </div>
     )

@@ -18,7 +18,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, List, Check, X } from "lucide-react";
+import { Edit, Trash2, List, Check, X, CircleCheck, Clock } from "lucide-react";
 import { EstateTypes, PropertyTypes, Statuses } from "@/app/estate-map/utils/enums";
 import { deleteEstate, updateEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
@@ -30,6 +30,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { EditSnapshotDialog } from "./EditSnapshotDialog";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface AdminEstateTableProps {
     estates: Estate[];
@@ -145,7 +146,11 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                             "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300" :
                             "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300")}
                     >
-                        {row.original.status === Statuses.Approved ? 'Схвалено' : 'Очікує'}
+                        {row.original.status === Statuses.Approved ? (
+                            <><CircleCheck /> Схвалено</>
+                        ) : (
+                            <><Clock /> Очікує перевірки</>
+                        )}
                     </Badge>
                 )
             },
@@ -252,6 +257,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
 
     return (
         <div className="space-y-4">
+            {/* Table search input */}
             <div className="flex items-center gap-2">
                 <Input
                     placeholder="Пошук..."
@@ -305,23 +311,51 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    Попередня
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    Наступна
-                </Button>
+
+            {/* Pagination controls */}
+            <div className="flex items-center justify-between space-x-6 lg:space-x-8">
+                <div className="flex items-center space-x-2">
+                    <p className="text-sm font-medium">Записів на сторінці</p>
+                    <Select
+                        value={`${table.getState().pagination.pageSize}`}
+                        onValueChange={(value) => {
+                            table.setPageSize(Number(value))
+                        }}
+                    >
+                        <SelectTrigger className="h-8 w-[70px]">
+                            <SelectValue placeholder={table.getState().pagination.pageSize} />
+                        </SelectTrigger>
+                        <SelectContent side="top" className="dark:bg-[#1F2937]">
+                            {[10, 20, 50, 100].map((pageSize) => (
+                                <SelectItem key={pageSize} value={`${pageSize}`}>
+                                    {pageSize}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+                    Сторінка {table.getState().pagination.pageIndex + 1} з{" "}
+                    {table.getPageCount()}
+                </div>
+                <div className="flex items-center justify-end space-x-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        Попередня
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        Наступна
+                    </Button>
+                </div>
             </div>
 
             {editingEstate && (

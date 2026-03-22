@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
+    <html lang="uk" suppressHydrationWarning>
       <head />
       <body
         className={`${inter.variable} antialiased`}
@@ -33,7 +34,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+          <Suspense>
+            <Header />
+          </Suspense>
           {children}
           <Toaster />
         </ThemeProvider>

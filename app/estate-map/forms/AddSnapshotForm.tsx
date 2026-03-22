@@ -9,14 +9,21 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-    date: z.string().min(4).max(30),
-    sourceSignature: z.string().min(2).max(50),
+    date: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(30, "Поле повинне містити не більше 30 символів"),
+    sourceSignature: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
     sourceLink: z.url({
-        message: "Введіть URL-адресу у форматі http:// або https://"
-    }).or(z.literal("")),
-    owner: z.string().max(250).optional(),
-    notes: z.string().optional(),
-    items: z.string().min(2)
+        message: "Поле повинне містити URL-адресу у форматі http:// або https://"
+    })
+        .or(z.literal("")),
+    owner: z.string(),
+    notes: z.string(),
+    items: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 500 символів"),
 });
 
 interface AddSnapshotFormProps {
@@ -35,13 +42,10 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             notes: '',
             items: '',
         },
+        validators: {
+            onSubmit: formSchema
+        },
         onSubmit: async ({ value }) => {
-            const result = formSchema.safeParse(value);
-            if (!result.success) {
-                console.error("Validation failed", result.error);
-                return;
-            }
-
             try {
                 const updatedEstate = await createEstateSnapshot(data.id, value);
                 if (onUpdate) onUpdate(updatedEstate);
@@ -71,7 +75,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                             return (
                                 <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="date-input">Рік</FieldLabel>
+                                    <FieldLabel htmlFor="date-input">Рік *</FieldLabel>
                                     <Input
                                         id="date-input"
                                         name={field.name}
@@ -81,7 +85,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="напр. 1710"
                                     />
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
@@ -92,7 +96,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                             return (
                                 <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="signature-input">Джерело: сигнатура</FieldLabel>
+                                    <FieldLabel htmlFor="signature-input">Джерело: сигнатура *</FieldLabel>
                                     <Input
                                         id="signature-input"
                                         name={field.name}
@@ -102,7 +106,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="напр. ЦДІАК 10-1-242 - арк. 35зв"
                                     />
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
@@ -123,7 +127,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="напр. https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031"
                                     />
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
@@ -144,7 +148,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="напр. Адам Потоцький"
                                     />
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
@@ -165,7 +169,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="напр. Раніше у складі Галицького староства"
                                     />
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
@@ -176,7 +180,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                             return (
                                 <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="items-input">Населені пункти</FieldLabel>
+                                    <FieldLabel htmlFor="items-input">Населені пункти *</FieldLabel>
                                     <Textarea
                                         id="items-input"
                                         name={field.name}
@@ -185,8 +189,8 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
                                         placeholder="напр. Львів (місто), Скнилів, Сокільники" />
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     <FieldDescription>Розділяйте населені пункти комою, крапкою з комою, рискою (|) або просто пишіть з нового рядка.</FieldDescription>
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}

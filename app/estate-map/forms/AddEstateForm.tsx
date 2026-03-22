@@ -20,13 +20,23 @@ import { toast } from "sonner";
 import { EstateTypes, PropertyTypes, ProvincesList } from "../utils/enums";
 
 const formSchema = z.object({
-    name: z.string().min(2).max(50),
-    propertyType: z.string(),
-    estateType: z.string(),
-    voivodeship: z.string().min(2).max(50),
-    district: z.string().optional(),
-    center: z.string().optional(),
-    coords: z.string().min(2).max(50)
+    name: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    propertyType: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    estateType: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    voivodeship: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    district: z.string(),
+    center: z.string(),
+    coords: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
 })
 
 interface AddEstateFormProps {
@@ -45,13 +55,10 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
             center: '',
             coords: ''
         },
+        validators: {
+            onSubmit: formSchema
+        },
         onSubmit: async ({ value }) => {
-            const result = formSchema.safeParse(value);
-            if (!result.success) {
-                console.error("Validation failed", result.error);
-                return;
-            }
-
             const createdEstate = await createEstate(value);
             toast.success(`${value.name} успішно додано!`, { position: "bottom-center" });
             onSubmit(createdEstate);
@@ -76,7 +83,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="name-input">Назва</FieldLabel>
+                                <FieldLabel htmlFor="name-input">Назва *</FieldLabel>
                                 <Input
                                     id="name-input"
                                     name={field.name}
@@ -86,7 +93,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     aria-invalid={isInvalid}
                                     placeholder="напр. Львівське староство"
                                 />
-                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -100,9 +107,8 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
                                     <FieldLabel htmlFor="property-type-select">
-                                        Форма власності
+                                        Форма власності *
                                     </FieldLabel>
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
                                 <Select
                                     name={field.name}
@@ -122,6 +128,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -135,9 +142,8 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
                                     <FieldLabel htmlFor="estate-type-select">
-                                        Тип маєтності
+                                        Тип маєтності *
                                     </FieldLabel>
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
                                 <Select
                                     name={field.name}
@@ -157,6 +163,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -170,9 +177,8 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
                                     <FieldLabel htmlFor="voivodeship-select">
-                                        Воєводство (комітат, цинут)
+                                        Воєводство (комітат, цинут) *
                                     </FieldLabel>
-                                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                                 </FieldContent>
                                 <Select
                                     name={field.name}
@@ -193,11 +199,12 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                                 {state.provinces.map((province, idx) => (
                                                     <SelectItem key={idx} value={province}>{province} {state.prefix}</SelectItem>
                                                 ))}
-                                            </SelectGroup>  
+                                            </SelectGroup>
                                         ))}
                                         <SelectSeparator />
                                     </SelectContent>
                                 </Select>
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -219,7 +226,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     aria-invalid={isInvalid}
                                     placeholder="напр. Львівський"
                                 />
-                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -241,7 +248,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     aria-invalid={isInvalid}
                                     placeholder="напр. Львів"
                                 />
-                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -253,7 +260,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="coords-input">Координати</FieldLabel>
+                                <FieldLabel htmlFor="coords-input">Координати *</FieldLabel>
                                 <Input
                                     id="coords-input"
                                     name={field.name}
@@ -263,7 +270,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     aria-invalid={isInvalid}
                                     placeholder="напр. 49.12, 50.11"
                                 />
-                                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )
                     }}
@@ -275,7 +282,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                 <Button type="button" variant="outline" onClick={onSheetClose} className="flex-1 sm:flex-none">
                     Скасувати
                 </Button>
-                <Button type="submit" variant="default">
+                <Button type="submit" variant="default" className="cursor-pointer bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors">
                     Зберегти
                 </Button>
             </SheetFooter>

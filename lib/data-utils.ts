@@ -1,6 +1,7 @@
 'use server';
 
 import { Estate } from '@/app/estate-map/types';
+import { Statuses } from '@/app/estate-map/utils/enums';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -22,7 +23,7 @@ export async function getAllEstates(): Promise<Estate[]> {
 export async function getApprovedEstates(): Promise<Estate[]> {
     const fileContent = await fs.readFile(DATA_PATH, 'utf-8');
     let estates = JSON.parse(fileContent);
-    return estates.filter((e: Estate) => e.status === 'approved');
+    return estates.filter((e: Estate) => e.status === Statuses.Approved);
 } 
 
 /**
@@ -52,7 +53,7 @@ export async function createEstate(userData: any): Promise<Estate> {
         voivodeship: userData.voivodeship,
         district: userData.district,
         coords: coordsArray,
-        status: 'pending',
+        status: Statuses.Pending,
         contents: []
     };
     
@@ -146,7 +147,7 @@ export async function createEstateSnapshot(estateId: number, snapshotData: any):
 
     const newSnapshot = {
         ...snapshotData,
-        status: 'pending',
+        status: Statuses.Pending,
         items
     };
 

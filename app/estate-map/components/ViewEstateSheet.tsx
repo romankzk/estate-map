@@ -19,7 +19,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { MapPin, List, Landmark, Map, Plus } from "lucide-react";
-import { EstateTypes, PropertyTypes } from "../utils/enums";
+import { EstateTypes, PropertyTypes, Statuses } from "../utils/enums";
 import { TypeLabel } from "./ui/TypeLabel";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
     if (!data) return null;
 
     const approvedContents = [...(data.contents || [])]
-        .filter((s: EstateSnapshot) => s.status === 'approved')
+        .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
         .sort((a: any, b: any) => a.date.localeCompare(b.date));
 
     return (

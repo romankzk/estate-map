@@ -8,7 +8,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { EstateTypes, PropertyTypes } from "../utils/enums"
+import { EstateTypes, PropertyTypes, Statuses } from "../utils/enums"
 import { cn } from "@/lib/utils"
 import { TypeLabel } from "./ui/TypeLabel"
 import { Button } from "@/components/ui/button"
@@ -60,7 +60,7 @@ export const columns: ColumnDef<Estate>[] = [
     cell: ({ row }) => {
       let contents = row.getValue("contents") as EstateSnapshot[];
 
-      contents = contents.filter((s) => s.status == 'approved');
+      contents = contents.filter((s) => s.status == Statuses.Approved);
 
       if (contents.length > 0) {
         contents.sort((a, b) => a.date.localeCompare(b.date));

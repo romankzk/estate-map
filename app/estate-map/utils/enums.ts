@@ -71,4 +71,9 @@ export const EstateTypes = new Map<string, any>([
         labelGenitive: "Волості",
         owner: "Власник"
     }],
-])
+]);
+
+export const Statuses = {
+    Pending: "pending",
+    Approved: "approved"
+}

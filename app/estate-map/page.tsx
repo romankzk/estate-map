@@ -6,8 +6,8 @@ export default async function EstatePage({ searchParams }: { searchParams: Promi
 
     const data = await getApprovedEstates();
 
-    let initialCenter: [number, number] = [49.55, 25.59];
-    let initialZoom = 8;
+    let initialCenter: [number, number] = [49.077, 31.410];
+    let initialZoom = 6;
 
     if (params.lat && params.lng) {
         initialCenter = [parseFloat(params.lat), parseFloat(params.lng)];

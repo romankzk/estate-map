@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2, List, Check, X } from "lucide-react";
-import { EstateTypes, PropertyTypes } from "@/app/estate-map/utils/enums";
+import { EstateTypes, PropertyTypes, Statuses } from "@/app/estate-map/utils/enums";
 import { deleteEstate, updateEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -68,7 +68,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
 
     const handleApproveEstate = async (estate: Estate) => {
         try {
-            await updateEstate(estate.id, { ...estate, status: 'approved' });
+            await updateEstate(estate.id, { ...estate, status: Statuses.Approved });
             toast.success(`"${estate.name}" схвалено`, { position: "bottom-center" });
             router.refresh();
         } catch (error) {
@@ -78,7 +78,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
 
     const handleApproveSnapshot = async (estateId: number, snapshotIndex: number, snapshot: any) => {
         try {
-            await updateEstateSnapshot(estateId, snapshotIndex, { ...snapshot, status: 'approved' });
+            await updateEstateSnapshot(estateId, snapshotIndex, { ...snapshot, status: Statuses.Approved });
             toast.success(`Склад маєтності схвалено`, { position: "bottom-center" });
             router.refresh();
         } catch (error) {
@@ -92,7 +92,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
         const pendingItems: any[] = [];
 
         estates.forEach(estate => {
-            if (estate.status === 'pending') {
+            if (estate.status === Statuses.Pending) {
                 pendingItems.push({
                     ...estate,
                     type: 'estate',
@@ -102,7 +102,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
             }
 
             estate.contents?.forEach((snapshot, index) => {
-                if (snapshot.status === 'pending') {
+                if (snapshot.status === Statuses.Pending) {
                     pendingItems.push({
                         ...snapshot,
                         id: `${estate.id}-snap-${index}`,
@@ -162,8 +162,8 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                 id: "status",
                 header: "Статус",
                 cell: ({ row }) => (
-                    <Badge variant={row.original.status === 'approved' ? 'default' : 'secondary'}>
-                        {row.original.status === 'approved' ? 'Схвалено' : 'Очікує'}
+                    <Badge variant={row.original.status === Statuses.Approved ? 'default' : 'secondary'}>
+                        {row.original.status === Statuses.Approved ? 'Схвалено' : 'Очікує'}
                     </Badge>
                 )
             },
@@ -173,7 +173,7 @@ export function AdminEstateTable({ estates, onlyPending = false }: AdminEstateTa
                 cell: ({ row }) => {
                     const item = row.original;
                     const isSnapshot = item.type === 'snapshot';
-                    const isPending = item.status === 'pending';
+                    const isPending = item.status === Statuses.Pending;
 
                     return (
                         <div className="flex justify-end gap-2">

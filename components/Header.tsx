@@ -4,6 +4,7 @@ import { Moon, Shield, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
     const { theme, setTheme } = useTheme();
@@ -16,6 +17,7 @@ export default function Header() {
             <div className="flex items-center justify-between gap-[15px] md:gap-[20px] lg:gap-[30px] px-4 md:px-8 lg:px-[50px] py-[15px] lg:py-[20px]">
                 {/* Logo */}
                 <Link className="flex items-center gap-[12px] md:gap-[15px] lg:gap-[20px] flex-shrink-0" href="/">
+                    <Image height={45} width={45} src="/logo.png" alt="Logo"/>
                     <div className="hidden sm:block">
                         <h1 className="text-gray-900 dark:text-[#F3F4F6] text-[18px] md:text-[20px] lg:text-[24px] font-bold leading-tight">
                             Реєстр маєтностей
@@ -29,7 +31,7 @@ export default function Header() {
                 <div className="flex items-center gap-[10px] md:gap-[12px] lg:gap-[15px]">
                     {isAdmin ? (
                         <Link
-                            href="/admin"
+                            href="/estate-map/admin"
                             className="flex text-sm font-medium text-gray-900 dark:text-[#F3F4F6] hover:text-gray-700 dark:hover:text-[#F3F4F6] transition-colors"
                         >
                             <Shield className="w-5 h-5 mr-2" /> Панель адміністратора

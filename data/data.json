@@ -299,5 +299,33 @@
         ]
       }
     ]
+  },
+  {
+    "id": 7,
+    "propertyType": "royal",
+    "estateType": "starostwo",
+    "name": "Test",
+    "center": "",
+    "voivodeship": "Руське",
+    "district": "",
+    "coords": [
+      49.40952,
+      24.61015
+    ],
+    "status": "pending",
+    "contents": [
+      {
+        "date": "1650",
+        "sourceSignature": "Test",
+        "sourceLink": "",
+        "owner": "",
+        "notes": "",
+        "items": [
+          "Test",
+          "Test2"
+        ],
+        "status": "pending"
+      }
+    ]
   }
 ]

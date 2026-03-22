@@ -24,7 +24,40 @@ export async function getApprovedEstates(): Promise<Estate[]> {
     const fileContent = await fs.readFile(DATA_PATH, 'utf-8');
     let estates = JSON.parse(fileContent);
     return estates.filter((e: Estate) => e.status === Statuses.Approved);
-} 
+}
+
+export async function getPendingItems() {
+    let estates = await getAllEstates();
+
+    const pendingItems: any[] = [];
+
+    estates.forEach(estate => {
+        if (estate.status === Statuses.Pending) {
+            pendingItems.push({
+                ...estate,
+                type: 'estate',
+                displayName: estate.name,
+                displayType: 'Маєтність'
+            });
+        }
+
+        estate.contents?.forEach((snapshot, index) => {
+            if (snapshot.status === Statuses.Pending) {
+                pendingItems.push({
+                    ...snapshot,
+                    id: `${estate.id}-snap-${index}`,
+                    estateId: estate.id,
+                    snapshotIndex: index,
+                    type: 'snapshot',
+                    displayName: `${estate.name} (${snapshot.date})`,
+                    displayType: 'Склад маєтності'
+                });
+            }
+        });
+    });
+
+    return pendingItems;
+}
 
 /**
  * Create new estate
@@ -33,7 +66,7 @@ export async function getApprovedEstates(): Promise<Estate[]> {
  */
 export async function createEstate(userData: any): Promise<Estate> {
     const data = await getAllEstates();
-    
+
     let coordsArray = [49.8397, 24.0297]; // Default to Lviv if parsing fails
     if (userData.coords && typeof userData.coords === 'string') {
         const parts = userData.coords.split(',').map((p: any) => parseFloat(p.trim()));
@@ -56,12 +89,12 @@ export async function createEstate(userData: any): Promise<Estate> {
         status: Statuses.Pending,
         contents: []
     };
-    
+
     data.push(newEstateData);
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
-    
+
     return newEstateData;
 }
 
@@ -100,7 +133,7 @@ export async function updateEstate(id: number, updatedData: any): Promise<Estate
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
-    
+
     return data[index];
 }
 
@@ -155,7 +188,7 @@ export async function createEstateSnapshot(estateId: number, snapshotData: any):
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
-    
+
     return targetEstate;
 }
 
@@ -193,7 +226,7 @@ export async function updateEstateSnapshot(estateId: number, snapshotIndex: numb
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
-    
+
     return targetEstate;
 }
 
@@ -219,6 +252,6 @@ export async function deleteEstateSnapshot(estateId: number, snapshotIndex: numb
 
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(DATA_PATH, jsonString, 'utf-8');
-    
+
     return targetEstate;
 }

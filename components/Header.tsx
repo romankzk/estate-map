@@ -29,14 +29,14 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-center gap-[10px] md:gap-[12px] lg:gap-[15px]">
-                    {isAdmin ? (
+                    {/* {isAdmin && ( */}
                         <Link
                             href="/estate-map/admin"
                             className="flex text-sm font-medium text-gray-900 dark:text-[#F3F4F6] hover:text-gray-700 dark:hover:text-[#F3F4F6] transition-colors"
                         >
                             <Shield className="w-5 h-5 mr-2" /> Панель адміністратора
                         </Link>
-                    ) : ''}
+                    {/* )} */}
                     {/* Theme Toggle */}
                     {theme === 'light' ?
                         <button

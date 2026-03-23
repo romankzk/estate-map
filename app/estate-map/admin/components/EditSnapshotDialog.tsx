@@ -18,14 +18,22 @@ import * as z from "zod";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-    date: z.string().min(1).max(30),
-    sourceSignature: z.string().min(2).max(50),
-    sourceLink: z.string().url({
-        message: "Введіть URL-адресу у форматі http:// або https://"
-    }).or(z.literal("")).optional(),
-    owner: z.string().max(250).optional().or(z.literal("")),
-    notes: z.string().optional().or(z.literal("")),
-    items: z.string().min(2)
+    date: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(30, "Поле повинне містити не більше 30 символів"),
+    sourceSignature: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    sourcePage: z.string(),
+    sourceLink: z.url({
+        message: "Поле повинне містити URL-адресу у форматі http:// або https://"
+    })
+        .or(z.literal("")),
+    owner: z.string(),
+    notes: z.string(),
+    items: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(500, "Поле повинне містити не більше 500 символів"),
 });
 
 interface EditSnapshotDialogProps {
@@ -42,10 +50,14 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
         defaultValues: {
             date: snapshot.date,
             sourceSignature: snapshot.sourceSignature,
+            sourcePage: snapshot.sourcePage,
             sourceLink: snapshot.sourceLink || '',
             owner: snapshot.owner || '',
             notes: snapshot.notes || '',
             items: snapshot.items?.join('\n') || '',
+        },
+        validators: {
+            onSubmit: formSchema
         },
         onSubmit: async ({ value }) => {
             try {
@@ -90,11 +102,12 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                 </Field>
                             )}
                         />
+                        <div className="grid grid-cols-4 gap-4">
                         <form.Field
                             name="sourceSignature"
                             children={(field) => (
-                                <Field>
-                                    <FieldLabel htmlFor="edit-snap-sig">Джерело: сигнатура</FieldLabel>
+                                <Field className="col-span-3">
+                                    <FieldLabel htmlFor="edit-snap-sig">Сигнатура</FieldLabel>
                                     <Input
                                         id="edit-snap-sig"
                                         value={field.state.value}
@@ -106,6 +119,23 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                 </Field>
                             )}
                         />
+                         <form.Field
+                            name="sourcePage"
+                            children={(field) => (
+                                <Field className="col-span-1">
+                                    <FieldLabel htmlFor="edit-snap-page">Сторінка</FieldLabel>
+                                    <Input
+                                        id="edit-snap-page"
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        placeholder="напр. 35зв"
+                                    />
+                                    {field.state.meta.errors.length > 0 && <FieldError errors={field.state.meta.errors} />}
+                                </Field>
+                            )}
+                        />
+                        </div>
                         <form.Field
                             name="sourceLink"
                             children={(field) => (

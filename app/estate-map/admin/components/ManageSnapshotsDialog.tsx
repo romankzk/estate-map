@@ -1,6 +1,6 @@
 "use client";
 
-import { Estate, EstateSnapshot } from "@/app/estate-map/types";
+import { Estate } from "@/app/estate-map/types";
 import {
     Dialog,
     DialogContent,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Edit, Trash2, Plus } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { deleteEstateSnapshot } from "@/lib/data-utils";
 import { toast } from "sonner";

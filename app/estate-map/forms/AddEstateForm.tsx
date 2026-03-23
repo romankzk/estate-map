@@ -29,7 +29,7 @@ const formSchema = z.object({
     estateType: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
-    voivodeship: z.string()
+    province: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
     district: z.string(),
@@ -52,7 +52,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
             name: '',
             propertyType: 'royal',
             estateType: 'starostwo',
-            voivodeship: '',
+            province: '',
             district: '',
             center: '',
             coords: ''
@@ -176,15 +176,15 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         }}
                     />
                 </div>
-                {/* Voivodeship field */}
+                {/* Province field */}
                 <form.Field
-                    name="voivodeship"
+                    name="province"
                     children={(field) => {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field orientation="responsive" data-invalid={isInvalid}>
                                 <FieldContent>
-                                    <FieldLabel htmlFor="voivodeship-select">
+                                    <FieldLabel htmlFor="province-select">
                                         Воєводство (комітат, цинут) *
                                     </FieldLabel>
                                 </FieldContent>
@@ -194,7 +194,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     onValueChange={field.handleChange}
                                 >
                                     <SelectTrigger
-                                        id="voivodeship-type-select"
+                                        id="province-type-select"
                                         aria-invalid={isInvalid}
                                         className="min-w-[120px]"
                                     >

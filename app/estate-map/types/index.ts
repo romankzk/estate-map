@@ -1,6 +1,7 @@
 export interface EstateSnapshot {
     date: string,
     sourceSignature: string,
+    sourcePage?: string,
     sourceLink?: string,
     owner?: string,
     notes?: string,
@@ -14,7 +15,7 @@ export interface Estate {
     propertyType: string,
     name: string,
     center: string,
-    voivodeship: string,
+    province: string,
     district?: string,
     coords: number[],
     contents?: EstateSnapshot[],

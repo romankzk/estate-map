@@ -63,7 +63,7 @@ export function EstatesDataTable<TData, TValue>({
                 estateTypeLabel,
                 estate.propertyType,
                 propertyTypeLabel,
-                estate.voivodeship,
+                estate.province,
                 estate.district,
                 estate.center
             ]

@@ -6,7 +6,7 @@
     "estateType": "starostwo",
     "name": "Львівське староство",
     "center": "Львів",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.84238,
@@ -140,7 +140,7 @@
     "estateType": "klucz",
     "name": "Золочівський ключ",
     "center": "Золочів",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.80744,
@@ -155,7 +155,7 @@
     "estateType": "klucz",
     "name": "Козлівський ключ",
     "center": "Козлів",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Теребовлянський",
     "coords": [
       49.55665,
@@ -173,7 +173,7 @@
     "estateType": "klucz",
     "name": "Поморянський ключ",
     "center": "Поморяни",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.63351,
@@ -223,7 +223,7 @@
     "estateType": "starostwo",
     "name": "Глинянське староство",
     "center": "Глиняни",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.82206,
@@ -274,7 +274,7 @@
     "estateType": "starostwo",
     "name": "Щирецьке староство",
     "center": "Львів",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.64646,
@@ -313,7 +313,7 @@
     "estateType": "starostwo",
     "name": "Галицьке староство",
     "center": "Галич",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Галицький",
     "coords": [
       49.12329,
@@ -331,7 +331,7 @@
     "estateType": "starostwo",
     "name": "Городоцьке староство",
     "center": "Городок",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       49.78442,
@@ -349,7 +349,7 @@
     "estateType": "starostwo",
     "name": "Дрогобицьке староство",
     "center": "Дрогобич",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Дрогобицький",
     "coords": [
       49.35118,
@@ -367,7 +367,7 @@
     "estateType": "starostwo",
     "name": "Жидачівське староство",
     "center": "Жидачів",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Жидачівський",
     "coords": [
       49.38813,
@@ -385,7 +385,7 @@
     "estateType": "starostwo",
     "name": "Кам'янське староство",
     "center": "Кам'янка-Струмилова",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Львівський",
     "coords": [
       50.10467,
@@ -403,7 +403,7 @@
     "estateType": "starostwo",
     "name": "Красноставське староство",
     "center": "Красностав",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Красноставський",
     "coords": [
       50.98286,
@@ -421,7 +421,7 @@
     "estateType": "starostwo",
     "name": "Перемишльське староство",
     "center": "Перемишль",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Перемишльський",
     "coords": [
       49.78442,
@@ -439,7 +439,7 @@
     "estateType": "starostwo",
     "name": "Сяноцьке староство",
     "center": "Сянок",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Сяноцький",
     "coords": [
       49.56085,
@@ -457,7 +457,7 @@
     "estateType": "starostwo",
     "name": "Холмське староство",
     "center": "Холм",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Холмський",
     "coords": [
       51.13391,
@@ -475,7 +475,7 @@
     "estateType": "starostwo",
     "name": "Ратненське староство",
     "center": "Ратне",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Ратненський",
     "coords": [
       51.6715,
@@ -493,7 +493,7 @@
     "estateType": "starostwo",
     "name": "Стрийське староство",
     "center": "Стрий",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Стрийський",
     "coords": [
       49.25582,
@@ -511,7 +511,7 @@
     "estateType": "starostwo",
     "name": "Рогатинське староство",
     "center": "Рогатин",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Галицький",
     "coords": [
       49.4093,
@@ -529,7 +529,7 @@
     "estateType": "starostwo",
     "name": "Теребовлянське староство",
     "center": "Теребовля",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Теребовлянський",
     "coords": [
       49.29602,
@@ -547,7 +547,7 @@
     "estateType": "starostwo",
     "name": "Белзьке староство",
     "center": "Белз",
-    "voivodeship": "Белзьке",
+    "province": "Белзьке",
     "district": "Белзький",
     "coords": [
       50.38231,
@@ -565,7 +565,7 @@
     "estateType": "starostwo",
     "name": "Любачівське староство",
     "center": "Любачів",
-    "voivodeship": "Белзьке",
+    "province": "Белзьке",
     "district": "Любачівський",
     "coords": [
       50.15738,
@@ -583,7 +583,7 @@
     "estateType": "starostwo",
     "name": "Тишовецьке староство",
     "center": "Тишівці",
-    "voivodeship": "Белзьке",
+    "province": "Белзьке",
     "district": "Белзький",
     "coords": [
       50.61718,
@@ -601,7 +601,7 @@
     "estateType": "starostwo",
     "name": "Грабовецьке староство",
     "center": "Грабовець",
-    "voivodeship": "Белзьке",
+    "province": "Белзьке",
     "district": "Грабовецький",
     "coords": [
       50.82177,
@@ -619,7 +619,7 @@
     "estateType": "starostwo",
     "name": "Сокальське староство",
     "center": "Сокаль",
-    "voivodeship": "Белзьке",
+    "province": "Белзьке",
     "district": "Белзький",
     "coords": [
       50.47908,
@@ -637,7 +637,7 @@
     "estateType": "starostwo",
     "name": "Кам'янецьке староство",
     "center": "Кам'янець",
-    "voivodeship": "Подільське",
+    "province": "Подільське",
     "district": "Кам'янецький",
     "coords": [
       48.67781,
@@ -655,7 +655,7 @@
     "estateType": "starostwo",
     "name": "Барське староство",
     "center": "Бар",
-    "voivodeship": "Подільське",
+    "province": "Подільське",
     "district": "Летичівський",
     "coords": [
       49.07752,
@@ -673,7 +673,7 @@
     "estateType": "starostwo",
     "name": "Хмільницьке староство",
     "center": "Хмільник",
-    "voivodeship": "Подільське",
+    "province": "Подільське",
     "district": "Летичівський",
     "coords": [
       49.55618,
@@ -691,7 +691,7 @@
     "estateType": "starostwo",
     "name": "Кременецьке староство",
     "center": "Кременець",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Кременецький",
     "coords": [
       50.09625,
@@ -709,7 +709,7 @@
     "estateType": "starostwo",
     "name": "Луцьке староство",
     "center": "Луцьк",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Луцький",
     "coords": [
       50.74471,
@@ -727,7 +727,7 @@
     "estateType": "starostwo",
     "name": "Володимирське староство",
     "center": "Володимир",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Володимирський",
     "coords": [
       50.84725,
@@ -745,7 +745,7 @@
     "estateType": "starostwo",
     "name": "Ковельське староство",
     "center": "Ковель",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Володимирський",
     "coords": [
       51.21215,
@@ -763,7 +763,7 @@
     "estateType": "starostwo",
     "name": "Вінницьке староство",
     "center": "Вінниця",
-    "voivodeship": "Брацлавське",
+    "province": "Брацлавське",
     "district": "Вінницький",
     "coords": [
       49.2319,
@@ -781,7 +781,7 @@
     "estateType": "starostwo",
     "name": "Брацлавське староство",
     "center": "Брацлав",
-    "voivodeship": "Брацлавське",
+    "province": "Брацлавське",
     "district": "Брацлавський",
     "coords": [
       48.827,
@@ -799,7 +799,7 @@
     "estateType": "starostwo",
     "name": "Гайсинське староство",
     "center": "Гайсин",
-    "voivodeship": "Брацлавське",
+    "province": "Брацлавське",
     "district": "",
     "coords": [
       48.81195,
@@ -817,7 +817,7 @@
     "estateType": "starostwo",
     "name": "Літинське староство",
     "center": "Літин",
-    "voivodeship": "Брацлавське",
+    "province": "Брацлавське",
     "district": "",
     "coords": [
       49.32904,
@@ -835,7 +835,7 @@
     "estateType": "starostwo",
     "name": "Білоцерківське староство",
     "center": "Біла Церква",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Київський",
     "coords": [
       49.79689,
@@ -853,7 +853,7 @@
     "estateType": "starostwo",
     "name": "Житомирське староство",
     "center": "Житомир",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Житомирський",
     "coords": [
       50.2599,
@@ -871,7 +871,7 @@
     "estateType": "starostwo",
     "name": "Київське староство",
     "center": "Київ",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Київський",
     "coords": [
       50.4503,
@@ -889,7 +889,7 @@
     "estateType": "starostwo",
     "name": "Черкаське староство",
     "center": "Черкаси",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "",
     "coords": [
       49.4449,
@@ -907,7 +907,7 @@
     "estateType": "starostwo",
     "name": "Переяславське староство",
     "center": "Переяслав",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "",
     "coords": [
       50.06419,
@@ -925,7 +925,7 @@
     "estateType": "starostwo",
     "name": "Богуславське староство",
     "center": "Богуслав",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Київський",
     "coords": [
       49.5476,
@@ -943,7 +943,7 @@
     "estateType": "starostwo",
     "name": "Канівське староство",
     "center": "Канів",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Київський",
     "coords": [
       49.75499,
@@ -961,7 +961,7 @@
     "estateType": "klucz",
     "name": "Вишневецький ключ",
     "center": "Вишнівець",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Кременецький",
     "coords": [
       49.90193,
@@ -979,7 +979,7 @@
     "estateType": "klucz",
     "name": "Скалатський ключ",
     "center": "Скалат",
-    "voivodeship": "Руське",
+    "province": "Руське",
     "district": "Теребовлянський",
     "coords": [
       49.42488,
@@ -997,7 +997,7 @@
     "estateType": "klucz",
     "name": "Махнівський ключ",
     "center": "Махнівка",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "Житомирський",
     "coords": [
       49.72054,
@@ -1015,7 +1015,7 @@
     "estateType": "klucz",
     "name": "Звягельський ключ",
     "center": "Звягель",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "",
     "coords": [
       50.59168,
@@ -1033,7 +1033,7 @@
     "estateType": "klucz",
     "name": "Чуднівський ключ",
     "center": "Чуднів",
-    "voivodeship": "Київське",
+    "province": "Київське",
     "district": "",
     "coords": [
       50.05229,
@@ -1051,14 +1051,40 @@
     "estateType": "dominia",
     "name": "Великобичківська домінія",
     "center": "Великий Бичків",
-    "voivodeship": "Мармарош",
+    "province": "Мармарош",
     "district": "",
     "coords": [
       47.97349,
       24.01302
     ],
     "status": "approved",
-    "contents": [],
+    "contents": [
+      {
+        "date": "1672",
+        "sourceSignature": "HU MNL OL E 156 - a. - Fasc. 149. - No. 019",
+        "sourcePage": "",
+        "sourceLink": "https://archives.hungaricana.hu/hu/urbarium/hu_mnl_ol_e156_a_fasc149_no019/",
+        "owner": "Міхай II Апафі, великий князь Трансильванії",
+        "notes": "",
+        "items": [
+          "Бичків",
+          "Луг",
+          "Росішка",
+          "Кобилецька Поляна",
+          "Ясіня",
+          "Кваси",
+          "Косівська Поляна",
+          "Рахів-Бичків (Bocskó-Raho)"
+        ],
+        "status": "approved",
+        "id": "48-0",
+        "estateId": 48,
+        "snapshotIndex": 0,
+        "type": "snapshot",
+        "displayName": "Великобичківська домінія (1672)",
+        "displayType": "Склад маєтку"
+      }
+    ],
     "type": "estate",
     "displayName": "Великобичківська домінія",
     "displayType": "Маєтність"
@@ -1069,7 +1095,7 @@
     "estateType": "dominia",
     "name": "Сентміклошська (Чинадіївська) домінія",
     "center": "Сент-Міклош (Чинадійово)",
-    "voivodeship": "Берег",
+    "province": "Берег",
     "district": "",
     "coords": [
       48.50051,
@@ -1087,7 +1113,7 @@
     "estateType": "dominia",
     "name": "Ужгородська домінія",
     "center": "Ужгород",
-    "voivodeship": "Унг",
+    "province": "Унг",
     "district": "",
     "coords": [
       48.62236,
@@ -1105,7 +1131,7 @@
     "estateType": "ksiestwo",
     "name": "Збаразьке князівство",
     "center": "Збараж",
-    "voivodeship": "Волинське",
+    "province": "Волинське",
     "district": "Кременецький",
     "coords": [
       49.66085,

@@ -135,9 +135,9 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 },
             },
             {
-                accessorKey: "voivodeship",
+                accessorKey: "province",
                 header: "Воєводство",
-                cell: ({ row }) => row.original.voivodeship || "-",
+                cell: ({ row }) => row.original.province || "-",
             },
             {
                 id: "status",

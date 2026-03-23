@@ -47,7 +47,7 @@ export const columns: ColumnDef<Estate>[] = [
   },
 
   {
-    accessorKey: "voivodeship",
+    accessorKey: "province",
     header: "Воєводство",
   },
   {

@@ -27,18 +27,26 @@ import { toast } from "sonner";
 import { EstateTypes, PropertyTypes, ProvincesList } from "@/app/estate-map/utils/enums";
 
 const formSchema = z.object({
-    name: z.string().min(2).max(50),
-    propertyType: z.string(),
-    estateType: z.string(),
-    voivodeship: z.string().min(2).max(50),
-    district: z.string().optional().or(z.literal('')),
-    center: z.string().optional().or(z.literal('')),
-    coords: z.string().min(2).max(50)
-});
-
-const voivodeshipsList = [
-    "Підляське", "Руське", "Белзьке", "Волинське", "Подільське", "Київське", "Брацлавське", "Чернігівське", "Берестейське"
-];
+    name: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    propertyType: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    estateType: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    province: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    district: z.string(),
+    center: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+    coords: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
+})
 
 interface EditEstateDialogProps {
     estate: Estate;
@@ -53,10 +61,13 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
             name: estate.name,
             propertyType: estate.propertyType,
             estateType: estate.estateType,
-            voivodeship: estate.voivodeship,
+            province: estate.province,
             district: estate.district || '',
             center: estate.center || '',
             coords: estate.coords.join(', ')
+        },
+        validators: {
+            onSubmit: formSchema
         },
         onSubmit: async ({ value }) => {
             try {
@@ -147,15 +158,15 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                     </div>
 
                     <form.Field
-                        name="voivodeship"
+                        name="province"
                         children={(field) => (
                             <Field>
-                                <FieldLabel htmlFor="edit-voivodeship">Воєводство</FieldLabel>
+                                <FieldLabel htmlFor="edit-province">Воєводство</FieldLabel>
                                 <Select
                                     value={field.state.value}
                                     onValueChange={field.handleChange}
                                 >
-                                    <SelectTrigger id="edit-voivodeship">
+                                    <SelectTrigger id="edit-province">
                                         <SelectValue placeholder="Виберіть зі списку" />
                                     </SelectTrigger>
                                     <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">

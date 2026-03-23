@@ -33,7 +33,9 @@ const formSchema = z.object({
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
     district: z.string(),
-    center: z.string(),
+    center: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
     coords: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
@@ -147,7 +149,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                 <Field orientation="responsive" data-invalid={isInvalid}>
                                     <FieldContent>
                                         <FieldLabel htmlFor="estate-type-select">
-                                            Тип маєтності *
+                                            Тип маєтку *
                                         </FieldLabel>
                                     </FieldContent>
                                     <Select
@@ -244,7 +246,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
                             <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="center-input">Центр</FieldLabel>
+                                <FieldLabel htmlFor="center-input">Центр *</FieldLabel>
                                 <Input
                                     id="center-input"
                                     name={field.name}

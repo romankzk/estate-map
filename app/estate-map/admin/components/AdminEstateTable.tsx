@@ -60,7 +60,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
     };
 
     const handleRejectSnapshot = async (estateId: number, index: number) => {
-        if (confirm(`Ви впевнені, що хочете видалити цей склад маєтності?`)) {
+        if (confirm(`Ви впевнені, що хочете видалити цей склад маєтку?`)) {
             try {
                 await deleteEstateSnapshot(estateId, index);
                 toast.success(`Склад відхилено та видалено`, { position: "bottom-center" });
@@ -84,7 +84,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
     const handleApproveSnapshot = async (estateId: number, snapshotIndex: number, snapshot: any) => {
         try {
             await updateEstateSnapshot(estateId, snapshotIndex, { ...snapshot, status: Statuses.Approved });
-            toast.success(`Склад маєтності схвалено`, { position: "bottom-center" });
+            toast.success(`Склад маєтку схвалено`, { position: "bottom-center" });
             router.refresh();
         } catch (error) {
             toast.error(`Сталася помилка: ${error}`, { position: "bottom-center" });

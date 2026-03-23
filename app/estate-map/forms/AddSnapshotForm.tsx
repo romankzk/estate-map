@@ -92,13 +92,13 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             )
                         }}
                     />
-                    <div className="flex flex-row items-center gap-4">
+                    <div className="grid grid-cols-4 gap-4">
                         <form.Field
                             name="sourceSignature"
                             children={(field) => {
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
-                                    <Field data-invalid={isInvalid}>
+                                    <Field data-invalid={isInvalid} className="col-span-3">
                                         <FieldLabel htmlFor="signature-input">Джерело *</FieldLabel>
                                         <Input
                                             id="signature-input"
@@ -119,7 +119,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             children={(field) => {
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
-                                    <Field data-invalid={isInvalid} className="max-w-[100px]">
+                                    <Field data-invalid={isInvalid} className="col-span-1">
                                         <FieldLabel htmlFor="page-input">Сторінка</FieldLabel>
                                         <Input
                                             id="page-input"

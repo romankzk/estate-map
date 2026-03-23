@@ -23,7 +23,7 @@ export default function Header() {
                             Ключ+
                         </h1>
                         <p className="text-gray-700 dark:text-white text-[11px] md:text-[12px] lg:text-[13px] opacity-80 leading-tight mt-[2px]">
-                            Реєстр маєтків та староств
+                            Реєстр маєтків, ключів та староств
                         </p>
                     </div>
                 </Link>

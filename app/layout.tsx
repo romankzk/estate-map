@@ -12,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Реєстр маєтностей | Інтерактивна карта",
-  description: "Реєстр староств, ключів та інших господарських маєтностей з теренів України",
+  title: "Ключ+ | Реєстр маєтків",
+  description: "Реєстр староств, ключів та інших господарських маєтків з теренів України",
 };
 
 export default function RootLayout({

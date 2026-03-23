@@ -127,7 +127,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                             name="estateType"
                             children={(field) => (
                                 <Field>
-                                    <FieldLabel htmlFor="edit-estate-type">Тип маєтності</FieldLabel>
+                                    <FieldLabel htmlFor="edit-estate-type">Тип маєтку</FieldLabel>
                                     <Select
                                         value={field.state.value}
                                         onValueChange={field.handleChange}

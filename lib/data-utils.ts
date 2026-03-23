@@ -37,7 +37,7 @@ export async function getPendingItems() {
                 ...estate,
                 type: 'estate',
                 displayName: estate.name,
-                displayType: 'Маєтність'
+                displayType: 'Маєток'
             });
         }
 
@@ -50,7 +50,7 @@ export async function getPendingItems() {
                     snapshotIndex: index,
                     type: 'snapshot',
                     displayName: `${estate.name} (${snapshot.date})`,
-                    displayType: 'Склад маєтності'
+                    displayType: 'Склад маєтку'
                 });
             }
         });

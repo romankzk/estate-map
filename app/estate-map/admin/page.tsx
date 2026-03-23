@@ -1,7 +1,6 @@
 import { getAllEstates, getPendingItems } from "@/lib/data-utils";
 import { AdminEstateTable } from "./components/AdminEstateTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Clock, List } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default async function AdminPage() {
@@ -14,7 +13,7 @@ export default async function AdminPage() {
                 <div className="flex justify-between items-center mb-8">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-900 dark:text-[#F3F4F6]">Панель адміністратора</h1>
-                        <p className="text-gray-600 dark:text-gray-400">Керування маєтностями та їх складом</p>
+                        <p className="text-gray-600 dark:text-gray-400">Керування маєтками та їх складом</p>
                     </div>
                 </div>
 

@@ -41,7 +41,7 @@ export default function Header() {
                     {theme === 'light' ?
                         <button
                             aria-label="Перемкнути тему"
-                            className="hidden xl:block p-[8px] rounded-lg hover:bg-gray-100 dark:hover:bg-[#374151] transition-colors"
+                            className="xl:block p-[8px] rounded-lg hover:bg-gray-100 dark:hover:bg-[#374151] transition-colors"
                             onClick={() => setTheme('dark')}
                         >
 
@@ -50,7 +50,7 @@ export default function Header() {
                         :
                         <button
                             aria-label="Перемкнути тему"
-                            className="hidden xl:block p-[8px] rounded-lg hover:bg-gray-100 dark:hover:bg-[#374151] transition-colors"
+                            className="xl:block p-[8px] rounded-lg hover:bg-gray-100 dark:hover:bg-[#374151] transition-colors"
                             onClick={() => setTheme('light')}
                         >
 

@@ -15,7 +15,8 @@
     "contents": [
       {
         "date": "1661-1663",
-        "sourceSignature": "AGAD MK 1/4/0/8/48 - f. 1v",
+        "sourceSignature": "AGAD MK 1/4/0/8/48",
+        "sourcePage": "1v",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
         "notes": "",
@@ -45,7 +46,8 @@
       },
       {
         "date": "1765",
-        "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 6",
+        "sourceSignature": "AGAD MK 1/4/0/8/57",
+        "sourcePage": "6",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Євстахій Потоцький, генерал артилерії, староста львівський, ужендовський, тлумацький",
         "notes": "",
@@ -80,7 +82,8 @@
       },
       {
         "date": "1564-1565",
-        "sourceSignature": "Жерела до історії України-Руси. Том 3 - с. 372",
+        "sourceSignature": "Жерела до історії України-Руси. Том 3",
+        "sourcePage": "372",
         "sourceLink": "",
         "owner": "",
         "notes": "",
@@ -180,6 +183,7 @@
       {
         "date": "1686-1687",
         "sourceSignature": "BNW - Rps 5479 IV",
+        "sourcePage": "",
         "sourceLink": "https://polona.pl/item-view/629265fc-8c72-4273-81be-d594e10cc795?page=0",
         "owner": "",
         "notes": "",
@@ -228,7 +232,8 @@
     "contents": [
       {
         "date": "1765",
-        "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 29",
+        "sourceSignature": "AGAD MK 1/4/0/8/57",
+        "sourcePage": "29",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Урсула з Дідушицьких, за 1-м чол. Блендовська, за 2-м чол. Потоцька, чашникова коронна",
         "notes": "",
@@ -243,7 +248,8 @@
       },
       {
         "date": "1661-1663",
-        "sourceSignature": "AGAD MK 1/4/0/8/48 - f. 227",
+        "sourceSignature": "AGAD MK 1/4/0/8/48",
+        "sourcePage": "227",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
         "notes": "Держава, раніше у складі Львівського староства",
@@ -277,7 +283,8 @@
     "contents": [
       {
         "date": "1765",
-        "sourceSignature": "AGAD MK 1/4/0/8/57 - f. 119",
+        "sourceSignature": "AGAD MK 1/4/0/8/57",
+        "sourcePage": "119",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711040",
         "owner": "Пелагія з Потоцьких Потоцька, каштелянова львівська",
         "notes": "",

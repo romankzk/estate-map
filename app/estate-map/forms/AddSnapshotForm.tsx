@@ -15,6 +15,7 @@ const formSchema = z.object({
     sourceSignature: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
+    sourcePage: z.string(),
     sourceLink: z.url({
         message: "Поле повинне містити URL-адресу у форматі http:// або https://"
     })
@@ -37,6 +38,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
         defaultValues: {
             date: '',
             sourceSignature: '',
+            sourcePage: '',
             sourceLink: '',
             owner: '',
             notes: '',
@@ -83,34 +85,57 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
-                                        placeholder="напр. 1710"
+                                        placeholder="напр. 1710 або 1564-1565"
                                     />
                                     {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
                             )
                         }}
                     />
-                    <form.Field
-                        name="sourceSignature"
-                        children={(field) => {
-                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                            return (
-                                <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="signature-input">Джерело: сигнатура *</FieldLabel>
-                                    <Input
-                                        id="signature-input"
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                        aria-invalid={isInvalid}
-                                        placeholder="напр. ЦДІАК 10-1-242 - арк. 35зв"
-                                    />
-                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                                </Field>
-                            )
-                        }}
-                    />
+                    <div className="flex flex-row items-center gap-4">
+                        <form.Field
+                            name="sourceSignature"
+                            children={(field) => {
+                                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                return (
+                                    <Field data-invalid={isInvalid}>
+                                        <FieldLabel htmlFor="signature-input">Джерело *</FieldLabel>
+                                        <Input
+                                            id="signature-input"
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                            aria-invalid={isInvalid}
+                                            placeholder="ЦДІАК 10-1-242"
+                                        />
+                                        {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
+                                    </Field>
+                                )
+                            }}
+                        />
+                        <form.Field
+                            name="sourcePage"
+                            children={(field) => {
+                                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                                return (
+                                    <Field data-invalid={isInvalid} className="max-w-[100px]">
+                                        <FieldLabel htmlFor="page-input">Сторінка</FieldLabel>
+                                        <Input
+                                            id="page-input"
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                            aria-invalid={isInvalid}
+                                            placeholder="35зв"   
+                                        />
+                                        {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
+                                    </Field>
+                                )
+                            }}
+                        />
+                    </div>
                     <form.Field
                         name="sourceLink"
                         children={(field) => {
@@ -125,7 +150,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
-                                        placeholder="напр. https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031"
+                                        placeholder="https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031"
                                     />
                                     {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
@@ -146,7 +171,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
-                                        placeholder="напр. Адам Потоцький"
+                                        placeholder="Якуб Собєський"
                                     />
                                     {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>
@@ -167,7 +192,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         aria-invalid={isInvalid}
-                                        placeholder="напр. Раніше у складі Галицького староства"
+                                        placeholder="Раніше у складі Галицького староства"
                                     />
                                     {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                 </Field>

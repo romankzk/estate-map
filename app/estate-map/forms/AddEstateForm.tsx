@@ -95,7 +95,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="напр. Львівське староство"
+                                    placeholder="Львівське староство"
                                 />
                                 {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
@@ -230,7 +230,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="напр. Львівський"
+                                    placeholder="Житомирський"
                                 />
                                 {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
@@ -252,7 +252,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                     onBlur={field.handleBlur}
                                     onChange={(e) => field.handleChange(e.target.value)}
                                     aria-invalid={isInvalid}
-                                    placeholder="напр. Львів"
+                                    placeholder="Галич"
                                 />
                                 {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>

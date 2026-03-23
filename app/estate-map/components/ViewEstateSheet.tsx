@@ -118,10 +118,10 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                                                 rel="noopener noreferrer"
                                                                 className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center transition-colors"
                                                             >
-                                                                {record.sourceSignature}
+                                                                {record.sourceSignature} - с. {record.sourcePage}
                                                             </a>
                                                         ) : (
-                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.sourceSignature}</span>
+                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.sourceSignature}  - с. {record.sourcePage}</span>
                                                         )}
                                                     </div>
 

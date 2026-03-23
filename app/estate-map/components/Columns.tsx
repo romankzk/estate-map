@@ -70,7 +70,7 @@ export const columns: ColumnDef<Estate>[] = [
             {contents.map((snapshot, idx) => {
               return (
                 <HoverCard openDelay={10} closeDelay={100} key={idx}>
-                  <HoverCardTrigger asChild>
+                  <HoverCardTrigger asChild className="truncate text-wrap">
                     <Button size="xs" variant="link">{snapshot.date}</Button>
                   </HoverCardTrigger>
                   <HoverCardContent className="flex w-64 flex-col gap-0.5 dark:bg-[#111827] text-xs truncate text-wrap">

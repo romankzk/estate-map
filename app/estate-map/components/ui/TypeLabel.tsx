@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Castle, Church, Crown, House } from "lucide-react";
 import { PropertyTypes} from "../../utils/enums";

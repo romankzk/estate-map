@@ -18,7 +18,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, List, Check, X, CircleCheck, Clock } from "lucide-react";
+import { Edit, Trash2, List, Check, X, CircleCheck, Clock, Search } from "lucide-react";
 import { EstateTypes, PropertyTypes, Statuses } from "@/app/estate-map/utils/enums";
 import { deleteEstate, updateEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
@@ -31,6 +31,8 @@ import { Badge } from "@/components/ui/badge";
 import { EditSnapshotDialog } from "./EditSnapshotDialog";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TablePagination } from "../../components/ui/TablePagination";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 
 interface AdminEstateTableProps {
     estates: Estate[];
@@ -259,12 +261,18 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
         <div className="space-y-4">
             {/* Table search input */}
             <div className="flex items-center gap-2">
-                <Input
-                    placeholder="Пошук..."
-                    value={globalFilter ?? ""}
-                    onChange={(event) => setGlobalFilter(event.target.value)}
-                    className="max-w-sm"
-                />
+                <InputGroup className="max-w-sm">
+                    <InputGroupInput
+                        placeholder="Шукати..."
+                        value={globalFilter ?? ""}
+                        onChange={(event) =>
+                            setGlobalFilter(event.target.value)
+                        }
+                    />
+                    <InputGroupAddon>
+                        <Search />
+                    </InputGroupAddon>
+                </InputGroup>
             </div>
             <div className="rounded-md border">
                 <Table>
@@ -313,50 +321,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
             </div>
 
             {/* Pagination controls */}
-            <div className="flex items-center justify-between space-x-6 lg:space-x-8">
-                <div className="flex items-center space-x-2">
-                    <p className="text-sm font-medium">Записів на сторінці</p>
-                    <Select
-                        value={`${table.getState().pagination.pageSize}`}
-                        onValueChange={(value) => {
-                            table.setPageSize(Number(value))
-                        }}
-                    >
-                        <SelectTrigger className="h-8 w-[70px]">
-                            <SelectValue placeholder={table.getState().pagination.pageSize} />
-                        </SelectTrigger>
-                        <SelectContent side="top" className="dark:bg-[#1F2937]">
-                            {[10, 20, 50, 100].map((pageSize) => (
-                                <SelectItem key={pageSize} value={`${pageSize}`}>
-                                    {pageSize}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                    Сторінка {table.getState().pagination.pageIndex + 1} з{" "}
-                    {table.getPageCount()}
-                </div>
-                <div className="flex items-center justify-end space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Попередня
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Наступна
-                    </Button>
-                </div>
-            </div>
+            <TablePagination table={table} />
 
             {editingEstate && (
                 <EditEstateDialog

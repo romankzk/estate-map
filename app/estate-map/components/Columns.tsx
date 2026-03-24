@@ -12,7 +12,7 @@ import { EstateTypes, PropertyTypes, Statuses } from "../utils/enums"
 import { cn } from "@/lib/utils"
 import { TypeLabel } from "./ui/TypeLabel"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { ArrowDown, ArrowUp } from "lucide-react"
 
 function renderTypeBadges(type: string) {
   return (
@@ -32,14 +32,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "id",
     size: 50,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           ID
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },
@@ -48,14 +50,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "name",
     size: 200,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           Назва
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },
@@ -71,14 +75,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "estateType",
     size: 100,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           Тип
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },
@@ -88,14 +94,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "propertyType",
     size: 150,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           Форма власності
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },
@@ -106,14 +114,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "province",
     size: 150,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           Воєводство
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },
@@ -122,14 +132,16 @@ export const columns: ColumnDef<Estate>[] = [
     accessorKey: "district",
     size: 150,
     header: ({ column }) => {
+      const isSorted = column.getIsSorted();
       return (
         <Button
           variant="ghost"
           className="px-0.5"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(isSorted === "asc")}
         >
           Повіт
-          <ArrowUpDown className="ml-1 size-3" />
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
       )
     },

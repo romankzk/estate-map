@@ -21,7 +21,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, List, Check, X, CircleCheck, Clock, Search, ArrowUpDown } from "lucide-react";
+import { Edit, Trash2, List, Check, X, CircleCheck, Clock, Search, ArrowUp, ArrowDown } from "lucide-react";
 import { EstateTypes, PropertyTypes, Statuses } from "@/app/estate-map/utils/enums";
 import { deleteEstate, updateEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
@@ -107,14 +107,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "id",
                 size: 50,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             ID
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -123,14 +125,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "displayName",
                 size: 200,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             Назва
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -147,14 +151,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "estateType",
                 size: 100,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             Тип
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -167,14 +173,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "propertyType",
                 size: 120,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             Власність
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -187,14 +195,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "province",
                 size: 120,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             Воєводство
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -204,14 +214,16 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 accessorKey: "records",
                 size: 100,
                 header: ({ column }) => {
+                    const isSorted = column.getIsSorted();
                     return (
                         <Button
                             variant="ghost"
                             className="p-0"
-                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                            onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
                             Записів
-                            <ArrowUpDown className="ml-1 size-3" />
+                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
@@ -332,7 +344,12 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
         return baseColumns;
     }, [pendingItems]);
 
-    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [sorting, setSorting] = React.useState<SortingState>([
+        {
+            id: 'id',
+            desc: false,
+        },
+    ])
 
     const table = useReactTable({
         data: displayData,

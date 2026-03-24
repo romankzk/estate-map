@@ -40,7 +40,12 @@ export function EstatesDataTable<TData, TValue>({
     onOpenDrawer
 }: EstatesDataTableProps<TData, TValue>) {
     const [globalFilter, setGlobalFilter] = useState('');
-    const [sorting, setSorting] = useState<SortingState>([])
+    const [sorting, setSorting] = useState<SortingState>([
+        {
+            id: 'id',
+            desc: false,
+        },
+    ])
 
     const table = useReactTable({
         data,
@@ -130,7 +135,7 @@ export function EstatesDataTable<TData, TValue>({
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead 
+                                        <TableHead
                                             key={header.id}
                                             style={{ width: `${header.getSize()}px` }}
                                         >
@@ -156,7 +161,7 @@ export function EstatesDataTable<TData, TValue>({
                                     className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell 
+                                        <TableCell
                                             key={cell.id}
                                             className="truncate"
                                             style={{ width: `${cell.column.getSize()}px` }}

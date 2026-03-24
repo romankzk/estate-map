@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { TypeLabel } from "./components/ui/TypeLabel";
 import { Button } from "@/components/ui/button";
+import { useMemo } from "react";
 
 function renderTypeBadge(type: string) {
     return (
@@ -46,20 +47,22 @@ const createClusterCustomIcon = (cluster: any) => {
 
 export default function LeafletMap({
     data,
-    center,
-    zoom,
     onOpenSheet
 }: {
     data: any[],
-    center: [number, number],
-    zoom: number,
     onOpenSheet: (marker: any) => void
 }) {
-    const position: [number, number] = center;
+    const position: [number, number] = [49.077, 31.410];
+    const zoom = 6;
+
+    // Use a memoized key to force a clean re-mount when needed, 
+    // and avoid "Map container is being reused" error.
+    const mapKey = useMemo(() => `map-${Date.now()}`, []);
 
     return (
         <div className="h-[70vh] w-full">
             <MapContainer
+                key={mapKey}
                 center={position}
                 zoom={zoom}
                 scrollWheelZoom={true}

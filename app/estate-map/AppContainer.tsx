@@ -15,8 +15,6 @@ import { toast } from 'sonner';
 // Dynamically import the client-side map, disabling SSR
 const LeafletMap = dynamic<{
     data: any[];
-    center: [number, number];
-    zoom: number;
     onOpenSheet: (marker: any) => void;
 }>(
     () => import('./LeafletMap'),
@@ -32,11 +30,9 @@ const LeafletMap = dynamic<{
 
 interface AppContainerProps {
     data: any[];
-    center: [number, number];
-    zoom: number;
 }
 
-export function AppContainer({ data: initialData, center, zoom }: AppContainerProps) {
+export function AppContainer({ data: initialData }: AppContainerProps) {
     const [data, setData] = useState(initialData);
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -54,7 +50,6 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                 setSelectedItem(item);
                 setIsSheetOpen(true);
             } else {
-                toast.error("Такого маєтку в системі не знайдено")
                 setIsSheetOpen(false);
             }
         } else {
@@ -117,8 +112,6 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
                         <div className="overflow-x-auto">
                             <LeafletMap
                                 data={data}
-                                center={center}
-                                zoom={zoom}
                                 onOpenSheet={handleOpenSheet}
                             />
                         </div>

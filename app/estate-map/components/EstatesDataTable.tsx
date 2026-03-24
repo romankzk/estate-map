@@ -2,10 +2,12 @@
 
 import {
     ColumnDef,
+    SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -37,16 +39,21 @@ export function EstatesDataTable<TData, TValue>({
     data,
     onOpenDrawer
 }: EstatesDataTableProps<TData, TValue>) {
-    const [globalFilter, setGlobalFilter] = useState('')
+    const [globalFilter, setGlobalFilter] = useState('');
+    const [sorting, setSorting] = useState<SortingState>([])
+
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
         state: {
-            globalFilter,
+            sorting,
+            globalFilter
         },
         globalFilterFn: (row, columnId, filterValue) => {
             const value = filterValue.toLowerCase()
@@ -117,13 +124,16 @@ export function EstatesDataTable<TData, TValue>({
                 </InputGroup>
             </div>
             <div className="overflow-hidden rounded-md border">
-                <Table>
+                <Table className="table-fixed">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead 
+                                            key={header.id}
+                                            style={{ width: `${header.getSize()}px` }}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -146,7 +156,11 @@ export function EstatesDataTable<TData, TValue>({
                                     className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell 
+                                            key={cell.id}
+                                            className="truncate"
+                                            style={{ width: `${cell.column.getSize()}px` }}
+                                        >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

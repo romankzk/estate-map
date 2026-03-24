@@ -12,6 +12,7 @@ import { EstateTypes, PropertyTypes, Statuses } from "../utils/enums"
 import { cn } from "@/lib/utils"
 import { TypeLabel } from "./ui/TypeLabel"
 import { Button } from "@/components/ui/button"
+import { ArrowUpDown } from "lucide-react"
 
 function renderTypeBadges(type: string) {
   return (
@@ -29,34 +30,120 @@ function renderTypeBadges(type: string) {
 export const columns: ColumnDef<Estate>[] = [
   {
     accessorKey: "id",
-    header: "ID",
+    size: 50,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "name",
-    header: "Назва",
+    size: 200,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Назва
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      return (
+        <span className="truncate block">
+          {row.getValue("name")}
+        </span>
+      )
+    }
   },
   {
     accessorKey: "estateType",
-    header: "Тип",
+    size: 100,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Тип
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
     cell: ({ row }) => EstateTypes.get(row.getValue("estateType")).label.toLowerCase()
   },
   {
     accessorKey: "propertyType",
-    header: "Форма власності",
+    size: 150,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Форма власності
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
     cell: ({ row }) => renderTypeBadges(row.getValue("propertyType"))
   },
 
   {
     accessorKey: "province",
-    header: "Воєводство",
+    size: 150,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Воєводство
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "district",
-    header: "Повіт",
+    size: 150,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Повіт
+          <ArrowUpDown className="ml-1 size-3" />
+        </Button>
+      )
+    },
   },
   {
     accessorKey: "contents",
-    header: "Склад",
+    size: 200,
+    header: ({ column }) => {
+      return (
+        <div className="px-2">
+          Склад
+        </div>
+      )
+    },
     cell: ({ row }) => {
       let contents = row.getValue("contents") as EstateSnapshot[];
 

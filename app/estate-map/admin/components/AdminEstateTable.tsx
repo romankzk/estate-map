@@ -1,12 +1,15 @@
 "use client";
 
+import * as React from "react"
 import { Estate } from "@/app/estate-map/types";
 import {
     ColumnDef,
+    SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -18,7 +21,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, List, Check, X, CircleCheck, Clock, Search } from "lucide-react";
+import { Edit, Trash2, List, Check, X, CircleCheck, Clock, Search, ArrowUpDown } from "lucide-react";
 import { EstateTypes, PropertyTypes, Statuses } from "@/app/estate-map/utils/enums";
 import { deleteEstate, updateEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
@@ -26,11 +29,9 @@ import { toast } from "sonner";
 import { useState, useMemo } from "react";
 import { EditEstateDialog } from "./EditEstateDialog";
 import { ManageSnapshotsDialog } from "./ManageSnapshotsDialog";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { EditSnapshotDialog } from "./EditSnapshotDialog";
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TablePagination } from "../../components/ui/TablePagination";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 
@@ -104,23 +105,59 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
         const baseColumns: ColumnDef<any>[] = [
             {
                 accessorKey: "id",
-                header: "ID",
+                size: 50,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            ID
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
             },
             {
                 accessorKey: "displayName",
-                header: "Назва",
+                size: 200,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            Назва
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
                 cell: ({ row }) => (
-                    <div className="flex flex-col">
-                        <span className="font-medium">{row.original.displayName || row.original.name}</span>
+                    <div className="flex flex-col truncate">
+                        <span className="font-medium truncate">{row.original.displayName || row.original.name}</span>
                         {pendingFilter && (
-                            <span className="text-xs text-muted-foreground">{row.original.displayType}</span>
+                            <span className="text-xs text-muted-foreground truncate">{row.original.displayType}</span>
                         )}
                     </div>
                 )
             },
             {
                 accessorKey: "estateType",
-                header: "Тип",
+                size: 100,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            Тип
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
                 cell: ({ row }) => {
                     const type = row.original.estateType;
                     return type ? (EstateTypes.get(type)?.label || type) : "-";
@@ -128,7 +165,19 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
             },
             {
                 accessorKey: "propertyType",
-                header: "Власність",
+                size: 120,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            Власність
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
                 cell: ({ row }) => {
                     const type = row.original.propertyType;
                     return type ? (PropertyTypes.get(type)?.label || type) : "-";
@@ -136,11 +185,48 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
             },
             {
                 accessorKey: "province",
-                header: "Воєводство",
+                size: 120,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            Воєводство
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
                 cell: ({ row }) => row.original.province || "-",
             },
             {
+                accessorKey: "records",
+                size: 100,
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            className="p-0"
+                            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        >
+                            Записів
+                            <ArrowUpDown className="ml-1 size-3" />
+                        </Button>
+                    )
+                },
+                cell: ({ row }) => {
+                    const isSnapshot = row.original.type === 'snapshot';
+                    if (!isSnapshot) {
+                        return row.original.contents.length || "-";
+                    } else {
+                        return "-"
+                    }
+                }
+            },
+            {
                 id: "status",
+                size: 150,
                 header: "Статус",
                 cell: ({ row }) => (
                     <Badge
@@ -158,6 +244,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
             },
             {
                 id: "actions",
+                size: 150,
                 header: () => <div className="text-right">Дії</div>,
                 cell: ({ row }) => {
                     const item = row.original;
@@ -245,15 +332,20 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
         return baseColumns;
     }, [pendingItems]);
 
+    const [sorting, setSorting] = React.useState<SortingState>([])
+
     const table = useReactTable({
         data: displayData,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
         state: {
             globalFilter,
+            sorting,
         },
     });
 
@@ -275,12 +367,15 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 </InputGroup>
             </div>
             <div className="rounded-md border">
-                <Table>
+                <Table className="table-fixed">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
-                                    <TableHead key={header.id}>
+                                    <TableHead 
+                                        key={header.id}
+                                        style={{ width: `${header.getSize()}px` }}
+                                    >
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
@@ -297,7 +392,11 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell 
+                                            key={cell.id}
+                                            className="truncate"
+                                            style={{ width: `${cell.column.getSize()}px` }}
+                                        >
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()

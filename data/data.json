@@ -320,7 +320,22 @@
       24.72997
     ],
     "status": "approved",
-    "contents": [],
+    "contents": [
+      {
+        "date": "1770",
+        "sourceSignature": "AGAD (тест)",
+        "sourcePage": "114",
+        "sourceLink": "",
+        "owner": "",
+        "notes": "",
+        "items": [
+          "Галич",
+          "Галич-2",
+          "Галич-3"
+        ],
+        "status": "pending"
+      }
+    ],
     "type": "estate",
     "displayName": "Галицьке староство",
     "displayType": "Маєтність"
@@ -985,7 +1000,7 @@
       49.42488,
       25.97743
     ],
-    "status": "approved",
+    "status": "pending",
     "contents": [],
     "type": "estate",
     "displayName": "Скалатський ключ",

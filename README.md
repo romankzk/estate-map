@@ -1,4 +1,4 @@
-# Estate Map (Реєстр маєтностей)
+# Estate Map (Реєстр маєтків)
 
 An interactive web application for mapping and managing historical estates and their inventories (snapshots) over time.
 
@@ -37,7 +37,7 @@ An interactive web application for mapping and managing historical estates and t
 ## 🗂 Project Structure
 
 - `app/estate-map/`: Main application logic and map view.
-- `app/admin/`: Admin dashboard for data management.
+- `app/estate-map/admin/`: Admin dashboard for data management.
 - `lib/data-utils.ts`: Server-side logic for data persistence.
 - `data/`: Contains `data.json` acting as the primary data store.
 - `components/ui/`: Reusable UI components.

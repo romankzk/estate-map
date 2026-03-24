@@ -83,7 +83,7 @@ export async function createEstate(userData: any): Promise<Estate> {
         estateType: userData.estateType,
         name: userData.name,
         center: userData.center,
-        voivodeship: userData.voivodeship,
+        province: userData.province,
         district: userData.district,
         coords: coordsArray,
         status: Statuses.Pending,

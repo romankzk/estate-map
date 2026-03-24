@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { List, Map, Plus } from "lucide-react";
 import { ViewEstateSheet } from './components/ViewEstateSheet';
 import { EstatesDataTable } from './components/EstatesDataTable';
@@ -9,6 +9,8 @@ import { columns } from './components/Columns';
 import { AddEstateSheet } from './components/AddEstateSheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
 
 // Dynamically import the client-side map, disabling SSR
 const LeafletMap = dynamic<{
@@ -40,15 +42,41 @@ export function AppContainer({ data: initialData, center, zoom }: AppContainerPr
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
 
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
+
+    useEffect(() => {
+        const id = searchParams.get('id');
+        if (id) {
+            const item = data.find(i => String(i.id) === id);
+            if (item) {
+                setSelectedItem(item);
+                setIsSheetOpen(true);
+            } else {
+                toast.error("Такого маєтку в системі не знайдено")
+                setIsSheetOpen(false);
+            }
+        } else {
+            setIsSheetOpen(false);
+            setSelectedItem(null);
+        }
+    }, [searchParams, data]);
+
     const handleOpenSheet = (item: any) => {
+        const params = new URLSearchParams(searchParams);
+
         // Handle both Leaflet marker objects and DataTable row objects
         const dataToSet = item.original ? item.original : item;
-        setSelectedItem(dataToSet);
-        setIsSheetOpen(true);
+        params.set('id', dataToSet.id);
+        replace(`${pathname}?${params.toString()}`);
     };
 
     const handleCloseSheet = () => {
-        setIsSheetOpen(false);
+        const params = new URLSearchParams(searchParams);
+
+        params.delete('id');
+        replace(`${pathname}?${params.toString()}`);
     };
 
     const handleUpdateEstate = (updatedEstate: any) => {

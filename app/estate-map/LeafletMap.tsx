@@ -36,7 +36,7 @@ function setIcon(path: string) {
 
 const createClusterCustomIcon = (cluster: any) => {
     return L.divIcon({
-        html: `<div class="bg-emerald-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
+        html: `<div class="font-[Inter] bg-emerald-500/80 text-white font-bold rounded-full flex items-center justify-center shadow-lg" 
                   style="width: 40px; height: 40px;">
                ${cluster.getChildCount()}
              </div>`,

@@ -1392,5 +1392,23 @@
     "type": "estate",
     "displayName": "Буське староство",
     "displayType": "Маєток"
+  },
+  {
+    "id": 53,
+    "propertyType": "mixed",
+    "estateType": "dzierzawa",
+    "name": "Тестова держава",
+    "center": "Проскурів",
+    "province": "Подільське",
+    "district": "",
+    "coords": [
+      49.4201,
+      26.981
+    ],
+    "status": "approved",
+    "contents": [],
+    "type": "estate",
+    "displayName": "Тестова держава",
+    "displayType": "Маєток"
   }
 ]

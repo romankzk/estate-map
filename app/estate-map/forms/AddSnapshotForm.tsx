@@ -24,7 +24,7 @@ const formSchema = z.object({
     notes: z.string(),
     items: z.string()
         .min(2, "Поле не може бути порожнім")
-        .max(500, "Поле повинне містити не більше 500 символів"),
+        .max(2500, "Поле повинне містити не більше 2500 символів"),
 });
 
 interface AddSnapshotFormProps {

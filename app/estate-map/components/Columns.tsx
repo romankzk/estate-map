@@ -20,7 +20,7 @@ function renderTypeBadges(type: string) {
       type == "royal" ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300" :
         type == "private" ? "bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300" :
           type == "church" ? "bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300" :
-            "bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300"
+            "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300"
     )}>
       <TypeLabel typeKey={type} iconSize={12} />
     </Badge>

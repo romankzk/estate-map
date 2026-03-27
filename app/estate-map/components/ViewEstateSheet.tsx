@@ -33,7 +33,7 @@ function renderPropertyType(type: string) {
             type == "royal" ? "text-blue-600 dark:text-blue-400" :
                 type == "private" ? "text-rose-600 dark:text-rose-400" :
                     type == "church" ? "text-orange-600 dark:text-orange-400" :
-                        "text-zinc-600 dark:text-zinc-400"
+                        "text-purple-600 dark:text-purple-400"
         )}>
             <TypeLabel typeKey={type} iconSize={14} isShort={false} />
         </SheetDescription>

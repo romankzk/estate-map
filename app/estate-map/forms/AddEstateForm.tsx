@@ -182,36 +182,17 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                     children={(field) => {
                         const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                         return (
-                            <Field orientation="responsive" data-invalid={isInvalid}>
-                                <FieldContent>
-                                    <FieldLabel htmlFor="province-select">
-                                        Воєводство (комітат, цинут) *
-                                    </FieldLabel>
-                                </FieldContent>
-                                <Select
+                            <Field data-invalid={isInvalid}>
+                                <FieldLabel htmlFor="province-input">Воєводство</FieldLabel>
+                                <Input
+                                    id="province-input"
                                     name={field.name}
                                     value={field.state.value}
-                                    onValueChange={field.handleChange}
-                                >
-                                    <SelectTrigger
-                                        id="province-type-select"
-                                        aria-invalid={isInvalid}
-                                        className="min-w-[120px]"
-                                    >
-                                        <SelectValue placeholder="Виберіть зі списку" />
-                                    </SelectTrigger>
-                                    <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
-                                        {ProvincesList.map((state, sIdx) => (
-                                            <SelectGroup key={sIdx}>
-                                                <SelectLabel>{state.stateLabel}</SelectLabel>
-                                                {state.provinces.map((province, pIdx) => (
-                                                    <SelectItem key={pIdx} value={province}>{province} {state.prefix}</SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        ))}
-                                        <SelectSeparator />
-                                    </SelectContent>
-                                </Select>
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    aria-invalid={isInvalid}
+                                    placeholder="Київське воєводство"
+                                />
                                 {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                             </Field>
                         )

@@ -1,7 +1,7 @@
 export const PropertyTypes = new Map<string, any>([
     ["royal",
         {
-            label: "Королівська",
+            label: "Державна",
             iconUrl: "/map-pin-royal.png"
         }
     ],

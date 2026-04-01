@@ -72,7 +72,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                             )}
 
                             {data.province && (
-                                <InfoItem iconName="Landmark" label="Воєводство / комітат" value={data.province} />
+                                <InfoItem iconName="Landmark" label="Воєводство" value={data.province} />
                             )}
 
                             {data.district && (
@@ -132,6 +132,11 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                                             </span>
                                                         )}
                                                     </div>
+
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Назва:</span>
+                                                            <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.name ?? data.name}</span>
+                                                        </div>
 
                                                     {record.owner && (
                                                         <div className="flex flex-col gap-1">

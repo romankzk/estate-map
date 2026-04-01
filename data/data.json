@@ -148,6 +148,7 @@
     ],
     "contents": [
       {
+        "name": "",
         "date": "1598",
         "sourceSignature": "ЦДІАЛ 9-1-355",
         "sourcePage": "36",
@@ -256,6 +257,7 @@
     ],
     "contents": [
       {
+        "name": "",
         "date": "1686-1687",
         "sourceSignature": "BNW - Rps 5479 IV",
         "sourcePage": "",
@@ -306,6 +308,7 @@
     ],
     "contents": [
       {
+        "name": "Глинянське староство",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "29",
@@ -322,12 +325,13 @@
         ]
       },
       {
+        "name": "Глинянська держава",
         "date": "1661-1663",
         "sourceSignature": "AGAD MK 1/4/0/8/48",
         "sourcePage": "227",
         "sourceLink": "https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031",
         "owner": "Ян з Великих Кончиць Мнішек, староста львівський",
-        "notes": "Держава, раніше у складі Львівського староства",
+        "notes": "Раніше у складі Львівського староства",
         "status": "approved",
         "items": [
           "Глиняни",
@@ -357,6 +361,7 @@
     ],
     "contents": [
       {
+        "name": "",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "119",
@@ -397,6 +402,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1770",
         "sourceSignature": "AGAD (тест)",
         "sourcePage": "114",
@@ -430,6 +436,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1661-1663",
         "sourceSignature": "AGAD MK 1/4/0/8/48",
         "sourcePage": "273",
@@ -467,6 +474,7 @@
         "displayType": "Склад маєтку"
       },
       {
+        "name": "",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "61",
@@ -1175,6 +1183,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1795",
         "sourceSignature": "ЦДІАК 49-3-212",
         "sourcePage": "",
@@ -1261,6 +1270,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1672",
         "sourceSignature": "HU MNL OL E 156 - a. - Fasc. 149. - No. 019",
         "sourcePage": "",
@@ -1341,6 +1351,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1756",
         "sourceSignature": "ЛННБ ім. Стефаника 4-1-1366",
         "sourcePage": "",
@@ -1431,6 +1442,7 @@
     "status": "approved",
     "contents": [
       {
+        "name": "",
         "date": "1662",
         "sourceSignature": "AGAD ASK 1/7/0/9/125",
         "sourcePage": "175",

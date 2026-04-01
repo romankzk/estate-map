@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 const formSchema = z.object({
+    name: z.string()
+        .min(2, "Поле не може бути порожнім")
+        .max(50, "Поле повинне містити не більше 50 символів"),
     date: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(30, "Поле повинне містити не більше 30 символів"),
@@ -36,6 +39,7 @@ interface AddSnapshotFormProps {
 export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProps) {
     const form = useForm({
         defaultValues: {
+            name: data.name,
             date: '',
             sourceSignature: '',
             sourcePage: '',
@@ -71,6 +75,28 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             </DialogHeader>
             <div className="py-6 px-1 no-scrollbar max-h-[80vh] overflow-y-auto">
                 <FieldGroup>
+                    <form.Field
+                        name="name"
+                        children={(field) => {
+                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                            return (
+                                <Field data-invalid={isInvalid}>
+                                    <FieldLabel htmlFor="name-input">Назва маєтку в зазначений рік *</FieldLabel>
+                                    <Input
+                                        id="name-input"
+                                        name={field.name}
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        aria-invalid={isInvalid}
+                                        placeholder="Київське староство"
+                                    />
+                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
+                                    <FieldDescription>Змініть значення лише якщо назва маєтку відрізняється від основної.</FieldDescription>
+                                </Field>
+                            )
+                        }}
+                    />
                     <form.Field
                         name="date"
                         children={(field) => {
@@ -128,7 +154,7 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                             onBlur={field.handleBlur}
                                             onChange={(e) => field.handleChange(e.target.value)}
                                             aria-invalid={isInvalid}
-                                            placeholder="35зв"   
+                                            placeholder="35зв"
                                         />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>

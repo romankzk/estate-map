@@ -1,4 +1,5 @@
 export interface EstateSnapshot {
+    name: string,
     date: string,
     sourceSignature: string,
     sourcePage?: string,

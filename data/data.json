@@ -15,7 +15,7 @@
     "contents": [
       {
         "name": "Львівське староство",
-        "state": "Річ Посполита",
+        "state": "poland",
         "province": "Руське воєводство",
         "district": "Львівський повіт",
         "estateType": "starostwo",
@@ -51,7 +51,7 @@
       },
       {
         "name": "Львівське староство",
-        "state": "Річ Посполита",
+        "state": "poland",
         "province": "Руське воєводство",
         "district": "Львівський повіт",
         "estateType": "starostwo",
@@ -92,7 +92,7 @@
       },
       {
         "name": "Львівське староство",
-        "state": "Річ Посполита",
+        "state": "poland",
         "province": "Руське воєводство",
         "district": "Львівський повіт",
         "estateType": "starostwo",

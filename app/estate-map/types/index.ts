@@ -1,5 +1,6 @@
 export interface EstateSnapshot {
     name: string,
+    status: string,
     state: string,
     province: string,
     district?: string,
@@ -10,18 +11,15 @@ export interface EstateSnapshot {
     owner?: string,
     notes?: string,
     items?: string[],
-    status?: string
 }
 
 export interface Estate {
     id: number,
+    name: string,
+    status: string
     estateType: string,
     propertyType: string,
-    name: string,
     center: string,
-    province: string,
-    district?: string,
     coords: number[],
     contents?: EstateSnapshot[],
-    status?: string
 }

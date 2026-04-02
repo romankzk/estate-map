@@ -41,7 +41,7 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto dark:border-[#374151] dark:bg-[#111827]">
                 <DialogHeader>
-                    <DialogTitle>Склад маєтку: {estate.name}</DialogTitle>
+                    <DialogTitle className="text-lg">Склад маєтку: {estate.name}</DialogTitle>
                 </DialogHeader>
                 
                 <div className="py-4">
@@ -49,8 +49,8 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Рік</TableHead>
-                                <TableHead>Сигнатура</TableHead>
-                                <TableHead>Власник</TableHead>
+                                <TableHead>Назва</TableHead>
+                                <TableHead>Джерело</TableHead>
                                 <TableHead className="text-right">Дії</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -58,11 +58,11 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
                             {estate.contents?.map((snapshot, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{snapshot.date}</TableCell>
+                                    <TableCell className="max-w-[200px] truncate" title={snapshot.name}>
+                                        {snapshot.name}
+                                    </TableCell>
                                     <TableCell className="max-w-[200px] truncate" title={snapshot.sourceSignature}>
                                         {snapshot.sourceSignature}
-                                    </TableCell>
-                                    <TableCell className="max-w-[200px] truncate" title={snapshot.owner}>
-                                        {snapshot.owner}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-2">

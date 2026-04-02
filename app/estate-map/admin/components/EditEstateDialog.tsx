@@ -36,10 +36,6 @@ const formSchema = z.object({
     estateType: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
-    province: z.string()
-        .min(2, "Поле не може бути порожнім")
-        .max(50, "Поле повинне містити не більше 50 символів"),
-    district: z.string(),
     center: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
@@ -61,8 +57,6 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
             name: estate.name,
             propertyType: estate.propertyType,
             estateType: estate.estateType,
-            province: estate.province,
-            district: estate.district || '',
             center: estate.center || '',
             coords: estate.coords.join(', ')
         },
@@ -85,7 +79,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto dark:border-[#374151] dark:bg-[#111827]">
                 <DialogHeader>
-                    <DialogTitle>Редагувати маєток</DialogTitle>
+                    <DialogTitle className="text-lg">Редагувати маєток</DialogTitle>
                 </DialogHeader>
                 <form
                     onSubmit={(e) => {
@@ -125,7 +119,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                         <SelectTrigger id="edit-property-type">
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
+                                        <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(PropertyTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -146,7 +140,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                         <SelectTrigger id="edit-estate-type">
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
+                                        <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(EstateTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -157,49 +151,7 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                         />
                     </div>
 
-                    <form.Field
-                        name="province"
-                        children={(field) => (
-                            <Field>
-                                <FieldLabel htmlFor="edit-province">Воєводство</FieldLabel>
-                                <Select
-                                    value={field.state.value}
-                                    onValueChange={field.handleChange}
-                                >
-                                    <SelectTrigger id="edit-province">
-                                        <SelectValue placeholder="Виберіть зі списку" />
-                                    </SelectTrigger>
-                                    <SelectContent className="dark:border-[#374151] dark:bg-[#111827]">
-                                        {ProvincesList.map((state, sIdx) => (
-                                            <SelectGroup key={sIdx}>
-                                                <SelectLabel>{state.stateLabel}</SelectLabel>
-                                                {state.provinces.map((province, pIdx) => (
-                                                    <SelectItem key={pIdx} value={province}>{province} {state.prefix}</SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </Field>
-                        )}
-                    />
-
                     <div className="grid grid-cols-2 gap-4">
-                        <form.Field
-                            name="district"
-                            children={(field) => (
-                                <Field>
-                                    <FieldLabel htmlFor="edit-district">Повіт</FieldLabel>
-                                    <Input
-                                        id="edit-district"
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                        placeholder="напр. Львівський"
-                                    />
-                                </Field>
-                            )}
-                        />
                         <form.Field
                             name="center"
                             children={(field) => (
@@ -215,25 +167,24 @@ export function EditEstateDialog({ estate, open, onOpenChange, onSuccess }: Edit
                                 </Field>
                             )}
                         />
+                        <form.Field
+                            name="coords"
+                            children={(field) => (
+                                <Field>
+                                    <FieldLabel htmlFor="edit-coords">Координати</FieldLabel>
+                                    <Input
+                                        id="edit-coords"
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        placeholder="напр. 49.12, 50.11"
+                                    />
+                                </Field>
+                            )}
+                        />
                     </div>
 
-                    <form.Field
-                        name="coords"
-                        children={(field) => (
-                            <Field>
-                                <FieldLabel htmlFor="edit-coords">Координати</FieldLabel>
-                                <Input
-                                    id="edit-coords"
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                    placeholder="напр. 49.12, 50.11"
-                                />
-                            </Field>
-                        )}
-                    />
-
-                    <DialogFooter>
+                    <DialogFooter className="pt-4 flex flex-row gap-3 sm:justify-end">
                         <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                             Скасувати
                         </Button>

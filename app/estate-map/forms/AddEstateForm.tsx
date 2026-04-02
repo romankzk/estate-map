@@ -29,10 +29,6 @@ const formSchema = z.object({
     estateType: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
-    province: z.string()
-        .min(2, "Поле не може бути порожнім")
-        .max(50, "Поле повинне містити не більше 50 символів"),
-    district: z.string(),
     center: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
@@ -52,8 +48,6 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
             name: '',
             propertyType: 'royal',
             estateType: 'starostwo',
-            province: '',
-            district: '',
             center: '',
             coords: ''
         },
@@ -129,7 +123,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         >
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
+                                        <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(PropertyTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -164,7 +158,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                                         >
                                             <SelectValue placeholder="Тип" />
                                         </SelectTrigger>
-                                        <SelectContent position="item-aligned" className="dark:border-[#374151] dark:bg-[#111827]">
+                                        <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
                                             {Array.from(EstateTypes.entries()).map(([key, value]) => (
                                                 <SelectItem key={key} value={key}>{value.label}</SelectItem>
                                             ))}
@@ -176,50 +170,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         }}
                     />
                 </div>
-                {/* Province field */}
-                <form.Field
-                    name="province"
-                    children={(field) => {
-                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                        return (
-                            <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="province-input">Воєводство</FieldLabel>
-                                <Input
-                                    id="province-input"
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                    aria-invalid={isInvalid}
-                                    placeholder="Київське воєводство"
-                                />
-                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                            </Field>
-                        )
-                    }}
-                />
-                {/* District field */}
-                <form.Field
-                    name="district"
-                    children={(field) => {
-                        const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                        return (
-                            <Field data-invalid={isInvalid}>
-                                <FieldLabel htmlFor="district-input">Повіт</FieldLabel>
-                                <Input
-                                    id="district-input"
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                    aria-invalid={isInvalid}
-                                    placeholder="Житомирський"
-                                />
-                                {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                            </Field>
-                        )
-                    }}
-                />
+
                 {/* Center field */}
                 <form.Field
                     name="center"
@@ -264,7 +215,7 @@ export function AddEstateForm({ onSheetClose, onSubmit }: AddEstateFormProps) {
                         )
                     }}
                 />
-                <p className="text-muted-foreground">Населені пункти маєтку можна буде додати після створення</p>
+                <p className="text-xs text-muted-foreground">Інформацію про населені пункти маєтку, власника та адміністративний устрій можна буде додати після створення та перевірки адміністратором.</p>
             </div>
             {/* Submit/Cancel buttons section */}
             <SheetFooter className="p-6 border-t dark:border-[#374151] flex flex-row gap-3 sm:justify-end">

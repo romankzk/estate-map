@@ -94,7 +94,28 @@ export const ProvincesList = [
         prefix: "цинут",
         provinces: ["Чернівецький", "Хотинський", "Сучавський"]
     },
-]
+];
+
+export const States = new Map<string, any>([
+    ["poland", {
+        label: "Річ Посполита"
+    }],
+    ["russia", {
+        label: "російська імперія"
+    }],
+    ["austria", {
+        label: "Австрійська імперія"
+    }],
+    ["hungary", {
+        label: "Угорське королівство"
+    }],
+    ["moldavia", {
+        label: "Молдавське князівство"
+    }],
+    ["transylvania", {
+        label: "Трансильванське князівство"
+    }],
+]);
 
 export const Statuses = {
     Pending: "pending",

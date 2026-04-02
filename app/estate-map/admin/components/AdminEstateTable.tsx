@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react"
-import { Estate } from "@/app/estate-map/types";
+import { Estate, EstateSnapshot } from "@/app/estate-map/types";
 import {
     ColumnDef,
     SortingState,
@@ -192,8 +192,8 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                 },
             },
             {
-                accessorKey: "province",
-                size: 120,
+                accessorKey: "subdivision",
+                size: 200,
                 header: ({ column }) => {
                     const isSorted = column.getIsSorted();
                     return (
@@ -202,38 +202,14 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                             className="p-0"
                             onClick={() => column.toggleSorting(isSorted === "asc")}
                         >
-                            Воєводство
-                            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
-                            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
-                        </Button>
-                    )
-                },
-                cell: ({ row }) => row.original.province || "-",
-            },
-            {
-                accessorKey: "records",
-                size: 100,
-                header: ({ column }) => {
-                    const isSorted = column.getIsSorted();
-                    return (
-                        <Button
-                            variant="ghost"
-                            className="p-0"
-                            onClick={() => column.toggleSorting(isSorted === "asc")}
-                        >
-                            Записів
+                            Устрій
                             {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
                             {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
                         </Button>
                     )
                 },
                 cell: ({ row }) => {
-                    const isSnapshot = row.original.type === 'snapshot';
-                    if (!isSnapshot) {
-                        return row.original.contents.length || "-";
-                    } else {
-                        return "-"
-                    }
+                    return "-";
                 }
             },
             {
@@ -314,6 +290,9 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                                                 title="Керувати складом"
                                             >
                                                 <List className="w-4 h-4" />
+                                                <Badge variant="outline" className="text-xs w-6">
+                                                    {row.original.contents.length}
+                                                </Badge>
                                             </Button>
                                             <Button
                                                 variant="outline"
@@ -389,9 +368,10 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
-                                    <TableHead 
+                                    <TableHead
                                         key={header.id}
                                         style={{ width: `${header.getSize()}px` }}
+                                        className="bg-muted"
                                     >
                                         {header.isPlaceholder
                                             ? null
@@ -409,7 +389,7 @@ export function AdminEstateTable({ estates, pendingItems = [], pendingFilter = f
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell 
+                                        <TableCell
                                             key={cell.id}
                                             className="truncate"
                                             style={{ width: `${cell.column.getSize()}px` }}

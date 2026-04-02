@@ -18,28 +18,31 @@ import {
     DialogContent,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { MapPin, List, Landmark, Map, Plus, Shield } from "lucide-react";
-import { EstateTypes, PropertyTypes, Statuses } from "../utils/enums";
+import { MapPin, List, Landmark, Map, Plus, Shield, User, Link as LinkIcon, FileText, Navigation, Layers, Info } from "lucide-react";
+import { EstateTypes, Statuses } from "../utils/enums";
 import { TypeLabel } from "./ui/TypeLabel";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AddSnapshotForm } from "../forms/AddSnapshotForm";
-import { InfoItem } from "./ui/InfoItem";
 import { EstateSnapshot } from "../types";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
+import { Badge } from "@/components/ui/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 function renderPropertyType(type: string) {
+    const colors = {
+        royal: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800",
+        private: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:border-rose-800",
+        church: "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800",
+        mixed: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800"
+    };
+
+    const activeColor = colors[type as keyof typeof colors] || "bg-zinc-50 text-zinc-700 border-zinc-200";
+
     return (
-        <SheetDescription className={cn("flex items-center gap-1.5 font-medium",
-            type == "royal" ? "text-blue-600 dark:text-blue-400" :
-                type == "private" ? "text-rose-600 dark:text-rose-400" :
-                    type == "church" ? "text-orange-600 dark:text-orange-400" :
-                        "text-purple-600 dark:text-purple-400"
-        )}>
-            <TypeLabel typeKey={type} iconSize={14} isShort={false} />
-        </SheetDescription>
+        <Badge variant="outline" className={cn("flex items-center gap-1.5 px-2 py-0.5 font-semibold transition-colors", activeColor)}>
+            <TypeLabel typeKey={type} iconSize={12} isShort={false} />
+        </Badge>
     )
 };
 
@@ -55,144 +58,192 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
 
     const approvedContents = [...(data.contents || [])]
         .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
-        .sort((a: any, b: any) => a.date.localeCompare(b.date));
+        .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date descending (newest first)
 
     return (
         <Sheet
             open={isOpen}
             onOpenChange={(open) => !open && onClose()}
         >
-            <SheetContent side="right" className="sm:max-w-md w-full p-0 flex flex-col h-full border-l dark:border-[#374151] dark:bg-[#111827]">
-                <SheetHeader className="p-6 border-b dark:border-[#374151]">
-                    <SheetTitle className="text-xl font-bold">{data.name}</SheetTitle>
-                    {renderPropertyType(data.propertyType)}
+            <SheetContent
+                side="right"
+                className="sm:max-w-md w-full p-0 pb-2 flex flex-col h-full border-l dark:border-[#374151] dark:bg-[#111827]"
+            >
+                <SheetHeader className="p-6 space-y-4 border-b dark:border-[#374151] bg-zinc-50/50 dark:bg-[#1F2937]/30 space-y-2">
+                    <SheetTitle className="text-2xl font-bold tracking-tight">{data.name}</SheetTitle>
+                    <div className="flex items-center justify-between">
+                        {renderPropertyType(data.propertyType)}
+                    </div>
                 </SheetHeader>
-                <div className="flex-1 overflow-y-auto no-scrollbar">
-                    <div className="px-6 pb-6 space-y-6">
-                        <div className="grid grid-cols-2 gap-3">
-                            {data.estateType && (
-                                <div className="flex flex-col gap-1">
-                                    <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Тип маєтку</h3>
-                                    <p className="text-sm font-medium">{data.estateType}</p>
-                                </div>
-                            )}
 
-                            {data.center && (
-                                <div className="flex flex-col gap-1">
+                <div className="flex-1 overflow-y-auto no-scrollbar px-6 space-y-4">
+                    {/* Quick Information Section */}
+                    <section className="grid grid-cols-2 gap-3">
+                        {data.estateType && (
+                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
+                                <Landmark size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
+                                <div>
+                                    <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">
+                                        Тип маєтку
+                                    </h3>
+
+                                    <p className="text-sm font-medium">{EstateTypes.get(data.estateType).label}</p>
+                                </div>
+                            </div>
+                        )}
+                        {data.center && (
+                            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-zinc-100 dark:bg-[#1F2937]">
+                                <MapPin size={18} className="text-zinc-500 mt-0.5 dark:text-white/60" />
+                                <div>
                                     <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/60">Центр</h3>
                                     <p className="text-sm font-medium">{data.center}</p>
                                 </div>
-                            )}
-                        </div>
-
-                        <Separator />
-
-                        <div className="space-y-3">
-                            <div className="flex flex-row items-center justify-between px-1">
-                                <div className="flex items-center gap-2">
-                                    <List size={16} className="text-zinc-500 dark:text-white/70" />
-                                    <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/70">Склад маєтку</h3>
-                                </div>
-                                <Dialog>
-                                    <DialogTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                            <Plus size={12} /> Додати
-                                        </Button>
-                                    </DialogTrigger>
-                                    <DialogContent className="dark:bg-[#111827] border-b border-gray-300 dark:border-[#374151]">
-                                        <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate} />
-                                    </DialogContent>
-                                </Dialog>
                             </div>
-                            {approvedContents.length > 0 ? (
-                                <Accordion type="single" collapsible className="w-full">
-                                    {approvedContents.map((record: any, idx: number) => (
-                                        <AccordionItem key={`${record.date}-${idx}`} value={`item-${idx}`} className="border-zinc-200 dark:border-[#374151]">
+                        )}
+                    </section>
 
-                                            {/* Snapshot title */}
-                                            <AccordionTrigger className="hover:no-underline py-3 px-1 font-medium">
-                                                <span>{record.date}</span>
-                                            </AccordionTrigger>
+                    <Separator className="opacity-50" />
 
-                                            {/* Snapshot content */}
-                                            <AccordionContent className="px-0.5 pb-4 pt-2 space-y-2">
-                                                <Item size="sm">
-                                                    <ItemContent>
-                                                        <ItemTitle>{record.name}</ItemTitle>
-                                                        <ItemDescription>Руське воєводство, Львівський повіт</ItemDescription>
-                                                    </ItemContent>
-                                                </Item>
-
-                                                <Item size="sm" variant="outline">
-                                                    <ItemContent>
-                                                        <ItemTitle>Загальна інформація</ItemTitle>
-                                                        <ItemDescription className="space-y-4 pt-2">
-                                                            {record.owner && (
-                                                                <div className="flex flex-col gap-1">
-                                                                    <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Власник</span>
-                                                                    <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.owner}</span>
-                                                                </div>
-                                                            )}
-
-                                                            <div className="flex flex-col gap-1">
-                                                                <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Джерело</span>
-                                                                {record.sourceSignature && record.sourceLink ? (
-                                                                    <a
-                                                                        href={record.sourceLink}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center transition-colors"
-                                                                    >
-                                                                        {record.sourceSignature}
-                                                                        {record.sourcePage && (
-                                                                            <> - с. {record.sourcePage}</>
-                                                                        )}
-                                                                    </a>
-                                                                ) : (
-                                                                    <span className="text-xs text-zinc-700 dark:text-zinc-300">
-                                                                        {record.sourceSignature}
-                                                                        {record.sourcePage && (
-                                                                            <> - с. {record.sourcePage}</>
-                                                                        )}
-                                                                    </span>
-                                                                )}
-                                                            </div>
-
-                                                            {record.notes && (
-                                                                <div className="flex flex-col gap-1">
-                                                                    <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-white/70">Примітки</span>
-                                                                    <span className="text-xs text-zinc-700 dark:text-zinc-300">{record.notes}</span>
-                                                                </div>
-                                                            )}
-                                                        </ItemDescription>
-                                                    </ItemContent>
-                                                </Item>
-
-                                                <Item size="sm" variant="outline">
-                                                    <ItemContent>
-                                                        <ItemTitle>Населені пункти</ItemTitle>
-                                                        <ItemDescription className="space-y-4 pt-2">
-                                                            <ol className="list-decimal list-inside grid grid-cols-1 gap-1">
-                                                                {record.items.map((item: any, i: number) => (
-                                                                    <li key={i} className="text-sm text-zinc-700 dark:text-white/80">
-                                                                        {item}
-                                                                    </li>
-                                                                ))}
-                                                            </ol>
-                                                        </ItemDescription>
-                                                    </ItemContent>
-                                                </Item>
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    ))}
-                                </Accordion>
-                            ) : (
-                                <p className="text-sm text-zinc-500 px-1">Дані про склад наразі відсутні.</p>
-                            )}
+                    {/* Contents Section */}
+                    <section className="space-y-4">
+                        <div className="flex items-center justify-between px-1">
+                            <div className="flex items-center gap-2">
+                                <h3 className="text-base font-bold tracking-tight">Хронологія складу</h3>
+                            </div>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs font-semibold">
+                                        <Plus size={14} /> Додати запис
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="dark:bg-[#111827] sm:max-w-[500px]">
+                                    <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate} />
+                                </DialogContent>
+                            </Dialog>
                         </div>
-                    </div>
+
+                        {approvedContents.length > 0 ? (
+                            <Accordion type="single" collapsible defaultValue="item-0" className="w-full space-y-3 overflow-y-auto">
+                                {approvedContents.map((record: any, idx: number) => (
+                                    <AccordionItem
+                                        key={`${record.date}-${idx}`}
+                                        value={`item-${idx}`}
+                                        className="border rounded-xl overflow-hidden px-0 bg-white dark:bg-zinc-900/50 border-zinc-200 dark:border-[#374151]"
+                                    >
+                                        <AccordionTrigger
+                                            className="hover:no-underline flex items-center py-2 px-2 bg-zinc-50/50 dark:bg-zinc-800/30"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <Badge variant="outline" className="h-6 px-2 text-sm bg-white dark:bg-zinc-950">
+                                                    {record.date}
+                                                </Badge>
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate max-w-[200px]">
+                                                        {record.name || data.name}
+                                                    </span>
+                                                    <span className="text-xs font-normal text-zinc-900 dark:text-zinc-100 truncate max-w-[200px]">
+                                                        {record.state}
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </AccordionTrigger>
+
+                                        <AccordionContent className="p-4 space-y-6">
+                                            {/* Meta Info */}
+                                            <div className="grid gap-4">
+                                                {true && (
+                                                    <div className="flex flex-col space-y-2">
+                                                        <div className="flex items-center gap-2 min-w-[100px]">
+                                                            <Map size={14} className="text-zinc-400" />
+                                                            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Устрій</h4>
+                                                        </div>
+                                                        <p className="text-xs text-zinc-900 dark:text-zinc-200">
+                                                            {record.province}
+                                                            {record.district ? ", ": ""}
+                                                            {record.district}
+                                                        </p>
+                                                    </div>
+                                                )}
+
+                                                {record.owner && (
+                                                    <div className="flex flex-col space-y-2">
+                                                        <div className="flex items-center gap-2 min-w-[100px]">
+                                                            <User size={14} className="text-zinc-400" />
+                                                            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Власник</h4>
+                                                        </div>
+                                                        <p className="text-xs text-zinc-900 dark:text-zinc-200">{record.owner}</p>
+                                                    </div>
+                                                )}
+
+                                                {record.sourceSignature && (
+                                                    <div className="flex flex-col space-y-2">
+                                                        <div className="flex items-center gap-2 min-w-[100px]">
+                                                            <LinkIcon size={14} className="text-zinc-400" />
+                                                            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Джерело</h4>
+                                                        </div>
+                                                        {record.sourceSignature && record.sourceLink ? (
+                                                            <a
+                                                                href={record.sourceLink}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center transition-colors"
+                                                            >
+                                                                {record.sourceSignature}
+                                                                {record.sourcePage && (
+                                                                    <> - с. {record.sourcePage}</>
+                                                                )}
+                                                            </a>
+                                                        ) : (
+                                                            <span className="text-xs text-zinc-900 dark:text-zinc-200">
+                                                                {record.sourceSignature || "Не вказано"}
+                                                                {record.sourcePage && (
+                                                                    <> - с. {record.sourcePage}</>
+                                                                )}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                {record.notes && (
+                                                    <div className="flex flex-col space-y-2">
+                                                        <div className="flex items-center gap-2 min-w-[100px]">
+                                                            <FileText size={14} className="text-zinc-400" />
+                                                            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Примітки</h4>
+                                                        </div>
+                                                        <p className="text-xs italic leading-relaxed text-zinc-600 dark:text-zinc-400">{record.notes}</p>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Settlements */}
+                                            <div className="space-y-3">
+                                                <div className="flex items-center gap-2">
+                                                    <List size={14} className="text-zinc-400" />
+                                                    <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Населені пункти</h4>
+                                                </div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    <ol className="list-decimal list-inside grid grid-cols-1 gap-1">
+                                                        {record.items.map((item: any, i: number) => (
+                                                            <li key={i} className="text-sm text-zinc-700 dark:text-white/80">
+                                                                {item}
+                                                            </li>
+                                                        ))}
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                ))}
+                            </Accordion>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center py-10 px-4 rounded-xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+                                <p className="text-sm text-muted-foreground text-center">Дані про склад наразі відсутні</p>
+                            </div>
+                        )}
+                    </section>
                 </div>
             </SheetContent>
-        </Sheet>
+        </Sheet >
     )
 }

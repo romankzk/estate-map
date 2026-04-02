@@ -88,6 +88,9 @@ export function EstatesDataTable<TData, TValue>({
             if (estate.contents && Array.isArray(estate.contents)) {
                 return estate.contents.some((snapshot: any) => {
                     const inSnapshot = [
+                        snapshot.name,
+                        snapshot.province,
+                        snapshot.district,
                         snapshot.date,
                         snapshot.owner,
                         snapshot.sourceSignature,
@@ -130,7 +133,7 @@ export function EstatesDataTable<TData, TValue>({
             </div>
             <div className="overflow-hidden rounded-md border">
                 <Table className="table-fixed">
-                    <TableHeader>
+                    <TableHeader className="bg-muted">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {

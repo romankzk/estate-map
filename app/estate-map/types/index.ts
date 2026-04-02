@@ -1,5 +1,8 @@
 export interface EstateSnapshot {
     name: string,
+    state: string,
+    province: string,
+    district?: string,
     date: string,
     sourceSignature: string,
     sourcePage?: string,

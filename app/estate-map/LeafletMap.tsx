@@ -13,13 +13,17 @@ import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
 
 function renderTypeBadge(type: string) {
+    const colors = {
+        royal: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800",
+        private: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:border-rose-800",
+        church: "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800",
+        mixed: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800"
+    };
+
+    const activeColor = colors[type as keyof typeof colors] || "bg-zinc-50 text-zinc-700 border-zinc-200";
+
     return (
-        <Badge className={cn("inline-flex items-center gap-2",
-            type == "royal" ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300" :
-                type == "private" ? "bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300" :
-                    type == "church" ? "bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300" :
-                        "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300"
-        )}>
+        <Badge variant="outline" className={cn("flex items-center gap-1.5 px-2 py-0.5 font-semibold transition-colors", activeColor)}>
             <TypeLabel typeKey={type} iconSize={12} isShort={false} />
         </Badge>
     )

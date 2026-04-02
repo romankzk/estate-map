@@ -14,6 +14,11 @@
     ],
     "contents": [
       {
+        "name": "Львівське староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1661-1663",
         "sourceSignature": "AGAD MK 1/4/0/8/48",
         "sourcePage": "1v",
@@ -45,6 +50,11 @@
         ]
       },
       {
+        "name": "Львівське староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "6",
@@ -81,6 +91,11 @@
         ]
       },
       {
+        "name": "Львівське староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1564-1565",
         "sourceSignature": "Жерела до історії України-Руси. Том 3",
         "sourcePage": "372",
@@ -148,7 +163,11 @@
     ],
     "contents": [
       {
-        "name": "",
+        "name": "Золочівський ключ",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "klucz",
         "date": "1598",
         "sourceSignature": "ЦДІАЛ 9-1-355",
         "sourcePage": "36",
@@ -257,7 +276,11 @@
     ],
     "contents": [
       {
-        "name": "",
+        "name": "Поморянський ключ",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "klucz",
         "date": "1686-1687",
         "sourceSignature": "BNW - Rps 5479 IV",
         "sourcePage": "",
@@ -309,6 +332,10 @@
     "contents": [
       {
         "name": "Глинянське староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "29",
@@ -326,6 +353,10 @@
       },
       {
         "name": "Глинянська держава",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "dzierzawa",
         "date": "1661-1663",
         "sourceSignature": "AGAD MK 1/4/0/8/48",
         "sourcePage": "227",
@@ -361,7 +392,11 @@
     ],
     "contents": [
       {
-        "name": "",
+        "name": "Щирецьке староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "119",
@@ -402,7 +437,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Галицьке староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Галицький повіт",
+        "estateType": "starostwo",
         "date": "1770",
         "sourceSignature": "AGAD (тест)",
         "sourcePage": "114",
@@ -436,7 +475,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Городоцьке староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1661-1663",
         "sourceSignature": "AGAD MK 1/4/0/8/48",
         "sourcePage": "273",
@@ -474,7 +517,11 @@
         "displayType": "Склад маєтку"
       },
       {
-        "name": "",
+        "name": "Городоцьке староство",
+        "state": "Річ Посполита",
+        "province": "Руське воєводство",
+        "district": "Львівський повіт",
+        "estateType": "starostwo",
         "date": "1765",
         "sourceSignature": "AGAD MK 1/4/0/8/57",
         "sourcePage": "61",
@@ -1183,7 +1230,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Махнівський ключ",
+        "state": "Російська імперія",
+        "province": "Київське воєводство",
+        "district": "Житомирський повіт",
+        "estateType": "klucz",
         "date": "1795",
         "sourceSignature": "ЦДІАК 49-3-212",
         "sourcePage": "",
@@ -1270,7 +1321,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Великобичківська домінія",
+        "state": "Трансильванське князівство",
+        "province": "Мармарош",
+        "district": "",
+        "estateType": "dominia",
         "date": "1672",
         "sourceSignature": "HU MNL OL E 156 - a. - Fasc. 149. - No. 019",
         "sourcePage": "",
@@ -1351,7 +1406,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Збаразьке князівство",
+        "state": "Річ Посполита",
+        "province": "Волинське воєводство",
+        "district": "Кременецький повіт",
+        "estateType": "ksiestwo",
         "date": "1756",
         "sourceSignature": "ЛННБ ім. Стефаника 4-1-1366",
         "sourcePage": "",
@@ -1442,7 +1501,11 @@
     "status": "approved",
     "contents": [
       {
-        "name": "",
+        "name": "Буське староство",
+        "state": "Річ Посполита",
+        "province": "Белзьке воєводство",
+        "district": "Буський повіт",
+        "estateType": "starostwo",
         "date": "1662",
         "sourceSignature": "AGAD ASK 1/7/0/9/125",
         "sourcePage": "175",

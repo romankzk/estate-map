@@ -18,7 +18,7 @@ import {
     DialogContent,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { MapPin, List, Landmark, Map, Plus, Shield, User, Link as LinkIcon, FileText, Navigation, Layers, Info, TableOfContents } from "lucide-react";
+import { MapPin, List, Landmark, Map, Plus, Shield, User, Link as LinkIcon, FileText, Navigation, Layers, Info, TableOfContents, ScrollText } from "lucide-react";
 import { EstateTypes, Statuses } from "../utils/enums";
 import { TypeLabel } from "./ui/TypeLabel";
 import { cn } from "@/lib/utils";
@@ -124,7 +124,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                         </div>
 
                         {approvedContents.length > 0 ? (
-                            <Accordion type="single" collapsible defaultValue="item-0" className="w-full space-y-3 overflow-y-auto">
+                            <Accordion type="single" collapsible className="w-full space-y-3 overflow-y-auto">
                                 {approvedContents.map((record: any, idx: number) => (
                                     <AccordionItem
                                         key={`${record.date}-${idx}`}
@@ -143,7 +143,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                                         {record.name || data.name}
                                                     </span>
                                                     <span className="text-xs font-normal text-muted-foreground dark:text-muted-foreground truncate max-w-[200px]">
-                                                        {record.sourceSignature}
+                                                        {record.items.length} населених пунктів
                                                     </span>
                                                 </div>
 
@@ -241,7 +241,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                             <Empty className="border border-dashed text-muted-foreground">
                                 <EmptyHeader>
                                     <EmptyMedia variant="icon" className="text-muted-foreground dark:bg-[#1F2937]">
-                                        <TableOfContents />
+                                        <ScrollText />
                                     </EmptyMedia>
                                     <EmptyTitle>Поки що порожньо</EmptyTitle>
                                     <EmptyDescription>

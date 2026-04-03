@@ -19,7 +19,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { MapPin, List, Landmark, Map, Plus, Shield, User, Link as LinkIcon, FileText, Navigation, Layers, Info, TableOfContents, ScrollText } from "lucide-react";
-import { EstateTypes, Statuses } from "../utils/enums";
+import { EstateTypes, NumberingLabels, Statuses } from "../utils/enums";
 import { TypeLabel } from "./ui/TypeLabel";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,6 +46,12 @@ function renderPropertyType(type: string) {
         </Badge>
     )
 };
+
+function renderNumberEndings(number: number) {
+    const lastDigit = Math.abs(number % 10);
+    
+    return NumberingLabels.get(lastDigit);
+}
 
 interface ViewEstateSheetProps {
     isOpen: boolean;
@@ -143,7 +149,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                                         {record.name || data.name}
                                                     </span>
                                                     <span className="text-xs font-normal text-muted-foreground dark:text-muted-foreground truncate max-w-[200px]">
-                                                        {record.items.length} населених пунктів
+                                                        {record.items.length} {renderNumberEndings(record.items.length)}
                                                     </span>
                                                 </div>
 

@@ -197,7 +197,7 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                         value={field.state.value}
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
-                                        placeholder="напр. Примітки..."
+                                        placeholder="Раніше у складі Галицького староства"
                                     />
                                 </Field>
                             )}
@@ -246,7 +246,7 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                         value={field.state.value}
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
-                                        placeholder="напр. https://..."
+                                        placeholder="https://www.szukajwarchiwach.gov.pl/en/jednostka/-/jednostka/17711031"
                                     />
                                 </Field>
                             )}
@@ -266,9 +266,8 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         className="min-h-[150px]"
-                                        placeholder="напр. Львів (місто), Скнилів, Сокільники"
+                                        placeholder="Львів (місто), Скнилів, Сокільники"
                                     />
-                                    <FieldDescription className="text-xs">Розділяйте населені пункти комою або новим рядком.</FieldDescription>
                                 </Field>
                             )}
                         />

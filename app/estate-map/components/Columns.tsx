@@ -69,7 +69,7 @@ export const columns: ColumnDef<Estate>[] = [
     },
     cell: ({ row }) => {
       return (
-        <span className="truncate block">
+        <span className="font-medium truncate block">
           {row.getValue("name")}
         </span>
       )

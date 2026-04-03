@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { DistrictsList, ProvincesList } from "../utils/enums";
 import { InputAutocomplete } from "../components/ui/InputAutocomplete";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { InfoIcon } from "lucide-react";
 
 function getItemsCount(value: string) {
     const delimitersRegex = /[,;|\n\r]+/;
@@ -158,16 +160,16 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                             Воєводство
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
-                                            <InputAutocomplete
-                                                id="province-input"
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onBlur={field.handleBlur}
-                                                onChange={(val) => field.handleChange(val)}
-                                                options={ProvincesList}
-                                                aria-invalid={isInvalid}
-                                                placeholder="Київське воєводство"
-                                            />
+                                        <InputAutocomplete
+                                            id="province-input"
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(val) => field.handleChange(val)}
+                                            options={ProvincesList}
+                                            aria-invalid={isInvalid}
+                                            placeholder="Київське воєводство"
+                                        />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
@@ -182,16 +184,16 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                 return (
                                     <Field data-invalid={isInvalid}>
                                         <FieldLabel htmlFor="district-input">Повіт</FieldLabel>
-                                            <InputAutocomplete
-                                                id="district-input"
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onBlur={field.handleBlur}
-                                                onChange={(val) => field.handleChange(val)}
-                                                options={DistrictsList}
-                                                aria-invalid={isInvalid}
-                                                placeholder="Житомирський повіт"
-                                            />
+                                        <InputAutocomplete
+                                            id="district-input"
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(val) => field.handleChange(val)}
+                                            options={DistrictsList}
+                                            aria-invalid={isInvalid}
+                                            placeholder="Житомирський повіт"
+                                        />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
@@ -349,8 +351,16 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             )
                         }}
                     />
+                    <Alert>
+                        <InfoIcon />
+                        <AlertTitle>Зверніть увагу</AlertTitle>
+                        <AlertDescription>
+                            Після збереження інформацію буде надіслано на перевірку адміністраторам. Запис з'явиться в реєстрі лише після підтвердження.
+                        </AlertDescription>
+                    </Alert>
                 </FieldGroup>
             </div>
+            
             <DialogFooter className="pt-4">
                 <DialogClose asChild>
                     <Button type="button" variant="outline">Скасувати</Button>

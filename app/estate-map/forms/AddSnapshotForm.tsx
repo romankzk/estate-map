@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod"
 import { createEstateSnapshot } from "@/lib/data-utils";
@@ -7,14 +9,19 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { States } from "../utils/enums";
+import { DistrictsList, ProvincesList } from "../utils/enums";
+import { InputAutocomplete } from "../components/ui/InputAutocomplete";
+import { Badge } from "@/components/ui/badge";
+
+function getItemsCount(value: string) {
+    const delimitersRegex = /[,;|\n\r]+/;
+    let items = value.split(delimitersRegex).map(i => i.trim()).filter(i => i !== '');
+
+    return items.length;
+}
 
 const formSchema = z.object({
     name: z.string()
-        .min(2, "Поле не може бути порожнім")
-        .max(50, "Поле повинне містити не більше 50 символів"),
-    state: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
     province: z.string()
@@ -49,7 +56,6 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
     const form = useForm({
         defaultValues: {
             name: data.name,
-            state: 'poland',
             province: '',
             district: '',
             date: '',
@@ -87,29 +93,6 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             </DialogHeader>
             <div className="py-6 px-1 no-scrollbar max-h-[80vh] overflow-y-auto">
                 <FieldGroup className="flex gap-4">
-                    {/* Name field */}
-                    <form.Field
-                        name="name"
-                        children={(field) => {
-                            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                            return (
-                                <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="name-input">Назва маєтку *</FieldLabel>
-                                    <Input
-                                        id="name-input"
-                                        name={field.name}
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                        aria-invalid={isInvalid}
-                                        placeholder="Київське староство"
-                                    />
-                                    {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                                </Field>
-                            )
-                        }}
-                    />
-
                     <div className="grid grid-cols-3 items-start gap-2">
                         {/* Date field */}
                         <form.Field
@@ -118,7 +101,10 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
                                     <Field data-invalid={isInvalid} className="col-span-1">
-                                        <FieldLabel htmlFor="date-input">Рік *</FieldLabel>
+                                        <FieldLabel htmlFor="date-input">
+                                            Рік
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
                                         <Input
                                             id="date-input"
                                             name={field.name}
@@ -126,50 +112,40 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                             onBlur={field.handleBlur}
                                             onChange={(e) => field.handleChange(e.target.value)}
                                             aria-invalid={isInvalid}
-                                            placeholder="1710 або 1564-1565"
+                                            placeholder="1710"
                                         />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
                             }}
                         />
-                        {/* State field */}
+
+                        {/* Name field */}
                         <form.Field
-                            name="state"
+                            name="name"
                             children={(field) => {
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
-                                    <Field orientation="responsive" data-invalid={isInvalid} className="col-span-2">
-                                        <FieldContent>
-                                            <FieldLabel htmlFor="state-select">
-                                                Держава *
-                                            </FieldLabel>
-                                        </FieldContent>
-                                        <Select
+                                    <Field data-invalid={isInvalid} className="col-span-2">
+                                        <FieldLabel htmlFor="name-input">
+                                            Назва маєтку
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                        <Input
+                                            id="name-input"
                                             name={field.name}
                                             value={field.state.value}
-                                            onValueChange={field.handleChange}
-                                        >
-                                            <SelectTrigger
-                                                id="state-select"
-                                                aria-invalid={isInvalid}
-                                                className="min-w-[120px]"
-                                            >
-                                                <SelectValue placeholder="Держава" />
-                                            </SelectTrigger>
-                                            <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
-                                                {Array.from(States.entries()).map(([key, value]) => (
-                                                    <SelectItem key={key} value={key}>{value.label}</SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                            aria-invalid={isInvalid}
+                                            placeholder="Київське староство"
+                                        />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
                             }}
                         />
                     </div>
-
                     <div className="grid grid-cols-2 items-start gap-2">
                         {/* Province field */}
                         <form.Field
@@ -178,16 +154,20 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
                                     <Field data-invalid={isInvalid}>
-                                        <FieldLabel htmlFor="province-input">Воєводство *</FieldLabel>
-                                        <Input
-                                            id="province-input"
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                            aria-invalid={isInvalid}
-                                            placeholder="Київське воєводство"
-                                        />
+                                        <FieldLabel htmlFor="province-input">
+                                            Воєводство
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                            <InputAutocomplete
+                                                id="province-input"
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onBlur={field.handleBlur}
+                                                onChange={(val) => field.handleChange(val)}
+                                                options={ProvincesList}
+                                                aria-invalid={isInvalid}
+                                                placeholder="Київське воєводство"
+                                            />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
@@ -202,15 +182,16 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                 return (
                                     <Field data-invalid={isInvalid}>
                                         <FieldLabel htmlFor="district-input">Повіт</FieldLabel>
-                                        <Input
-                                            id="district-input"
-                                            name={field.name}
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => field.handleChange(e.target.value)}
-                                            aria-invalid={isInvalid}
-                                            placeholder="Житомирський повіт"
-                                        />
+                                            <InputAutocomplete
+                                                id="district-input"
+                                                name={field.name}
+                                                value={field.state.value}
+                                                onBlur={field.handleBlur}
+                                                onChange={(val) => field.handleChange(val)}
+                                                options={DistrictsList}
+                                                aria-invalid={isInvalid}
+                                                placeholder="Житомирський повіт"
+                                            />
                                         {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
                                     </Field>
                                 )
@@ -274,7 +255,10 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
                                     <Field data-invalid={isInvalid} className="col-span-3">
-                                        <FieldLabel htmlFor="signature-input">Джерело *</FieldLabel>
+                                        <FieldLabel htmlFor="signature-input">
+                                            Джерело
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
                                         <Input
                                             id="signature-input"
                                             name={field.name}
@@ -345,7 +329,13 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                             return (
                                 <Field data-invalid={isInvalid}>
-                                    <FieldLabel htmlFor="items-input">Населені пункти *</FieldLabel>
+                                    <FieldLabel htmlFor="items-input">
+                                        Населені пункти
+                                        <Badge variant="secondary">{getItemsCount(field.state.value)}</Badge>
+                                    </FieldLabel>
+                                    <FieldDescription className="text-xs">
+                                        Населені пункти можна розділяти через кому, крапку з комою або писати кожен з нового рядка.
+                                    </FieldDescription>
                                     <Textarea
                                         id="items-input"
                                         name={field.name}
@@ -355,7 +345,6 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
                                         aria-invalid={isInvalid}
                                         placeholder="Львів (місто), Скнилів, Сокільники, Щирець (містечко), Красів" />
                                     {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                                    <FieldDescription className="text-xs">Розділяйте населені пункти комою, крапкою з комою, рискою (|) або просто пишіть з нового рядка.</FieldDescription>
                                 </Field>
                             )
                         }}

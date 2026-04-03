@@ -16,14 +16,19 @@ import { updateEstateSnapshot } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { States } from "../../utils/enums";
+import { Badge } from "@/components/ui/badge";
+
+function getItemsCount(value: string) {
+    const delimitersRegex = /[,;|\n\r]+/;
+    let items = value.split(delimitersRegex).map(i => i.trim()).filter(i => i !== '');
+
+    return items.length;
+}
 
 const formSchema = z.object({
     name: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
-    state: z.string(),
     province: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
@@ -59,7 +64,6 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
     const form = useForm({
         defaultValues: {
             name: snapshot.name,
-            state: snapshot.state,
             province: snapshot.province,
             district: snapshot.district || '',
             date: snapshot.date,
@@ -100,23 +104,23 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                     className="space-y-4 py-4"
                 >
                     <FieldGroup>
-                        <form.Field
-                            name="name"
-                            children={(field) => (
-                                <Field>
-                                    <FieldLabel htmlFor="edit-snap-name">Назва</FieldLabel>
-                                    <Input
-                                        id="edit-snap-name"
-                                        value={field.state.value}
-                                        onBlur={field.handleBlur}
-                                        onChange={(e) => field.handleChange(e.target.value)}
-                                        placeholder=""
-                                    />
-                                    {field.state.meta.errors.length > 0 && <FieldError errors={field.state.meta.errors} />}
-                                </Field>
-                            )}
-                        />
                         <div className="grid grid-cols-2 gap-2">
+                            <form.Field
+                                name="name"
+                                children={(field) => (
+                                    <Field>
+                                        <FieldLabel htmlFor="edit-snap-name">Назва</FieldLabel>
+                                        <Input
+                                            id="edit-snap-name"
+                                            value={field.state.value}
+                                            onBlur={field.handleBlur}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                            placeholder=""
+                                        />
+                                        {field.state.meta.errors.length > 0 && <FieldError errors={field.state.meta.errors} />}
+                                    </Field>
+                                )}
+                            />
                             <form.Field
                                 name="date"
                                 children={(field) => (
@@ -132,39 +136,6 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                         {field.state.meta.errors.length > 0 && <FieldError errors={field.state.meta.errors} />}
                                     </Field>
                                 )}
-                            />
-                            {/* State field */}
-                            <form.Field
-                                name="state"
-                                children={(field) => {
-                                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                                    return (
-                                        <Field orientation="vertical" data-invalid={isInvalid}>
-                                            <FieldContent>
-                                                <FieldLabel htmlFor="state-select">Держава</FieldLabel>
-                                            </FieldContent>
-                                            <Select
-                                                name={field.name}
-                                                value={field.state.value}
-                                                onValueChange={field.handleChange}
-                                            >
-                                                <SelectTrigger
-                                                    id="state-select"
-                                                    aria-invalid={isInvalid}
-                                                    className="min-w-[120px]"
-                                                >
-                                                    <SelectValue placeholder="Держава" />
-                                                </SelectTrigger>
-                                                <SelectContent position="popper" className="dark:border-[#374151] dark:bg-[#111827]">
-                                                    {Array.from(States.entries()).map(([key, value]) => (
-                                                        <SelectItem key={key} value={key}>{value.label}</SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                            {isInvalid && <FieldError className="text-xs" errors={field.state.meta.errors} />}
-                                        </Field>
-                                    )
-                                }}
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-2">
@@ -285,7 +256,10 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                             name="items"
                             children={(field) => (
                                 <Field>
-                                    <FieldLabel htmlFor="edit-snap-items">Населені пункти</FieldLabel>
+                                    <FieldLabel htmlFor="edit-snap-items">
+                                        Населені пункти
+                                        <Badge variant="secondary">{getItemsCount(field.state.value)}</Badge>
+                                    </FieldLabel>
                                     <Textarea
                                         id="edit-snap-items"
                                         value={field.state.value}

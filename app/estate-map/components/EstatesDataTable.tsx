@@ -133,7 +133,7 @@ export function EstatesDataTable<TData, TValue>({
             </div>
             <div className="overflow-hidden rounded-md border">
                 <Table className="table-fixed">
-                    <TableHeader className="bg-muted">
+                    <TableHeader className="bg-muted dark:bg-[#1F2937]">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {

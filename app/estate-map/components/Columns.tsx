@@ -113,10 +113,9 @@ export const columns: ColumnDef<Estate>[] = [
     },
     cell: ({ row }) => renderTypeBadges(row.getValue("propertyType"))
   },
-
   {
-    accessorKey: "subdivision",
-    size: 250,
+    accessorKey: "province",
+    size: 150,
     header: ({ column }) => {
       const isSorted = column.getIsSorted();
       return (
@@ -125,7 +124,7 @@ export const columns: ColumnDef<Estate>[] = [
           className="px-0.5"
           onClick={() => column.toggleSorting(isSorted === "asc")}
         >
-          Устрій
+          Воєводство
           {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
           {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
         </Button>
@@ -138,9 +137,37 @@ export const columns: ColumnDef<Estate>[] = [
         .sort((a: any, b: any) => b.date.localeCompare(a.date));
 
       if (sortedItems.length > 0) {
-        return sortedItems[0].district
-          ? `${sortedItems[0].province}, ${sortedItems[0].district}`
-          : sortedItems[0].province;
+        return sortedItems[0].province;
+      } else {
+        return "";
+      }
+    }
+  },
+  {
+    accessorKey: "district",
+    size: 150,
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted();
+      return (
+        <Button
+          variant="ghost"
+          className="px-0.5"
+          onClick={() => column.toggleSorting(isSorted === "asc")}
+        >
+          Повіт
+          {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+          {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      let contents = row.getValue("contents") as EstateSnapshot[];
+      let sortedItems = contents
+        .filter((s: EstateSnapshot) => s.status === Statuses.Approved) // Get only approved items
+        .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date
+
+      if (sortedItems.length > 0) {
+        return sortedItems[0].district;
       } else {
         return "";
       }

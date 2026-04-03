@@ -50,6 +50,7 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
                             <TableRow>
                                 <TableHead>Рік</TableHead>
                                 <TableHead>Назва</TableHead>
+                                <TableHead>Пунктів</TableHead>
                                 <TableHead>Джерело</TableHead>
                                 <TableHead className="text-right">Дії</TableHead>
                             </TableRow>
@@ -60,6 +61,9 @@ export function ManageSnapshotsDialog({ estate, open, onOpenChange, onSuccess }:
                                     <TableCell>{snapshot.date}</TableCell>
                                     <TableCell className="max-w-[200px] truncate" title={snapshot.name}>
                                         {snapshot.name}
+                                    </TableCell>
+                                    <TableCell className="max-w-[200px] truncate">
+                                        {snapshot.items?.length}
                                     </TableCell>
                                     <TableCell className="max-w-[200px] truncate" title={snapshot.sourceSignature}>
                                         {snapshot.sourceSignature}

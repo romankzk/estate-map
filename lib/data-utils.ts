@@ -26,37 +26,26 @@ export async function getApprovedEstates(): Promise<Estate[]> {
     return estates.filter((e: Estate) => e.status === Statuses.Approved);
 }
 
-export async function getPendingItems() {
+export async function getPendingSnapshots() {
     let estates = await getAllEstates();
 
-    const pendingItems: any[] = [];
+    const items: any[] = [];
 
     estates.forEach(estate => {
-        if (estate.status === Statuses.Pending) {
-            pendingItems.push({
-                ...estate,
-                type: 'estate',
-                displayName: estate.name,
-                displayType: 'Маєток'
-            });
-        }
-
         estate.contents?.forEach((snapshot, index) => {
             if (snapshot.status === Statuses.Pending) {
-                pendingItems.push({
+                items.push({
                     ...snapshot,
                     id: `${estate.id}-${index}`,
                     estateId: estate.id,
                     snapshotIndex: index,
-                    type: 'snapshot',
-                    displayName: `${estate.name} (${snapshot.date})`,
-                    displayType: 'Склад маєтку'
+                    type: 'snapshot'
                 });
             }
         });
     });
 
-    return pendingItems;
+    return items;
 }
 
 /**

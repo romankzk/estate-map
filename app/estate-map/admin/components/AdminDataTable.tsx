@@ -3,6 +3,8 @@
 import {
     ColumnDef,
     SortingState,
+    ExpandedState,
+    getExpandedRowModel,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -19,51 +21,85 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
-import { EstateTypes, PropertyTypes } from "../utils/enums"
-import { Search } from "lucide-react"
-import { TablePagination } from "./ui/TablePagination"
+import { useState, Fragment, useMemo } from "react"
+import { EstateTypes, PropertyTypes, Statuses } from "../../utils/enums"
+import { Search, ChevronRight, ChevronDown, MapPin, Calendar, User, FileText, List, Edit, Trash2 } from "lucide-react"
+import { TablePagination } from "../../components/ui/TablePagination"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
+import { Estate } from "../../types"
+import { EditEstateDialog } from "./EditEstateDialog"
+import { useRouter } from "next/navigation";
+import { toast } from "sonner"
+import { deleteEstate, deleteEstateSnapshot } from "@/lib/data-utils"
+import { ExpandedSnapshotList } from "./ExpandedSnapshotList"
 
-interface EstatesDataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[],
-    onOpenDrawer: (item: any) => void
+interface AdminDataTableProps {
+    columns: (
+        onEdit: (data: Estate) => void, 
+        onDelete: (id: number) => void
+    ) => ColumnDef<Estate, any>[]
+    data: Estate[],
 }
 
-export function EstatesDataTable<TData, TValue>({
+export function AdminDataTable({
     columns,
     data,
-    onOpenDrawer
-}: EstatesDataTableProps<TData, TValue>) {
+}: AdminDataTableProps) {
+    const router = useRouter();
     const [globalFilter, setGlobalFilter] = useState('');
     const [sorting, setSorting] = useState<SortingState>([
         {
             id: 'id',
             desc: false,
         },
-    ])
+    ]);
+
+    const [editingEstate, setEditingEstate] = useState<Estate | null>(null);
+    const [expanded, setExpanded] = useState<ExpandedState>({});
+
+    /* Edit estate handler */
+    const handleEdit = (estate: Estate) => setEditingEstate(estate);
+
+    /* Delete estate handler */
+    const handleDelete = async (id: number) => {
+        if (confirm(`Ви впевнені, що хочете видалити цей маєток?`)) {
+            try {
+                await deleteEstate(id);
+                toast.success(`Маєток видалено успішно`, { position: "bottom-center" });
+                router.refresh();
+            } catch (error) {
+                toast.error(`Помилка: ${error}`, { position: "bottom-center" });
+            }
+        }
+    };
+
+    const columnDefs = useMemo(() => columns(handleEdit, handleDelete), [columns]);
 
     const table = useReactTable({
         data,
-        columns,
+        columns: columnDefs,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         onGlobalFilterChange: setGlobalFilter,
         getFilteredRowModel: getFilteredRowModel(),
+        onExpandedChange: setExpanded,
+        getExpandedRowModel: getExpandedRowModel(),
+        getRowCanExpand: () => true,
         state: {
             sorting,
-            globalFilter
+            globalFilter,
+            expanded,
         },
         globalFilterFn: (row, columnId, filterValue) => {
             const value = filterValue.toLowerCase()
             const estate = row.original as any
 
             // Get labels for keys
-            const propertyTypeLabel = PropertyTypes.get(estate.propertyType)?.label ?? ''
-            const estateTypeLabel = EstateTypes.get(estate.estateType)?.label ?? ''
+            const propertyTypeLabel = (estate.propertyType && PropertyTypes.get(estate.propertyType)?.label) ?? ''
+            const estateTypeLabel = (estate.estateType && EstateTypes.get(estate.estateType)?.label) ?? ''
 
             // Search in top-level fields and labels
             const searchableFields = [
@@ -117,7 +153,7 @@ export function EstatesDataTable<TData, TValue>({
             <div className="flex items-center gap-2">
                 <InputGroup className="max-w-sm">
                     <InputGroupInput
-                        placeholder="Шукати по всіх полях..."
+                        placeholder="Шукати"
                         value={globalFilter ?? ""}
                         onChange={(event) =>
                             setGlobalFilter(event.target.value)
@@ -154,27 +190,41 @@ export function EstatesDataTable<TData, TValue>({
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                    onClick={() => onOpenDrawer(row)}
-                                    className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50"
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell
-                                            key={cell.id}
-                                            className="truncate"
-                                            style={{ width: `${cell.column.getSize()}px` }}
-                                        >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
+                                <Fragment key={row.id}>
+                                    <TableRow
+                                        data-state={row.getIsExpanded() && "selected"}
+                                        className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50 select-none"
+                                        onClick={() => row.toggleExpanded()}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell
+                                                key={cell.id}
+                                                className="truncate"
+                                                style={{ width: `${cell.column.getSize()}px` }}
+                                            >
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                    {row.getIsExpanded() && (
+                                        <TableRow className="bg-muted/30 hover:bg-muted/30 border-b-0">
+                                            <TableCell colSpan={columnDefs.length} className="p-0">
+                                                <Collapsible open={row.getIsExpanded()}>
+                                                    <CollapsibleContent>
+                                                        <div className="p-4 bg-muted/20 border-b">
+                                                            <ExpandedSnapshotList data={row.original as any} />
+                                                        </div>
+                                                    </CollapsibleContent>
+                                                </Collapsible>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </Fragment>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                <TableCell colSpan={columnDefs.length} className="h-24 text-center">
+                                    Нічого не знайдено
                                 </TableCell>
                             </TableRow>
                         )}
@@ -183,6 +233,20 @@ export function EstatesDataTable<TData, TValue>({
             </div>
             {/* Pagination */}
             <TablePagination table={table} />
-        </div>
+
+
+            {editingEstate && (
+                <EditEstateDialog
+                    estate={editingEstate}
+                    open={!!editingEstate}
+                    onOpenChange={(open) => !open && setEditingEstate(null)}
+                    onSuccess={() => {
+                        setEditingEstate(null);
+                        router.refresh();
+                    }}
+                />
+            )}
+        </div >
     )
 }
+

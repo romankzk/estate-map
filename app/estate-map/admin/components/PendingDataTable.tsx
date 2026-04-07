@@ -1,5 +1,3 @@
-"use client"
-
 import {
     ColumnDef,
     SortingState,
@@ -19,34 +17,48 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
-import { EstateTypes, PropertyTypes } from "../utils/enums"
-import { Search } from "lucide-react"
-import { TablePagination } from "./ui/TablePagination"
+import { useMemo, useState, Fragment } from "react"
+import { EstateTypes, PropertyTypes, Statuses } from "../../utils/enums"
+import { Search, ChevronDown, ChevronRight, MapPin, Calendar, User, FileText, List } from "lucide-react"
+import { TablePagination } from "../../components/ui/TablePagination"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Estate, EstateSnapshot } from "../../types"
+import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge"
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 
-interface EstatesDataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[],
-    onOpenDrawer: (item: any) => void
+interface PendingDataTableProps {
+    columns: (
+        onApprove: (data: any) => void,
+        onReject: (...args: any[]) => void,
+        onEdit: (data: any) => void
+    ) => ColumnDef<any, any>[]
+    data: any[],
+    onApprove: (data: any) => void,
+    onReject: (...args: any[]) => void,
+    onEdit: (data: any) => void
 }
 
-export function EstatesDataTable<TData, TValue>({
+export function PendingDataTable({
     columns,
     data,
-    onOpenDrawer
-}: EstatesDataTableProps<TData, TValue>) {
+    onApprove,
+    onReject,
+    onEdit
+}: PendingDataTableProps) {
     const [globalFilter, setGlobalFilter] = useState('');
     const [sorting, setSorting] = useState<SortingState>([
         {
             id: 'id',
             desc: false,
         },
-    ])
+    ]);
+
+    const columnDefs = useMemo(() => columns(onApprove, onReject, onEdit), [columns, onApprove, onReject, onEdit]);
 
     const table = useReactTable({
         data,
-        columns,
+        columns: columnDefs,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
@@ -55,56 +67,39 @@ export function EstatesDataTable<TData, TValue>({
         getFilteredRowModel: getFilteredRowModel(),
         state: {
             sorting,
-            globalFilter
+            globalFilter,
         },
         globalFilterFn: (row, columnId, filterValue) => {
             const value = filterValue.toLowerCase()
-            const estate = row.original as any
+            const item = row.original as any
 
-            // Get labels for keys
-            const propertyTypeLabel = PropertyTypes.get(estate.propertyType)?.label ?? ''
-            const estateTypeLabel = EstateTypes.get(estate.estateType)?.label ?? ''
+            // Search in labels
+            const propertyTypeLabel = item.propertyType ? (PropertyTypes.get(item.propertyType)?.label ?? '') : ''
+            const estateTypeLabel = item.estateType ? (EstateTypes.get(item.estateType)?.label ?? '') : ''
 
-            // Search in top-level fields and labels
             const searchableFields = [
-                estate.name,
-                estate.estateType,
+                item.name,
+                item.estateType,
                 estateTypeLabel,
-                estate.propertyType,
+                item.propertyType,
                 propertyTypeLabel,
-                estate.province,
-                estate.district,
-                estate.center
+                item.province,
+                item.district,
+                item.center,
+                item.date,
+                item.owner,
+                item.sourceSignature
             ]
 
             if (searchableFields.some(field => field?.toString().toLowerCase().includes(value))) {
                 return true
             }
 
-            // Search in nested contents
-            if (estate.contents && Array.isArray(estate.contents)) {
-                return estate.contents.some((snapshot: any) => {
-                    const inSnapshot = [
-                        snapshot.name,
-                        snapshot.province,
-                        snapshot.district,
-                        snapshot.date,
-                        snapshot.owner,
-                        snapshot.sourceSignature,
-                        snapshot.notes
-                    ].some(field => field?.toString().toLowerCase().includes(value))
-
-                    if (inSnapshot) return true
-
-                    // Search in items array
-                    if (snapshot.items && Array.isArray(snapshot.items)) {
-                        return snapshot.items.some((item: string) =>
-                            item.toLowerCase().includes(value)
-                        )
-                    }
-
-                    return false
-                })
+            // Search in items array
+            if (item.items && Array.isArray(item.items)) {
+                return item.items.some((i: string) =>
+                    i.toLowerCase().includes(value)
+                )
             }
 
             return false
@@ -117,7 +112,7 @@ export function EstatesDataTable<TData, TValue>({
             <div className="flex items-center gap-2">
                 <InputGroup className="max-w-sm">
                     <InputGroupInput
-                        placeholder="Шукати по всіх полях..."
+                        placeholder="Шукати..."
                         value={globalFilter ?? ""}
                         onChange={(event) =>
                             setGlobalFilter(event.target.value)
@@ -154,27 +149,26 @@ export function EstatesDataTable<TData, TValue>({
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                    onClick={() => onOpenDrawer(row)}
-                                    className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50"
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell
-                                            key={cell.id}
-                                            className="truncate"
-                                            style={{ width: `${cell.column.getSize()}px` }}
-                                        >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
+                                <Fragment key={row.id}>
+                                    <TableRow
+                                        className="hover:bg-zinc-50 dark:hover:bg-[#1F2937]/50 select-none"
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell
+                                                key={cell.id}
+                                                className="truncate"
+                                                style={{ width: `${cell.column.getSize()}px` }}
+                                            >
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                </Fragment>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                <TableCell colSpan={columnDefs.length} className="h-24 text-center">
+                                    Нічого не знайдено
                                 </TableCell>
                             </TableRow>
                         )}

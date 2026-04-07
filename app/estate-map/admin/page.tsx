@@ -1,11 +1,108 @@
-import { getAllEstates, getPendingItems } from "@/lib/data-utils";
-import { AdminEstateTable } from "./components/AdminEstateTable";
+"use client"
+
+import { getAllEstates, getPendingSnapshots, updateEstate, deleteEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge";
+import { AdminDataTable } from "./components/AdminDataTable";
+import { getEstateColumns } from './components/Columns';
+import { PendingDataTable } from "./components/PendingDataTable";
+import { getPendingEstateColumns, getPendingSnapshotColumns } from "./components/PendingColumns";
+import { Statuses } from "../utils/enums";
+import { useEffect, useState } from "react";
+import { Estate } from "../types";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { EditSnapshotDialog } from "./components/EditSnapshotDialog";
+import { EditEstateDialog } from "./components/EditEstateDialog";
 
-export default async function AdminPage() {
-    const estates = await getAllEstates();
-    const pendingItems = await getPendingItems();
+export default function AdminPage() {
+    const router = useRouter();
+    const [estates, setEstates] = useState<Estate[]>([]);
+    const [pendingSnapshots, setPendingSnapshots] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Edit states
+    const [editingEstate, setEditingEstate] = useState<Estate | null>(null);
+    const [editingSnapshot, setEditingSnapshot] = useState<{ estateId: number, index: number, snapshot: any } | null>(null);
+
+    const fetchData = async () => {
+        setIsLoading(true);
+        try {
+            const [estatesData, snapshotsData] = await Promise.all([
+                getAllEstates(),
+                getPendingSnapshots()
+            ]);
+            setEstates(estatesData);
+            setPendingSnapshots(snapshotsData);
+        } catch (error) {
+            console.error("Failed to fetch admin data", error);
+            toast.error("Помилка завантаження даних");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const pendingEstates = estates.filter(e => e.status === Statuses.Pending);
+
+    const handleApproveEstate = async (estate: Estate) => {
+        try {
+            await updateEstate(estate.id, { ...estate, status: Statuses.Approved });
+            toast.success(`"${estate.name}" схвалено`);
+            fetchData();
+        } catch (error) {
+            toast.error("Помилка при схваленні маєтку");
+        }
+    };
+
+    const handleRejectEstate = async (id: number) => {
+        if (confirm("Ви впевнені, що хочете відхилити та видалити цей маєток?")) {
+            try {
+                await deleteEstate(id);
+                toast.success("Маєток відхилено та видалено");
+                fetchData();
+            } catch (error) {
+                toast.error("Помилка при видаленні маєтку");
+            }
+        }
+    };
+
+    const handleApproveSnapshot = async (snapshot: any) => {
+        try {
+            await updateEstateSnapshot(snapshot.estateId, snapshot.snapshotIndex, { 
+                ...snapshot, 
+                status: Statuses.Approved,
+                // Clean up technical fields before saving
+                id: undefined,
+                estateId: undefined,
+                snapshotIndex: undefined,
+                type: undefined
+            });
+            toast.success(`Запис для "${snapshot.name}" схвалено`);
+            fetchData();
+        } catch (error) {
+            toast.error("Помилка при схваленні запису");
+        }
+    };
+
+    const handleRejectSnapshot = async (estateId: number, index: number) => {
+        if (confirm("Ви впевнені, що хочете відхилити та видалити цей запис?")) {
+            try {
+                await deleteEstateSnapshot(estateId, index);
+                toast.success("Запис відхилено та видалено");
+                fetchData();
+            } catch (error) {
+                toast.error("Помилка при видаленні запису");
+            }
+        }
+    };
+
+    if (isLoading) {
+        return <div className="flex items-center justify-center min-h-screen">Завантаження...</div>;
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-[#111827]">
@@ -17,35 +114,82 @@ export default async function AdminPage() {
                     </div>
                 </div>
 
-                <Tabs defaultValue="list">
-
+                <Tabs defaultValue="pending-estates">
                     <div className="mb-6">
                         <TabsList variant="line">
-                            <TabsTrigger value="list">
-                                Всі дані <Badge variant="outline">{estates.length}</Badge>
+                            <TabsTrigger value="pending-estates">
+                                Нові маєтки <Badge variant="outline" className="ml-1.5">{pendingEstates.length}</Badge>
                             </TabsTrigger>
-                            <TabsTrigger value="pending">
-                                Очікують <Badge variant="outline">{pendingItems.length}</Badge>
+                            <TabsTrigger value="pending-snapshots">
+                                Нові записи <Badge variant="outline" className="ml-1.5">{pendingSnapshots.length}</Badge>
+                            </TabsTrigger>
+                            <TabsTrigger value="all-items">
+                                Всі дані <Badge variant="outline" className="ml-1.5">{estates.length}</Badge>
                             </TabsTrigger>
                         </TabsList>
                     </div>
 
-                    <TabsContent value="list" className="mt-0 outline-none">
-                        <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151]">
-                            <div className="overflow-x-auto">
-                                <AdminEstateTable estates={estates} />
-                            </div>
+                    <TabsContent value="pending-estates" className="mt-0 outline-none">
+                        <div className="bg-white dark:bg-[#1F2937] rounded-xl shadow-sm p-6 border dark:border-[#374151]">
+                            <PendingDataTable 
+                                data={pendingEstates} 
+                                columns={getPendingEstateColumns} 
+                                onApprove={handleApproveEstate}
+                                onReject={handleRejectEstate}
+                                onEdit={(estate) => setEditingEstate(estate)}
+                            />
                         </div>
                     </TabsContent>
-                    <TabsContent value="pending" className="mt-0 outline-none">
-                        <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151]">
-                            <div className="overflow-x-auto">
-                                <AdminEstateTable estates={estates} pendingItems={pendingItems} pendingFilter={true}/>
-                            </div>
+                    
+                    <TabsContent value="pending-snapshots" className="mt-0 outline-none">
+                        <div className="bg-white dark:bg-[#1F2937] rounded-xl shadow-sm p-6 border dark:border-[#374151]">
+                            <PendingDataTable 
+                                data={pendingSnapshots} 
+                                columns={getPendingSnapshotColumns} 
+                                onApprove={handleApproveSnapshot}
+                                onReject={handleRejectSnapshot}
+                                onEdit={(snapshot) => setEditingSnapshot({ 
+                                    estateId: snapshot.estateId, 
+                                    index: snapshot.snapshotIndex, 
+                                    snapshot 
+                                })}
+                            />
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="all-items" className="mt-0 outline-none">
+                        <div className="bg-white dark:bg-[#1F2937] rounded-xl shadow-sm p-6 border dark:border-[#374151]">
+                            <AdminDataTable data={estates} columns={getEstateColumns} />
                         </div>
                     </TabsContent>
                 </Tabs>
             </main>
+
+            {editingEstate && (
+                <EditEstateDialog
+                    estate={editingEstate}
+                    open={!!editingEstate}
+                    onOpenChange={(open) => !open && setEditingEstate(null)}
+                    onSuccess={() => {
+                        setEditingEstate(null);
+                        fetchData();
+                    }}
+                />
+            )}
+
+            {editingSnapshot && (
+                <EditSnapshotDialog
+                    estateId={editingSnapshot.estateId}
+                    snapshotIndex={editingSnapshot.index}
+                    snapshot={editingSnapshot.snapshot}
+                    open={!!editingSnapshot}
+                    onOpenChange={(open) => !open && setEditingSnapshot(null)}
+                    onSuccess={() => {
+                        setEditingSnapshot(null);
+                        fetchData();
+                    }}
+                />
+            )}
         </div>
     );
 }

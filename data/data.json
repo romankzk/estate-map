@@ -138,13 +138,7 @@
           "Борщовичі",
           "Навоз",
           "Білка Королівська"
-        ],
-        "id": "1-snap-2",
-        "estateId": 1,
-        "snapshotIndex": 2,
-        "type": "snapshot",
-        "displayName": "Львівське староство (1564-1565)",
-        "displayType": "Склад маєтності"
+        ]
       }
     ]
   },
@@ -233,13 +227,7 @@
           "Зборів (містечко)",
           "Ритвяни"
         ],
-        "status": "approved",
-        "id": "2-0",
-        "estateId": 2,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Золочівський ключ (1598)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
     ]
   },
@@ -256,10 +244,7 @@
       49.55665,
       25.33962
     ],
-    "contents": [],
-    "type": "estate",
-    "displayName": "Козлівський ключ",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 4,
@@ -455,10 +440,7 @@
         ],
         "status": "pending"
       }
-    ],
-    "type": "estate",
-    "displayName": "Галицьке староство",
-    "displayType": "Маєтність"
+    ]
   },
   {
     "id": 8,
@@ -508,13 +490,7 @@
           "Конюшки (в заставі)",
           "Чарнокунці (власність Городоцького війтівства)"
         ],
-        "status": "approved",
-        "id": "8-0",
-        "estateId": 8,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Городоцьке староство (1661-1663)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       },
       {
         "name": "Городоцьке староство",
@@ -554,18 +530,9 @@
           "Гаї (в заставі)",
           "Чарнокунці (власність Городоцького війтівства)"
         ],
-        "status": "approved",
-        "id": "8-1",
-        "estateId": 8,
-        "snapshotIndex": 1,
-        "type": "snapshot",
-        "displayName": "Городоцьке староство (1765)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
-    ],
-    "type": "estate",
-    "displayName": "Городоцьке староство",
-    "displayType": "Маєтність"
+    ]
   },
   {
     "id": 9,
@@ -580,10 +547,7 @@
       23.50559
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Дрогобицьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 10,
@@ -598,10 +562,7 @@
       24.13507
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Жидачівське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 11,
@@ -616,10 +577,7 @@
       24.34433
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Кам'янське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 12,
@@ -634,10 +592,7 @@
       23.17034
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Красноставське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 13,
@@ -652,10 +607,7 @@
       22.76985
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Перемишльське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 14,
@@ -670,10 +622,7 @@
       22.20715
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Сяноцьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 15,
@@ -688,10 +637,7 @@
       23.47092
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Холмське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 16,
@@ -706,10 +652,7 @@
       24.5249
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Ратненське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 17,
@@ -724,10 +667,7 @@
       23.85252
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Стрийське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 18,
@@ -742,10 +682,7 @@
       24.61006
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Рогатинське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 19,
@@ -760,10 +697,7 @@
       25.69187
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Теребовлянське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 20,
@@ -778,10 +712,7 @@
       24.01277
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Белзьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 21,
@@ -796,10 +727,7 @@
       23.12227
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Любачівське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 22,
@@ -814,10 +742,7 @@
       23.69807
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Тишовецьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 23,
@@ -832,10 +757,7 @@
       23.54937
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Грабовецьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 24,
@@ -850,10 +772,7 @@
       24.27695
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Сокальське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 25,
@@ -868,10 +787,7 @@
       26.58468
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Кам'янецьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 26,
@@ -886,10 +802,7 @@
       27.68143
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Барське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 27,
@@ -904,10 +817,7 @@
       27.94888
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Хмільницьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 28,
@@ -922,10 +832,7 @@
       25.72603
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Кременецьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 29,
@@ -940,10 +847,7 @@
       25.31937
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Луцьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 30,
@@ -958,10 +862,7 @@
       24.31789
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Володимирське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 31,
@@ -976,10 +877,7 @@
       24.70834
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Ковельське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 32,
@@ -994,10 +892,7 @@
       28.4676
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Вінницьке староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 33,
@@ -1012,10 +907,7 @@
       28.9366
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Брацлавське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 34,
@@ -1030,10 +922,7 @@
       29.38963
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Гайсинське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 35,
@@ -1048,10 +937,7 @@
       28.07384
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Літинське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 36,
@@ -1066,10 +952,7 @@
       30.11507
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Білоцерківське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 37,
@@ -1084,10 +967,7 @@
       28.6674
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Житомирське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 38,
@@ -1102,10 +982,7 @@
       30.5241
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Київське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 39,
@@ -1120,10 +997,7 @@
       32.0567
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Черкаське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 40,
@@ -1138,10 +1012,7 @@
       31.4451
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Переяславське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 41,
@@ -1156,10 +1027,7 @@
       30.87296
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Богуславське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 42,
@@ -1174,10 +1042,7 @@
       31.46107
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Канівське староство",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 43,
@@ -1192,10 +1057,7 @@
       25.75084
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Вишневецький ключ",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 44,
@@ -1210,10 +1072,7 @@
       25.97743
     ],
     "status": "pending",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Скалатський ключ",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 45,
@@ -1257,18 +1116,9 @@
           "Глухівці",
           "Куманівка"
         ],
-        "status": "approved",
-        "id": "45-0",
-        "estateId": 45,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Махнівський ключ (1795)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
-    ],
-    "type": "estate",
-    "displayName": "Махнівський ключ",
-    "displayType": "Маєтність"
+    ]
   },
   {
     "id": 46,
@@ -1283,10 +1133,7 @@
       27.60641
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Звягельський ключ",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 47,
@@ -1301,10 +1148,7 @@
       28.11539
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Чуднівський ключ",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 48,
@@ -1342,18 +1186,9 @@
           "Косівська Поляна",
           "Рахів-Бичків (Bocskó-Raho)"
         ],
-        "status": "approved",
-        "id": "48-0",
-        "estateId": 48,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Великобичківська домінія (1672)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
-    ],
-    "type": "estate",
-    "displayName": "Великобичківська домінія",
-    "displayType": "Маєтність"
+    ]
   },
   {
     "id": 49,
@@ -1368,10 +1203,7 @@
       22.84418
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Сентміклошська (Чинадіївська) домінія",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 50,
@@ -1386,10 +1218,7 @@
       22.30216
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Ужгородська домінія",
-    "displayType": "Маєтність"
+    "contents": []
   },
   {
     "id": 51,
@@ -1473,18 +1302,9 @@
           "Заднишівка",
           "Малашівці"
         ],
-        "status": "approved",
-        "id": "51-0",
-        "estateId": 51,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Збаразьке князівство (1756)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
-    ],
-    "type": "estate",
-    "displayName": "Збаразьке князівство",
-    "displayType": "Маєтність"
+    ]
   },
   {
     "id": 52,
@@ -1530,18 +1350,9 @@
           "Каранець",
           "Княже (в заставі)"
         ],
-        "status": "approved",
-        "id": "52-0",
-        "estateId": 52,
-        "snapshotIndex": 0,
-        "type": "snapshot",
-        "displayName": "Буське староство (1662)",
-        "displayType": "Склад маєтку"
+        "status": "approved"
       }
-    ],
-    "type": "estate",
-    "displayName": "Буське староство",
-    "displayType": "Маєток"
+    ]
   },
   {
     "id": 53,
@@ -1556,9 +1367,6 @@
       26.981
     ],
     "status": "approved",
-    "contents": [],
-    "type": "estate",
-    "displayName": "Тестова держава",
-    "displayType": "Маєток"
+    "contents": []
   }
 ]

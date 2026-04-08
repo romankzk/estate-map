@@ -131,13 +131,10 @@ export const columns: ColumnDef<Estate>[] = [
       )
     },
     cell: ({ row }) => {
-      let contents = row.getValue("contents") as EstateSnapshot[];
-      let sortedItems = contents
-        .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
-        .sort((a: any, b: any) => b.date.localeCompare(a.date));
+      let snapshots = row.getValue("snapshots") as EstateSnapshot[];
 
-      if (sortedItems.length > 0) {
-        return sortedItems[0].province;
+      if (snapshots.length > 0) {
+        return snapshots[0].province;
       } else {
         return "";
       }
@@ -161,20 +158,17 @@ export const columns: ColumnDef<Estate>[] = [
       )
     },
     cell: ({ row }) => {
-      let contents = row.getValue("contents") as EstateSnapshot[];
-      let sortedItems = contents
-        .filter((s: EstateSnapshot) => s.status === Statuses.Approved) // Get only approved items
-        .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date
+      let snapshots = row.getValue("snapshots") as EstateSnapshot[];
 
-      if (sortedItems.length > 0) {
-        return sortedItems[0].district;
+      if (snapshots.length > 0) {
+        return snapshots[0].district;
       } else {
         return "";
       }
     }
   },
   {
-    accessorKey: "contents",
+    accessorKey: "snapshots",
     size: 200,
     header: ({ column }) => {
       return (
@@ -184,21 +178,17 @@ export const columns: ColumnDef<Estate>[] = [
       )
     },
     cell: ({ row }) => {
-      let contents = row.getValue("contents") as EstateSnapshot[];
+      let snapshots = row.getValue("snapshots") as EstateSnapshot[];
 
-      contents = contents.filter((s) => s.status == Statuses.Approved);
-
-      if (contents.length > 0) {
-        contents.sort((a, b) => a.date.localeCompare(b.date));
-
+      if (snapshots.length > 0) {
         return (
           <>
-            {contents.map((snapshot, idx) => {
+            {snapshots.map((snapshot, idx) => {
               return (
                 <HoverCard openDelay={10} closeDelay={100} key={idx}>
                   <HoverCardTrigger asChild className="truncate text-wrap">
                     <Badge variant="outline" className="px-2 text-xs bg-white dark:bg-zinc-950 mr-0.5">
-                      {snapshot.date}
+                      {snapshot.year}
                     </Badge>
                   </HoverCardTrigger>
                   <HoverCardContent className="flex w-64 flex-col gap-0.5 dark:bg-[#111827] text-xs truncate text-wrap">

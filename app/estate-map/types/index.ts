@@ -4,7 +4,7 @@ export interface EstateSnapshot {
     state: string,
     province: string,
     district?: string,
-    date: string,
+    year: string,
     sourceSignature: string,
     sourcePage?: string,
     sourceLink?: string,

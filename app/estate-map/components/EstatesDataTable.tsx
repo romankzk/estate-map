@@ -82,13 +82,13 @@ export function EstatesDataTable<TData, TValue>({
             }
 
             // Search in nested contents
-            if (estate.contents && Array.isArray(estate.contents)) {
-                return estate.contents.some((snapshot: any) => {
+            if (estate.snapshots && Array.isArray(estate.snapshots)) {
+                return estate.snapshots.some((snapshot: any) => {
                     const inSnapshot = [
                         snapshot.name,
                         snapshot.province,
                         snapshot.district,
-                        snapshot.date,
+                        snapshot.year,
                         snapshot.owner,
                         snapshot.sourceSignature,
                         snapshot.notes

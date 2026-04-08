@@ -83,22 +83,22 @@ export default function LeafletMap({
                     iconCreateFunction={createClusterCustomIcon}
                     showCoverageOnHover={false}
                 >
-                    {data.map((marker: any) =>
+                    {data.map((estate: any) =>
                         <Marker
-                            key={marker.id}
-                            position={marker.coords}
-                            icon={setIcon(PropertyTypes.get(marker.propertyType).iconUrl)}
+                            key={estate.id}
+                            position={estate.coords}
+                            icon={setIcon(PropertyTypes.get(estate.propertyType).iconUrl)}
                         >
                             <Popup>
-                                <h2 className="font-semibold text-base">{marker.name}</h2>
+                                <h2 className="font-semibold text-base">{estate.name}</h2>
                                 <p className="text-xs">
-                                    {renderTypeBadge(marker.propertyType)}
+                                    {renderTypeBadge(estate.propertyType)}
                                 </p>
                                 <Button
                                     size="xs"
                                     variant="outline"
                                     className="cursor-pointer mt-2"
-                                    onClick={() => onOpenSheet(marker)}
+                                    onClick={() => onOpenSheet(estate)}
                                 >
                                     Відкрити деталі <ArrowRight size={12} />
                                 </Button>

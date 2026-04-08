@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.0",
+    "@supabase/supabase-js": "^2.102.1",
     "@tanstack/react-form": "^1.28.5",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",

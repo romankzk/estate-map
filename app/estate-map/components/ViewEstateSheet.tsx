@@ -27,8 +27,8 @@ import { AddSnapshotForm } from "../forms/AddSnapshotForm";
 import { EstateSnapshot } from "../types";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import { useEstateDetails } from "../hooks/useEstateDetails";
 
 function renderPropertyType(type: string) {
     const colors = {
@@ -61,9 +61,9 @@ interface ViewEstateSheetProps {
 }
 
 export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateSheetProps) {
-    if (!data) return null;
+    if (!data) return;
 
-    const approvedContents = [...(data.contents || [])]
+    const approvedContents = [...(data.snapshots || [])]
         .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
         .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date descending (newest first)
 
@@ -129,11 +129,11 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                             </Dialog>
                         </div>
 
-                        {approvedContents.length > 0 ? (
+                        {data.snapshots.length > 0 ? (
                             <Accordion type="single" collapsible className="w-full space-y-3 overflow-y-auto">
-                                {approvedContents.map((record: any, idx: number) => (
+                                {data.snapshots.map((record: any, idx: number) => (
                                     <AccordionItem
-                                        key={`${record.date}-${idx}`}
+                                        key={`${record.year}-${idx}`}
                                         value={`item-${idx}`}
                                         className="border rounded-xl overflow-hidden px-0 bg-white dark:bg-zinc-900/50 border-zinc-200 dark:border-[#374151]"
                                     >
@@ -142,7 +142,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                         >
                                             <div className="flex items-center gap-3">
                                                 <Badge variant="outline" className="h-6 px-2 text-sm bg-white dark:border-[#374151] dark:bg-[#111827]">
-                                                    {record.date}
+                                                    {record.year}
                                                 </Badge>
                                                 <div className="flex flex-col gap-0.5">
                                                     <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate max-w-[200px]">

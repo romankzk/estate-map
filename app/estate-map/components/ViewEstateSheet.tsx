@@ -61,10 +61,6 @@ interface ViewEstateSheetProps {
 export function ViewEstateSheet({ isOpen, onClose, data }: ViewEstateSheetProps) {
     if (!data) return;
 
-    const approvedContents = [...(data.snapshots || [])]
-        .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
-        .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date descending (newest first)
-
     return (
         <Sheet
             open={isOpen}

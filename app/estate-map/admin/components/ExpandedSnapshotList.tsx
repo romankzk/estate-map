@@ -33,9 +33,8 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
         }
     };
     // Determine if we have snapshots to show
-    const snapshots = (data.contents || [])
-        .sort((a: any, b: any) => b.date.localeCompare(a.date));
-
+    const snapshots = (data.snapshots || []);
+    
     return (
         <div className="grid gap-6 animate-in fade-in slide-in-from-top-1 duration-200">
             {/* Snapshots list */}
@@ -57,7 +56,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
                         <TableBody>
                             {snapshots.map((snapshot: any, index: number) => (
                                 <TableRow key={index}>
-                                    <TableCell>{snapshot.date}</TableCell>
+                                    <TableCell>{snapshot.year}</TableCell>
                                     <TableCell className="max-w-[200px] truncate" title={snapshot.name}>
                                         {snapshot.name}
                                     </TableCell>

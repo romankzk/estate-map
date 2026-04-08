@@ -1,7 +1,6 @@
 export interface EstateSnapshot {
     name: string,
     status: string,
-    state: string,
     province: string,
     district?: string,
     year: string,
@@ -21,5 +20,5 @@ export interface Estate {
     propertyType: string,
     center: string,
     coords: number[],
-    contents?: EstateSnapshot[],
+    snapshots?: EstateSnapshot[],
 }

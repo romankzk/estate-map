@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 import { AppContainer } from "./AppContainer";
-import { supabase } from '@/lib/supabase/client';
-import { EstateService } from "@/services/EstateService";
+import { getApprovedEstates } from "./actions";
 
 export default async function EstatePage({ searchParams }: { searchParams: Promise<{ lat?: string, lng?: string }> }) {
-    const data = await EstateService.getAllEstates(supabase);
+    const data = await getApprovedEstates();
 
     return (
         <main className="min-h-screen bg-zinc-50 dark:bg-[#111827] font-sans">

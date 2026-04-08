@@ -169,13 +169,10 @@ export const getEstateColumns = (
         )
       },
         cell: ({ row }) => {
-          let contents = row.original.contents as EstateSnapshot[];
-          let sortedItems = contents
-            .filter((s: EstateSnapshot) => s.status === Statuses.Approved)
-            .sort((a: any, b: any) => b.date.localeCompare(a.date));
+          let snapshots = row.original.snapshots as EstateSnapshot[];
 
-          if (sortedItems.length > 0) {
-            return sortedItems[0].province;
+          if (snapshots.length > 0) {
+            return snapshots[0].province;
           } else {
             return "";
           }
@@ -199,13 +196,10 @@ export const getEstateColumns = (
         )
       },
         cell: ({ row }) => {
-          let contents = row.original.contents as EstateSnapshot[];
-          let sortedItems = contents
-            .filter((s: EstateSnapshot) => s.status === Statuses.Approved) // Get only approved items
-            .sort((a: any, b: any) => b.date.localeCompare(a.date)); // Sort by date
+          let snapshots = row.original.snapshots as EstateSnapshot[];
 
-          if (sortedItems.length > 0) {
-            return sortedItems[0].district;
+          if (snapshots.length > 0) {
+            return snapshots[0].district;
           } else {
             return "";
           }

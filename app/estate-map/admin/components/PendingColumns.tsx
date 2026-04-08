@@ -260,7 +260,7 @@ export const getPendingSnapshotColumns = (
             }
         },
         {
-            accessorKey: "date",
+            accessorKey: "year",
             size: 100,
             header: ({ column }) => {
                 const isSorted = column.getIsSorted();

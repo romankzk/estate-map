@@ -1,6 +1,6 @@
 "use client"
 
-import { getAllEstates, getPendingSnapshots, updateEstate, deleteEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
+import { updateEstate, deleteEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge";
 import { AdminDataTable } from "./components/AdminDataTable";
@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { EditSnapshotDialog } from "./components/EditSnapshotDialog";
 import { EditEstateDialog } from "./components/EditEstateDialog";
+import { getAllEstates, getPendingSnapshots } from "./actions";
 
 export default function AdminPage() {
     const router = useRouter();

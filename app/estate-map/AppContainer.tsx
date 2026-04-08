@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use, Suspense } from 'react';
 import { List, Map, Plus } from "lucide-react";
 import { ViewEstateSheet } from './components/ViewEstateSheet';
 import { EstatesDataTable } from './components/EstatesDataTable';
@@ -10,11 +10,11 @@ import { AddEstateSheet } from './components/AddEstateSheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { toast } from 'sonner';
+import { Estate } from './types';
 
 // Dynamically import the client-side map, disabling SSR
 const LeafletMap = dynamic<{
-    data: any[];
+    data: any;
     onOpenSheet: (marker: any) => void;
 }>(
     () => import('./LeafletMap'),
@@ -29,35 +29,36 @@ const LeafletMap = dynamic<{
 );
 
 interface AppContainerProps {
-    data: any[];
+    estates: Estate[];
 }
 
-export function AppContainer({ data: initialData }: AppContainerProps) {
-    const [data, setData] = useState(initialData);
-    const [selectedItem, setSelectedItem] = useState<any>(null);
-    const [isSheetOpen, setIsSheetOpen] = useState(false);
-    const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
-
+export function AppContainer({ estates }: AppContainerProps) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
+    const [selectedItem, setSelectedItem] = useState<any>(null);
+    const [isViewSheetOpen, setIsViewSheetOpen] = useState(false);
+    const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
+
+    // Handling 'id' param in the url
     useEffect(() => {
         const id = searchParams.get('id');
         if (id) {
-            const item = data.find(i => String(i.id) === id);
+            const item = estates.find(e => String(e.id) === id);
             if (item) {
                 setSelectedItem(item);
-                setIsSheetOpen(true);
+                setIsViewSheetOpen(true);
             } else {
-                setIsSheetOpen(false);
+                setIsViewSheetOpen(false);
             }
         } else {
-            setIsSheetOpen(false);
+            setIsViewSheetOpen(false);
             setSelectedItem(null);
         }
-    }, [searchParams, data]);
+    }, [searchParams, estates]);
 
+    // When estate details sheets is opened
     const handleOpenSheet = (item: any) => {
         const params = new URLSearchParams(searchParams);
 
@@ -67,20 +68,12 @@ export function AppContainer({ data: initialData }: AppContainerProps) {
         replace(`${pathname}?${params.toString()}`);
     };
 
+    // When estate details sheets is closed
     const handleCloseSheet = () => {
         const params = new URLSearchParams(searchParams);
 
         params.delete('id');
         replace(`${pathname}?${params.toString()}`);
-    };
-
-    const handleUpdateEstate = (updatedEstate: any) => {
-        setData(prev => prev.map(m => m.id === updatedEstate.id ? updatedEstate : m));
-        setSelectedItem(updatedEstate);
-    };
-
-    const handleAddEstate = (newEstate: any) => {
-        setData(prev => [...prev, newEstate]);
     };
 
     return (
@@ -99,7 +92,6 @@ export function AppContainer({ data: initialData }: AppContainerProps) {
             </div>
 
             <Tabs defaultValue="map">
-
                 <div className="mb-6">
                     <TabsList variant="line">
                         <TabsTrigger value="map"><Map className="size-4 mr-1" /> Карта</TabsTrigger>
@@ -110,10 +102,10 @@ export function AppContainer({ data: initialData }: AppContainerProps) {
                 <TabsContent value="map" className="mt-0 outline-none">
                     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden border dark:border-gray-800">
                         <div className="overflow-x-auto">
-                            <LeafletMap
-                                data={data}
-                                onOpenSheet={handleOpenSheet}
-                            />
+                                <LeafletMap
+                                    data={estates}
+                                    onOpenSheet={handleOpenSheet}
+                                />
                         </div>
                     </div>
                 </TabsContent>
@@ -122,24 +114,24 @@ export function AppContainer({ data: initialData }: AppContainerProps) {
                     <div className="bg-white dark:bg-[#1F2937] rounded-lg shadow-sm p-6 border dark:border-[#374151] overflow-x-auto">
                         <EstatesDataTable
                             columns={columns}
-                            data={data}
+                            data={estates}
                             onOpenDrawer={handleOpenSheet}
                         />
                     </div>
                 </TabsContent>
             </Tabs>
 
+            {/* View estate details sheet */}
             <ViewEstateSheet
-                isOpen={isSheetOpen}
+                isOpen={isViewSheetOpen}
                 onClose={handleCloseSheet}
                 data={selectedItem}
-                onUpdate={handleUpdateEstate}
             />
 
+            {/* Add new estate form sheet */}
             <AddEstateSheet
                 isOpen={isAddSheetOpen}
                 onClose={() => setIsAddSheetOpen(false)}
-                onSubmit={handleAddEstate}
             />
         </>
     );

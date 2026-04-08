@@ -1,6 +1,5 @@
 "use client"
 
-import { updateEstate, deleteEstate, updateEstateSnapshot, deleteEstateSnapshot } from "@/lib/data-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge";
 import { AdminDataTable } from "./components/AdminDataTable";
@@ -14,7 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { EditSnapshotDialog } from "./components/EditSnapshotDialog";
 import { EditEstateDialog } from "./components/EditEstateDialog";
-import { getAllEstates, getPendingSnapshots } from "./actions";
+import { approveEstate, approveSnapshot, deleteEstate, deleteSnapshot, getAllEstates, getPendingSnapshots } from "./actions";
 
 export default function AdminPage() {
     const router = useRouter();
@@ -51,7 +50,7 @@ export default function AdminPage() {
 
     const handleApproveEstate = async (estate: Estate) => {
         try {
-            await updateEstate(estate.id, { ...estate, status: Statuses.Approved });
+            await approveEstate(estate.id);
             toast.success(`"${estate.name}" схвалено`);
             fetchData();
         } catch (error) {
@@ -71,28 +70,20 @@ export default function AdminPage() {
         }
     };
 
-    const handleApproveSnapshot = async (snapshot: any) => {
+    const handleApproveSnapshot = async (id: any) => {
         try {
-            await updateEstateSnapshot(snapshot.estateId, snapshot.snapshotIndex, { 
-                ...snapshot, 
-                status: Statuses.Approved,
-                // Clean up technical fields before saving
-                id: undefined,
-                estateId: undefined,
-                snapshotIndex: undefined,
-                type: undefined
-            });
-            toast.success(`Запис для "${snapshot.name}" схвалено`);
+            await approveSnapshot(id);
+            toast.success(`Запис схвалено`);
             fetchData();
         } catch (error) {
             toast.error("Помилка при схваленні запису");
         }
     };
 
-    const handleRejectSnapshot = async (estateId: number, index: number) => {
+    const handleRejectSnapshot = async (id: number) => {
         if (confirm("Ви впевнені, що хочете відхилити та видалити цей запис?")) {
             try {
-                await deleteEstateSnapshot(estateId, index);
+                await deleteSnapshot(id);
                 toast.success("Запис відхилено та видалено");
                 fetchData();
             } catch (error) {

@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select"
 
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { createEstate } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 import { toast } from "sonner";
@@ -21,6 +20,7 @@ import { EstateTypes, PropertyTypes, ProvincesList } from "../utils/enums";
 import dynamic from "next/dynamic";
 import { InfoIcon, MapPin } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { createEstate } from "./actions";
 
 // Dynamically import the map to avoid SSR issues
 const LocationPickerMap = dynamic(() => import("../components/ui/LocationPickerMap"), {

@@ -28,7 +28,6 @@ import { EstateSnapshot } from "../types";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { useEstateDetails } from "../hooks/useEstateDetails";
 
 function renderPropertyType(type: string) {
     const colors = {
@@ -57,10 +56,9 @@ interface ViewEstateSheetProps {
     isOpen: boolean;
     onClose: () => void;
     data: any;
-    onUpdate?: (updatedManor: any) => void;
 }
 
-export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateSheetProps) {
+export function ViewEstateSheet({ isOpen, onClose, data }: ViewEstateSheetProps) {
     if (!data) return;
 
     const approvedContents = [...(data.snapshots || [])]
@@ -124,7 +122,7 @@ export function ViewEstateSheet({ isOpen, onClose, data, onUpdate }: ViewEstateS
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent className="dark:border-[#374151] dark:bg-[#111827] sm:max-w-[500px]">
-                                    <AddSnapshotForm onClose={onClose} data={data} onUpdate={onUpdate} />
+                                    <AddSnapshotForm onClose={onClose} data={data} />
                                 </DialogContent>
                             </Dialog>
                         </div>

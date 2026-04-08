@@ -212,9 +212,9 @@ export const getPendingEstateColumns = (
 
 /* Snapshot columns */
 export const getPendingSnapshotColumns = (
-    onApprove: (snapshot: any) => void,
-    onReject: (estateId: number, index: number) => void,
-    onEdit: (snapshot: any) => void
+    onApprove: (id: any) => void,
+    onReject: (id: number) => void,
+    onEdit: (id: any) => void
 ): ColumnDef<any>[] => [
         {
             accessorKey: "id",
@@ -338,7 +338,7 @@ export const getPendingSnapshotColumns = (
                         size="sm"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onApprove(row.original);
+                            onApprove(row.original.id);
                         }}
                         title="Схвалити"
                         className="text-green-600 hover:text-green-700 hover:bg-green-50"
@@ -350,7 +350,7 @@ export const getPendingSnapshotColumns = (
                         size="sm"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onEdit(row.original);
+                            onEdit(row.original.id);
                         }}
                         title="Редагувати"
                     >
@@ -361,7 +361,7 @@ export const getPendingSnapshotColumns = (
                         size="sm"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onReject(row.original.estateId, row.original.snapshotIndex);
+                            onReject(row.original.id);
                         }}
                         title="Відхилити"
                         className="text-red-600 hover:text-red-700 hover:bg-red-50"

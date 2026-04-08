@@ -6,6 +6,16 @@ import { createClient } from '@/lib/supabase/server'
 import { Estate, EstateSnapshot } from '../types'
 import { Statuses } from '../utils/enums'
 
+function parseCoords(value: string) {
+    let coordsArray = [];
+    const parts = value.split(',').map((p: any) => parseFloat(p.trim()));
+
+    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        coordsArray = [parts[0], parts[1]];
+        return coordsArray
+    } else return false;
+}
+
 export async function getAllEstates() {
     const supabase = await createClient()
 
@@ -62,4 +72,91 @@ export async function getPendingSnapshots() {
 
     if (error) throw error;
     return data as EstateSnapshot[];
+}
+
+export async function updateEstate(id: any, formData: any) {
+    const supabase = await createClient();
+
+    let values = {
+        name: formData.name,
+        center: formData.center,
+        property_type: formData.propertyType,
+        estate_type: formData.estateType,
+        coords: parseCoords(formData.coords),
+    };
+
+    const { data, error } = await supabase
+        .from('estates')
+        .update(values)
+        .eq('id', id)
+        .select();
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
+
+    return data;
+}
+
+export async function deleteEstate(id: any) {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('estates')
+        .delete()
+        .eq('id', id);
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
+}
+
+export async function approveEstate(id: any) {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('estates')
+        .update({
+            status: Statuses.Approved
+        })
+        .eq('id', id)
+        .select();
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
+
+    return data;
+}
+
+
+export async function updateSnapshot(id: any, formData: any) {
+}
+
+export async function approveSnapshot(id: any) {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('estate_snapshots')
+        .update({
+            status: Statuses.Approved
+        })
+        .eq('id', id)
+        .select();
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
+
+    return data;
+}
+
+export async function deleteSnapshot(id: any) {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+        .from('estate_snapshots')
+        .delete()
+        .eq('id', id);
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
 }

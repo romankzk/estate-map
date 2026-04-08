@@ -2,7 +2,6 @@
 
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod"
-import { createEstateSnapshot } from "@/lib/data-utils";
 import { DialogClose, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -14,6 +13,7 @@ import { InputAutocomplete } from "../components/ui/InputAutocomplete";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { InfoIcon } from "lucide-react";
+import { createSnapshot } from "./actions";
 
 function getItemsCount(value: string) {
     const delimitersRegex = /[,;|\n\r]+/;
@@ -30,7 +30,7 @@ const formSchema = z.object({
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
     district: z.string(),
-    date: z.string()
+    year: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(30, "Поле повинне містити не більше 30 символів"),
     sourceSignature: z.string()
@@ -51,16 +51,15 @@ const formSchema = z.object({
 interface AddSnapshotFormProps {
     onClose: () => void;
     data: any;
-    onUpdate?: (updatedManor: any) => void;
 }
 
-export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProps) {
+export function AddSnapshotForm({ onClose, data }: AddSnapshotFormProps) {
     const form = useForm({
         defaultValues: {
             name: data.name,
             province: '',
             district: '',
-            date: '',
+            year: '',
             sourceSignature: '',
             sourcePage: '',
             sourceLink: '',
@@ -73,9 +72,8 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
         },
         onSubmit: async ({ value }) => {
             try {
-                const updatedEstate = await createEstateSnapshot(data.id, value);
-                if (onUpdate) onUpdate(updatedEstate);
-                toast.success(`Склад маєтку "${data.name}" за ${value.date} р. успішно додано`, { position: "bottom-center" });
+                await createSnapshot(data.id, value);
+                toast.success(`Склад маєтку "${data.name}" за ${value.year} р. успішно додано`, { position: "bottom-center" });
                 onClose();
                 form.reset();
             } catch (error) {
@@ -96,19 +94,19 @@ export function AddSnapshotForm({ onClose, data, onUpdate }: AddSnapshotFormProp
             <div className="py-6 px-1 no-scrollbar max-h-[80vh] overflow-y-auto">
                 <FieldGroup className="flex gap-4">
                     <div className="grid grid-cols-3 items-start gap-2">
-                        {/* Date field */}
+                        {/* Year field */}
                         <form.Field
-                            name="date"
+                            name="year"
                             children={(field) => {
                                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                                 return (
                                     <Field data-invalid={isInvalid} className="col-span-1">
-                                        <FieldLabel htmlFor="date-input">
+                                        <FieldLabel htmlFor="year-input">
                                             Рік
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
                                         <Input
-                                            id="date-input"
+                                            id="year-input"
                                             name={field.name}
                                             value={field.state.value}
                                             onBlur={field.handleBlur}

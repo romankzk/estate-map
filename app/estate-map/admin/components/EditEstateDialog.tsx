@@ -20,7 +20,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Field, FieldContent, FieldError, FieldLabel } from '@/components/ui/field';
-import { updateEstate } from "@/lib/data-utils";
+import { updateEstate } from "../actions";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";

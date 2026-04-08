@@ -212,9 +212,9 @@ export const getPendingEstateColumns = (
 
 /* Snapshot columns */
 export const getPendingSnapshotColumns = (
-    onApprove: (id: any) => void,
+    onApprove: (id: number) => void,
     onReject: (id: number) => void,
-    onEdit: (id: any) => void
+    onEdit: (id: number) => void
 ): ColumnDef<any>[] => [
         {
             accessorKey: "id",
@@ -350,7 +350,7 @@ export const getPendingSnapshotColumns = (
                         size="sm"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onEdit(row.original.id);
+                            onEdit(row.original);
                         }}
                         title="Редагувати"
                     >

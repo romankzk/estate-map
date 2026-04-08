@@ -1,4 +1,3 @@
-import { deleteEstateSnapshot } from "@/lib/data-utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 import { toast } from "sonner";
@@ -16,15 +15,16 @@ import { EditSnapshotDialog } from "./EditSnapshotDialog";
 import { Badge } from "@/components/ui/badge";
 import { Statuses } from "../../utils/enums";
 import { cn } from "@/lib/utils";
+import { deleteSnapshot } from "../actions";
 
 export function ExpandedSnapshotList({ data }: { data: any }) {
     const router = useRouter();
-    const [editingSnapshot, setEditingSnapshot] = useState<{ estateId: number, index: number, snapshot: any } | null>(null);
+    const [editingSnapshot, setEditingSnapshot] = useState<{ id: number, snapshot: any } | null>(null);
 
-    const handleDeleteSnapshot = async (estateId: number, index: number) => {
+    const handleDeleteSnapshot = async (id: number) => {
         if (confirm(`Ви впевнені, що хочете видалити цей запис про склад маєтку?`)) {
             try {
-                await deleteEstateSnapshot(estateId, index);
+                await deleteSnapshot(id);
                 toast.success(`Запис видалено`, { position: "bottom-center" });
                 router.refresh();
             } catch (error) {
@@ -93,8 +93,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     setEditingSnapshot({
-                                                        estateId: data.id,
-                                                        index: index,
+                                                        id: data.id,
                                                         snapshot: snapshot
                                                     });
                                                 }}
@@ -107,7 +106,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
                                                 size="sm"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    handleDeleteSnapshot(data.id, index);
+                                                    handleDeleteSnapshot(data.id);
                                                 }}
                                                 title="Видалити"
                                             >
@@ -131,8 +130,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
 
             {editingSnapshot && (
                 <EditSnapshotDialog
-                    estateId={editingSnapshot.estateId}
-                    snapshotIndex={editingSnapshot.index}
+                    id={editingSnapshot.id}
                     snapshot={editingSnapshot.snapshot}
                     open={!!editingSnapshot}
                     onOpenChange={(open) => !open && setEditingSnapshot(null)}

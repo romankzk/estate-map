@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { Estate, EstateSnapshot } from '../types'
 import { Statuses } from '../utils/enums'
@@ -22,28 +21,30 @@ export async function getAllEstates() {
     const { data, error } = await supabase
         .from('estates')
         .select(`
+            id,
+            name,
+            center,
+            status,
+            propertyType:property_type,
+            estateType:estate_type,
+            coords,
+            snapshots:estate_snapshots (
                 id,
                 name,
-                center,
+                province,
+                district,
+                year,
+                owner,
+                notes,
+                sourceSignature:source_signature,
+                sourcePage:source_page,
+                sourceLink:source_link,
                 status,
-                propertyType:property_type,
-                estateType:estate_type,
-                coords,
-                snapshots:estate_snapshots (
-                    id,
-                    name,
-                    province,
-                    district,
-                    year,
-                    owner,
-                    notes,
-                    sourceSignature:source_signature,
-                    sourcePage:source_page,
-                    sourceLink:source_link,
-                    status,
-                    items
-                )
-            `)
+                items
+            )
+        `)
+        .order('id', { ascending: false })
+        .order('year', { referencedTable: 'estate_snapshots', ascending: true });
 
     if (error) throw error;
     return data as Estate[];
@@ -68,7 +69,8 @@ export async function getPendingSnapshots() {
             status,
             items
         `)
-        .eq('status', Statuses.Pending);
+        .eq('status', Statuses.Pending)
+        .order('id', { ascending: false });
 
     if (error) throw error;
     return data as EstateSnapshot[];

@@ -23,7 +23,7 @@ export default function AdminPage() {
 
     // Edit states
     const [editingEstate, setEditingEstate] = useState<Estate | null>(null);
-    const [editingSnapshot, setEditingSnapshot] = useState<{ estateId: number, index: number, snapshot: any } | null>(null);
+    const [editingSnapshot, setEditingSnapshot] = useState<{ id: number, snapshot: any } | null>(null);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -141,8 +141,7 @@ export default function AdminPage() {
                                 onApprove={handleApproveSnapshot}
                                 onReject={handleRejectSnapshot}
                                 onEdit={(snapshot) => setEditingSnapshot({ 
-                                    estateId: snapshot.estateId, 
-                                    index: snapshot.snapshotIndex, 
+                                    id: snapshot.id, 
                                     snapshot 
                                 })}
                             />
@@ -171,8 +170,7 @@ export default function AdminPage() {
 
             {editingSnapshot && (
                 <EditSnapshotDialog
-                    estateId={editingSnapshot.estateId}
-                    snapshotIndex={editingSnapshot.index}
+                    id={editingSnapshot.id}
                     snapshot={editingSnapshot.snapshot}
                     open={!!editingSnapshot}
                     onOpenChange={(open) => !open && setEditingSnapshot(null)}

@@ -31,8 +31,8 @@ import { Estate } from "../../types"
 import { EditEstateDialog } from "./EditEstateDialog"
 import { useRouter } from "next/navigation";
 import { toast } from "sonner"
-import { deleteEstate, deleteEstateSnapshot } from "@/lib/data-utils"
 import { ExpandedSnapshotList } from "./ExpandedSnapshotList"
+import { deleteEstate } from "../actions"
 
 interface AdminDataTableProps {
     columns: (

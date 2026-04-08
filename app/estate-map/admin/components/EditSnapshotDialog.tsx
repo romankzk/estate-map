@@ -12,11 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { updateEstateSnapshot } from "@/lib/data-utils";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
+import { updateSnapshot } from "../actions";
 
 function getItemsCount(value: string) {
     const delimitersRegex = /[,;|\n\r]+/;
@@ -33,7 +33,7 @@ const formSchema = z.object({
         .min(2, "Поле не може бути порожнім")
         .max(50, "Поле повинне містити не більше 50 символів"),
     district: z.string(),
-    date: z.string()
+    year: z.string()
         .min(2, "Поле не може бути порожнім")
         .max(30, "Поле повинне містити не більше 30 символів"),
     sourceSignature: z.string()
@@ -52,21 +52,20 @@ const formSchema = z.object({
 });
 
 interface EditSnapshotDialogProps {
-    estateId: number;
+    id: number;
     snapshot: EstateSnapshot;
-    snapshotIndex: number;
     open: boolean;
     onOpenChange: (open: boolean) => void;
     onSuccess: () => void;
 }
 
-export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, onOpenChange, onSuccess }: EditSnapshotDialogProps) {
+export function EditSnapshotDialog({ id, snapshot, open, onOpenChange, onSuccess }: EditSnapshotDialogProps) {    
     const form = useForm({
         defaultValues: {
             name: snapshot.name,
             province: snapshot.province,
             district: snapshot.district || '',
-            date: snapshot.date,
+            year: snapshot.year,
             sourceSignature: snapshot.sourceSignature,
             sourcePage: snapshot.sourcePage,
             sourceLink: snapshot.sourceLink || '',
@@ -79,7 +78,7 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
         },
         onSubmit: async ({ value }) => {
             try {
-                await updateEstateSnapshot(estateId, snapshotIndex, value);
+                await updateSnapshot(id, value);
                 toast.success("Запис оновлено");
                 onSuccess();
                 onOpenChange(false);
@@ -122,16 +121,16 @@ export function EditSnapshotDialog({ estateId, snapshot, snapshotIndex, open, on
                                 )}
                             />
                             <form.Field
-                                name="date"
+                                name="year"
                                 children={(field) => (
                                     <Field>
-                                        <FieldLabel htmlFor="edit-snap-date">Рік</FieldLabel>
+                                        <FieldLabel htmlFor="edit-snap-year">Рік</FieldLabel>
                                         <Input
-                                            id="edit-snap-date"
+                                            id="edit-snap-year"
                                             value={field.state.value}
                                             onBlur={field.handleBlur}
                                             onChange={(e) => field.handleChange(e.target.value)}
-                                            placeholder="напр. 1710"
+                                            placeholder="1710"
                                         />
                                         {field.state.meta.errors.length > 0 && <FieldError errors={field.state.meta.errors} />}
                                     </Field>

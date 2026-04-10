@@ -23,7 +23,7 @@ export default function AdminPage() {
 
     // Edit states
     const [editingEstate, setEditingEstate] = useState<Estate | null>(null);
-    const [editingSnapshot, setEditingSnapshot] = useState<{ id: number, snapshot: any } | null>(null);
+    const [editingSnapshot, setEditingSnapshot] = useState<{ snapshot: any } | null>(null);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -141,7 +141,6 @@ export default function AdminPage() {
                                 onApprove={handleApproveSnapshot}
                                 onReject={handleRejectSnapshot}
                                 onEdit={(snapshot) => setEditingSnapshot({ 
-                                    id: snapshot.id, 
                                     snapshot 
                                 })}
                             />

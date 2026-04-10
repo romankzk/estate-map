@@ -152,60 +152,6 @@ export const getEstateColumns = (
       },
 },
 {
-  accessorKey: "province",
-    size: 150,
-      header: ({ column }) => {
-        const isSorted = column.getIsSorted();
-        return (
-          <Button
-            variant="ghost"
-            className="px-0.5"
-            onClick={() => column.toggleSorting(isSorted === "asc")}
-          >
-            Воєводство
-            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
-            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
-          </Button>
-        )
-      },
-        cell: ({ row }) => {
-          let snapshots = row.original.snapshots as EstateSnapshot[];
-
-          if (snapshots.length > 0) {
-            return snapshots[0].province;
-          } else {
-            return "";
-          }
-        }
-},
-{
-  accessorKey: "district",
-    size: 150,
-      header: ({ column }) => {
-        const isSorted = column.getIsSorted();
-        return (
-          <Button
-            variant="ghost"
-            className="px-0.5"
-            onClick={() => column.toggleSorting(isSorted === "asc")}
-          >
-            Повіт
-            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
-            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
-          </Button>
-        )
-      },
-        cell: ({ row }) => {
-          let snapshots = row.original.snapshots as EstateSnapshot[];
-
-          if (snapshots.length > 0) {
-            return snapshots[0].district;
-          } else {
-            return "";
-          }
-        }
-},
-{
   accessorKey: "status",
     size: 150,
       header: ({ column }) => {
@@ -235,6 +181,28 @@ export const getEstateColumns = (
             )}
           </Badge>
         )
+},
+{
+  accessorKey: "records",
+    size: 100,
+      header: ({ column }) => {
+        const isSorted = column.getIsSorted();
+        return (
+          <Button
+            variant="ghost"
+            className="px-0.5"
+            onClick={() => column.toggleSorting(isSorted === "asc")}
+          >
+            Записів
+            {isSorted === "asc" && <ArrowUp className="ml-1 size-3" />}
+            {isSorted === "desc" && <ArrowDown className="ml-1 size-3" />}
+          </Button>
+        )
+      },
+        cell: ({ row }) => {
+          let items = row.original.snapshots as any[];
+          return items.length;
+        }
 },
 {
   id: "actions",

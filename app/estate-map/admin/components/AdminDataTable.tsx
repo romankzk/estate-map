@@ -93,6 +93,7 @@ export function AdminDataTable({
             globalFilter,
             expanded,
         },
+        autoResetPageIndex: false,
         globalFilterFn: (row, columnId, filterValue) => {
             const value = filterValue.toLowerCase()
             const estate = row.original as any

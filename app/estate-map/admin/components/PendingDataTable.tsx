@@ -69,6 +69,7 @@ export function PendingDataTable({
             sorting,
             globalFilter,
         },
+        autoResetPageIndex: false,
         globalFilterFn: (row, columnId, filterValue) => {
             const value = filterValue.toLowerCase()
             const item = row.original as any

@@ -207,11 +207,11 @@ export function AdminDataTable({
                                         ))}
                                     </TableRow>
                                     {row.getIsExpanded() && (
-                                        <TableRow className="bg-muted/30 hover:bg-muted/30 border-b-0">
+                                        <TableRow className="bg-muted/30 hover:bg-muted/30 dark:bg-[#1F2937]/30 border-b-0">
                                             <TableCell colSpan={columnDefs.length} className="p-0">
                                                 <Collapsible open={row.getIsExpanded()}>
                                                     <CollapsibleContent>
-                                                        <div className="p-4 bg-muted/20 border-b">
+                                                        <div className="p-4 bg-muted/20 dark:bg-[#1F2937]/30 border-b">
                                                             <ExpandedSnapshotList data={row.original as any} />
                                                         </div>
                                                     </CollapsibleContent>

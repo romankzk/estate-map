@@ -331,7 +331,9 @@ export function AddSnapshotForm({ onClose, data }: AddSnapshotFormProps) {
                                 <Field data-invalid={isInvalid}>
                                     <FieldLabel htmlFor="items-input">
                                         Населені пункти
-                                        <Badge variant="secondary">{getItemsCount(field.state.value)}</Badge>
+                                        <Badge variant="secondary" className="dark:bg-[#1F2937]/30">
+                                        {getItemsCount(field.state.value)}
+                                        </Badge>
                                     </FieldLabel>
                                     <FieldDescription className="text-xs">
                                         Населені пункти можна розділяти через кому, крапку з комою або писати кожен з нового рядка.
@@ -349,7 +351,7 @@ export function AddSnapshotForm({ onClose, data }: AddSnapshotFormProps) {
                             )
                         }}
                     />
-                    <Alert>
+                    <Alert className="dark:bg-[#1F2937]/30">
                         <InfoIcon />
                         <AlertTitle>Зверніть увагу</AlertTitle>
                         <AlertDescription>

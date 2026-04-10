@@ -15,6 +15,14 @@ function parseCoords(value: string) {
     } else return false;
 }
 
+function parseItems(value: string): string[] {
+    const delimitersRegex = /[,;|\n\r]+/;
+    let items = [];
+
+    items = value.split(delimitersRegex).map(i => i.trim()).filter(i => i !== '');
+    return items;
+}
+
 export async function getAllEstates() {
     const supabase = await createClient()
 
@@ -131,6 +139,32 @@ export async function approveEstate(id: any) {
 
 
 export async function updateSnapshot(id: any, formData: any) {
+    const supabase = await createClient();
+
+    let values = {
+        name: formData.name,
+        province: formData.province,
+        district: formData.district || null,
+        year: formData.year,
+        owner: formData.owner || null,
+        notes: formData.notes || null,
+        source_signature: formData.sourceSignature,
+        source_page: formData.sourcePage || null,
+        source_link: formData.sourceLink || null,
+        items: parseItems(formData.items)
+    };
+
+    const { data, error } = await supabase
+        .from('estate_snapshots')
+        .update(values)
+        .eq('id', id)
+        .select();
+
+    if (error) throw error;
+
+    revalidatePath('/estate-map/admin');
+
+    return data;
 }
 
 export async function approveSnapshot(id: any) {

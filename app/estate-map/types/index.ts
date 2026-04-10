@@ -1,4 +1,5 @@
 export interface EstateSnapshot {
+    id: number,
     name: string,
     status: string,
     province: string,
@@ -9,7 +10,7 @@ export interface EstateSnapshot {
     sourceLink?: string,
     owner?: string,
     notes?: string,
-    items?: string[],
+    items: string[],
 }
 
 export interface Estate {

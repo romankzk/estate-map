@@ -16,10 +16,11 @@ import { Badge } from "@/components/ui/badge";
 import { Statuses } from "../../utils/enums";
 import { cn } from "@/lib/utils";
 import { deleteSnapshot } from "../actions";
+import { EstateSnapshot } from "../../types";
 
 export function ExpandedSnapshotList({ data }: { data: any }) {
     const router = useRouter();
-    const [editingSnapshot, setEditingSnapshot] = useState<{ id: number, snapshot: any } | null>(null);
+    const [editingSnapshot, setEditingSnapshot] = useState<{ snapshot: EstateSnapshot } | null>(null);
 
     const handleDeleteSnapshot = async (id: number) => {
         if (confirm(`Ви впевнені, що хочете видалити цей запис про склад маєтку?`)) {
@@ -39,7 +40,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
         <div className="grid gap-6 animate-in fade-in slide-in-from-top-1 duration-200">
             {/* Snapshots list */}
             <div className="space-y-2 w-full">
-                <div className="bg-background/40 p-3 rounded-xl border border-border/30">
+                <div className="bg-background/40 dark:bg-[#1F2937]/30 p-3 rounded-xl border border-border/30">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -93,7 +94,6 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     setEditingSnapshot({
-                                                        id: data.id,
                                                         snapshot: snapshot
                                                     });
                                                 }}
@@ -106,7 +106,7 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
                                                 size="sm"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    handleDeleteSnapshot(data.id);
+                                                    handleDeleteSnapshot(snapshot.id);
                                                 }}
                                                 title="Видалити"
                                             >
@@ -130,7 +130,6 @@ export function ExpandedSnapshotList({ data }: { data: any }) {
 
             {editingSnapshot && (
                 <EditSnapshotDialog
-                    id={editingSnapshot.id}
                     snapshot={editingSnapshot.snapshot}
                     open={!!editingSnapshot}
                     onOpenChange={(open) => !open && setEditingSnapshot(null)}

@@ -217,7 +217,7 @@ export function AddEstateForm({ onSheetClose, onUpdate }: AddEstateFormProps) {
                                             Розташування на карті *
                                         </FieldLabel>
                                         {field.state.value && (
-                                            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
+                                            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-100 dark:bg-[#1F2937]/50 px-1.5 py-0.5 rounded">
                                                 {field.state.value[0].toFixed(4)}, {field.state.value[1].toFixed(4)}
                                             </span>
                                         )}
@@ -235,7 +235,7 @@ export function AddEstateForm({ onSheetClose, onUpdate }: AddEstateFormProps) {
                             )
                         }}
                     />
-                    <Alert>
+                    <Alert className="dark:bg-[#1F2937]/30">
                         <InfoIcon />
                         <AlertTitle>Зверніть увагу</AlertTitle>
                         <AlertDescription>
@@ -245,7 +245,7 @@ export function AddEstateForm({ onSheetClose, onUpdate }: AddEstateFormProps) {
                 </div>
             </div>
             {/* Submit/Cancel buttons section */}
-            <SheetFooter className="p-6 border-t dark:border-[#374151] flex flex-row gap-3 sm:justify-end bg-zinc-50/50 dark:bg-zinc-900/50">
+            <SheetFooter className="p-6 border-t flex flex-row gap-3 sm:justify-end bg-zinc-50/50 dark:border-[#374151] dark:bg-[#111827]">
                 <Button type="button" variant="outline" onClick={onSheetClose} className="flex-1 sm:flex-none">
                     Скасувати
                 </Button>

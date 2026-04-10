@@ -93,7 +93,7 @@ export default function AdminPage() {
     };
 
     if (isLoading) {
-        return <div className="flex items-center justify-center min-h-screen">Завантаження...</div>;
+        return <div className="flex items-center justify-center min-h-screen dark:bg-[#111827]">Завантаження...</div>;
     }
 
     return (
@@ -170,7 +170,6 @@ export default function AdminPage() {
 
             {editingSnapshot && (
                 <EditSnapshotDialog
-                    id={editingSnapshot.id}
                     snapshot={editingSnapshot.snapshot}
                     open={!!editingSnapshot}
                     onOpenChange={(open) => !open && setEditingSnapshot(null)}

@@ -52,14 +52,13 @@ const formSchema = z.object({
 });
 
 interface EditSnapshotDialogProps {
-    id: number;
     snapshot: EstateSnapshot;
     open: boolean;
     onOpenChange: (open: boolean) => void;
     onSuccess: () => void;
 }
 
-export function EditSnapshotDialog({ id, snapshot, open, onOpenChange, onSuccess }: EditSnapshotDialogProps) {    
+export function EditSnapshotDialog({ snapshot, open, onOpenChange, onSuccess }: EditSnapshotDialogProps) {
     const form = useForm({
         defaultValues: {
             name: snapshot.name,
@@ -67,18 +66,18 @@ export function EditSnapshotDialog({ id, snapshot, open, onOpenChange, onSuccess
             district: snapshot.district || '',
             year: snapshot.year,
             sourceSignature: snapshot.sourceSignature,
-            sourcePage: snapshot.sourcePage,
+            sourcePage: snapshot.sourcePage || '',
             sourceLink: snapshot.sourceLink || '',
             owner: snapshot.owner || '',
             notes: snapshot.notes || '',
-            items: snapshot.items?.join('\n') || '',
+            items: snapshot.items.join('\n') || '',
         },
         validators: {
             onSubmit: formSchema
         },
         onSubmit: async ({ value }) => {
             try {
-                await updateSnapshot(id, value);
+                await updateSnapshot(snapshot.id, value);
                 toast.success("Запис оновлено");
                 onSuccess();
                 onOpenChange(false);

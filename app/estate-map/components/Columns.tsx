@@ -187,7 +187,7 @@ export const columns: ColumnDef<Estate>[] = [
               return (
                 <HoverCard openDelay={10} closeDelay={100} key={idx}>
                   <HoverCardTrigger asChild className="truncate text-wrap">
-                    <Badge variant="outline" className="px-2 text-xs bg-white dark:bg-zinc-950 mr-0.5">
+                    <Badge variant="outline" className="px-2 text-xs bg-white dark:bg-[#111827] mr-0.5">
                       {snapshot.year}
                     </Badge>
                   </HoverCardTrigger>
